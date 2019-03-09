@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../services/users.service';
 import {  HttpHeaders} from '@angular/common/http';
+import {FormBuilder, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-home',
@@ -11,6 +12,9 @@ export class HomeComponent implements OnInit {
   token: any;
   httpOptions: any;
   registeredUsers: any;
+
+  fileToUpload: File = null;
+
   constructor(private userService: UserService) {
   }
 
@@ -25,9 +29,23 @@ export class HomeComponent implements OnInit {
     //   console.log(res);
     //   this.registeredUsers = res;
     // } );
-
-
   }
+
+
+  handleFileInput(files: FileList) {
+    this.fileToUpload = files.item(0);
+  }
+  uploadFileToActivity() {
+    this.fileUploadService.postFile(this.fileToUpload).subscribe(data => {
+      // do something, if upload success
+    }, error => {
+      console.log(error);
+    });
+  }
+
+
+
+
 
 
 }

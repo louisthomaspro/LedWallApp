@@ -19,10 +19,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 
 //re rourting to the User Registration
-const userRouter = require('./routes/users');
-const productRouter = require('./routes/files');
-app.use('/users', userRouter);
-app.use('/products', productRouter);
+const usersRouter = require('./routes/users');
+const filesRouter = require('./routes/files');
+app.use('/users', usersRouter);
+app.use('/files', filesRouter);
 
 
 

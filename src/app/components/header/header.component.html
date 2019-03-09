@@ -11,15 +11,15 @@
         <a class="nav-link" routerLink="/">Home <span class="sr-only">(current)</span></a>
       </li>
     </ul>
-    <div *ngIf=!currentUser class="form-inline">
-      <a class="btn btn-outline-warning" routerLink="login">Sign In</a>
-    </div>
-    <div *ngIf=!currentUser class="form-inline ml-2">
-      <a class="btn btn-outline-warning" routerLink="register">Register</a>
-    </div>
-    <div *ngIf=currentUser class="form-inline">
-      <span class="px-2">{{currentUser}}</span>
-        <a class="btn btn-outline-warning" (click)=logOut()>Sign Out</a>
-    </div>
+    <!--<div *ngIf=!currentUser class="form-inline">-->
+      <!--<a class="btn btn-outline-warning" routerLink="login">Sign In</a>-->
+    <!--</div>-->
+    <!--<div *ngIf=!currentUser class="form-inline ml-2">-->
+      <!--<a class="btn btn-outline-warning" routerLink="register">Register</a>-->
+    <!--</div>-->
+    <!--<div *ngIf=currentUser class="form-inline">-->
+      <!--<span class="px-2">{{currentUser}}</span>-->
+        <!--<a class="btn btn-outline-warning" (click)=logOut()>Sign Out</a>-->
+    <!--</div>-->
   </div>
 </nav>
