@@ -1,0 +1,30 @@
+<!-- normal bootstrap way -->
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary ">
+  <!-- <a class="navbar-brand" routerLink="nav">Navbar</a> -->
+  <button class="navbar-toggler" type="button"  (click)="toggleCollapsed()" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon" ></span>
+  </button>
+  <div class="collapse navbar-collapse" [ngClass]="{'collapse': collapsed, 'navbar-collapse': true}" id="navbarNav">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" routerLink="/">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li *ngIf=!currentUser class="nav-item">
+        <a class="nav-link" routerLink="register">Register</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="records">Records</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link disabled" routerLink="admin">Admin</a>
+      </li>
+    </ul>
+    <div *ngIf=!currentUser class="form-inline my-2 my-lg-0">
+      <a class="btn btn-outline-warning my-2 my-sm-0" routerLink="login">Sign In</a>
+    </div>
+    <div *ngIf=currentUser class="form-inline my-2 my-lg-0">{{currentUser}}
+        <a class="btn btn-outline-warning my-2 my-sm-0" (click)=logOut()>Sign Out</a>
+    </div>
+  </div>
+</nav>
