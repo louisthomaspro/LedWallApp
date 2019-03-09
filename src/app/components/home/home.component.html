@@ -1,10 +1,39 @@
 <div class="p-4">
 
-  <div class="form-group">
-    <label for="file">Choose File</label>
-    <input type="file"
-           id="file"
-           (change)="handleFileInput($event.target.files)">
-  </div>
+
+      <table id="mytable" class="table table-bordred table-striped">
+
+        <tbody>
+
+        <tr *ngFor="let file of filesGallery">
+            <td><label for="check"></label><input id="check" type="checkbox" class="checkthis"/></td>
+            <td><img [src]="file.url" alt=""></td>
+            <td>{{file.name}}</td>
+            <td>
+                <p data-placement="top" data-toggle="tooltip" title="Edit">
+                    <button class="btn btn-primary btn-xs">
+                        <span>Run</span></button>
+                </p>
+            </td>
+            <td>
+                <p data-placement="top" data-toggle="tooltip" title="Delete">
+                    <button class="btn btn-danger btn-xs" (click)="deleteFiles(file._id)">
+                        <span>Delete</span></button>
+                </p>
+            </td>
+        </tr>
+
+
+        </tbody>
+
+    </table>
+
+    <form #form>
+        <div class="form-group">
+            <input type="file"
+                   id="file"
+                   (change)="uploadFiles($event.target.files)">
+        </div>
+    </form>
 
 </div>

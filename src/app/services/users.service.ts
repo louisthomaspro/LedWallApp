@@ -19,7 +19,7 @@ export class UserService {
     }
 
     getUsers(httpOptions) {
-        return this.http.get<Users[]>(`${this.uri}/getUsers`, httpOptions);
+        return this.http.get<Users[]>(`${this.uri}/users`, httpOptions);
     }
 
     login(data): Observable<any> {

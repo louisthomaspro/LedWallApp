@@ -3,7 +3,9 @@ const router = express.Router();
 const Files = require('../models/files');
 const multer = require('multer');
 const path = require('path');
+var fs = require('fs');
 
+const mongoose = require('mongoose');
 
 var storage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -16,8 +18,9 @@ var storage = multer.diskStorage({
 const upload = multer({storage: storage});
 
 
-router.post('/upload', upload.single('fileInput'), (req, res, next) => {
+router.post('/', upload.single('fileInput'), (req, res, next) => {
     const file = req.file;
+    console.log(file);
     if (!file) {
         const error = new Error('Please upload a file');
         error.httpStatusCode = 400;
@@ -29,6 +32,7 @@ router.post('/upload', upload.single('fileInput'), (req, res, next) => {
             name: file.originalname,
             filename: file.filename,
             path: file.path,
+            url: req.protocol + '://' + req.get('host') + '/files/get/' + file.filename,
             mimetype: file.mimetype
         }
     );
@@ -37,16 +41,49 @@ router.post('/upload', upload.single('fileInput'), (req, res, next) => {
         if (err) {
             console.log(err);
         } else {
-            res.json("Successful upload !");
+            return res.json("Successful upload !");
         }
     });
+    console.log('save in database :')
+    console.log(fileRecord);
+});
+
+router.delete('/', function (req, res) {
+    const fileId = req.body.id;
+
+    if(!mongoose.Types.ObjectId.isValid(fileId)) res.status(500).send("invalid id");
+
+    Files.findOne({_id: fileId}, function (err, response) {
+
+        if (err) return res.status(500).send(err);
+        if (!response) return res.status(500).send("invalid id");
+
+        console.log(response);
+
+        // delete file
+        var filePath = process.env.PWD + '/' + response.path;
+        fs.unlinkSync(filePath);
+
+        Files.deleteOne({_id: fileId}, function (err) {
+            if (err) return res.status(500).send(err);
+            const response = {
+                message: "Successful delete !",
+                id: fileId
+            };
+            res.status(200).send(response);
+        });
+    });
+
+
 });
 
 router.get('/', (req, res) => {
-    Files.find({}, {_id: 0, __v: 0}, function (err, response) {
-        res.json(response);
+    Files.find({}, function (err, response) {
+        console.log(response);
+        return res.json(response);
     });
 });
+
 
 router.get('/get/:name', function (req, res, next) {
 

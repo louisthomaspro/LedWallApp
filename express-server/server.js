@@ -6,23 +6,19 @@ const mongoose = require('mongoose');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// app.use(function(req, res, next) {
-//   res.header("Access-Control-Allow-Origin", "*");
-//   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-//   res.header("X-Content-Type-Options", "nosniff");
-  
-//   next();
-//   //express.static(path.join(__dirname, 'build'))
-// });
 
+// app.use(cors());
 
-app.use(cors());
+// Add headers
+app.use(cors({credentials: true, origin: 'http://localhost:4200'}));
+
 
 //re rourting to the User Registration
 const usersRouter = require('./routes/users');
 const filesRouter = require('./routes/files');
 app.use('/users', usersRouter);
 app.use('/files', filesRouter);
+
 
 
 
