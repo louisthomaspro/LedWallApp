@@ -13,18 +13,13 @@
       <li *ngIf=!currentUser class="nav-item">
         <a class="nav-link" routerLink="register">Register</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="records">Records</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link disabled" routerLink="admin">Admin</a>
-      </li>
     </ul>
-    <div *ngIf=!currentUser class="form-inline my-2 my-lg-0">
-      <a class="btn btn-outline-warning my-2 my-sm-0" routerLink="login">Sign In</a>
+    <div *ngIf=!currentUser class="form-inline">
+      <a class="btn btn-outline-warning" routerLink="login">Sign In</a>
     </div>
-    <div *ngIf=currentUser class="form-inline my-2 my-lg-0">{{currentUser}}
-        <a class="btn btn-outline-warning my-2 my-sm-0" (click)=logOut()>Sign Out</a>
+    <div *ngIf=currentUser class="form-inline">
+      <span class="px-2">{{currentUser}}</span>
+        <a class="btn btn-outline-warning" (click)=logOut()>Sign Out</a>
     </div>
   </div>
 </nav>
