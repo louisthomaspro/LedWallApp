@@ -4,6 +4,7 @@ var Schema = mongoose.Schema({
     name: String,
     filename: String,
     path: String,
+    url: String,
     mimetype: String
 });
 

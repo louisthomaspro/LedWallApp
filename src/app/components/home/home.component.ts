@@ -1,46 +1,64 @@
-import { Component, OnInit } from '@angular/core';
-import { UserService } from '../../services/users.service';
-import {  HttpHeaders} from '@angular/common/http';
-import {FormBuilder, Validators} from '@angular/forms';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {UserService} from '../../services/users.service';
+import {LwFilesService} from '../../services/lw-files.service';
+import {Observable} from 'rxjs';
+// import {  HttpHeaders} from '@angular/common/http';
+// import {FormBuilder, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-home',
-  templateUrl: './home.component.html'
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
   currentUser = JSON.parse(localStorage.getItem('currentUser'));
-  token: any;
-  httpOptions: any;
-  registeredUsers: any;
+  // token: any;
+  // httpOptions: any;
+  // registeredUsers: any;
 
-  fileToUpload: File = null;
+  filesGallery: any;
 
-  constructor(private userService: UserService) {
+  @ViewChild('form') form;
+
+  constructor(private userService: UserService, private lwImageService: LwFilesService) {
   }
 
   ngOnInit() {
-    if (this.currentUser) {
-        this.token = this.currentUser.token;
-        this.httpOptions = {
-            headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + this.token })
-          };
-    }
-    // this.userService.getUsers(this.httpOptions).subscribe((res) => {
-    //   console.log(res);
-    //   this.registeredUsers = res;
-    // } );
-  }
+    // if (this.currentUser) {
+    //     this.token = this.currentUser.token;
+    //     this.httpOptions = {
+    //         headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + this.token })
+    //       };
+    // }
 
-
-  handleFileInput(files: FileList) {
-    this.fileToUpload = files.item(0);
-  }
-  uploadFileToActivity() {
-    this.fileUploadService.postFile(this.fileToUpload).subscribe(data => {
-      // do something, if upload success
-    }, error => {
-      console.log(error);
+    this.lwImageService.getFiles().subscribe((res) => {
+      console.log(res);
+      this.filesGallery = res;
     });
+  }
+
+
+  deleteFiles(id) {
+    this.lwImageService.deleteFiles(id).subscribe((res) => {
+      console.log(res);
+      this.ngOnInit();
+    });
+  }
+
+  uploadFiles(targetFile) {
+
+    if (targetFile.length > 0) {
+      const file: File = targetFile[0];
+      this.lwImageService.uploadFiles(file).subscribe((res) => {
+        console.log(res);
+        this.ngOnInit();
+      });
+
+    }
+
+
+
+    this.form.nativeElement.reset();
   }
 
 
