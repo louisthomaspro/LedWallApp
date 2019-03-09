@@ -4,9 +4,6 @@ const Files = require('../models/files');
 const multer = require('multer');
 const path = require('path');
 
-var fs = require('fs');
-var multer = require('multer');
-var path = require('path');
 
 var storage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -36,18 +33,17 @@ router.post('/upload', upload.single('fileInput'), (req, res, next) => {
         }
     );
 
-    fileRecord.save((err,response)=>{
-        if(err){
+    fileRecord.save((err, response) => {
+        if (err) {
             console.log(err);
+        } else {
+            res.json("Successful upload !");
         }
     });
- });
-
-
 });
 
-router.get('/',(req,res)=>{
-    Files.find({},{_id:0,__v:0},function(err, response){
+router.get('/', (req, res) => {
+    Files.find({}, {_id: 0, __v: 0}, function (err, response) {
         res.json(response);
     });
 });
@@ -70,12 +66,9 @@ router.get('/get/:name', function (req, res, next) {
         } else {
             console.log('Sent:', fileName);
         }
-        else{
-            res.json("Successful upload !");
-        }
     });
 
 });
 
 
- module.exports = router;
+module.exports = router;
