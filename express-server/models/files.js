@@ -3,8 +3,9 @@ const mongoose = require('mongoose');
 
  var Schema =mongoose.Schema({
     name: String,
-    url:String,
-    extension: String
+    filename: String,
+    path: String,
+    mimetype: String
 });
 
 var Files = mongoose.model("files",Schema);

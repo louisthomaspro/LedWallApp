@@ -1,98 +1,78 @@
 const express = require('express');
-var router = express.Router();
-var Files = require('../models/files');
-let jwt = require('jsonwebtoken');
-let config = require('./../config');
-let middleware = require('./../middleware');
+const router = express.Router();
+const Files = require('../models/files');
+const multer = require('multer');
+const path = require('path');
 
 
-router.post('/register',(req,res)=>{
-    let record = {fname:req.body.fname,lname:req.body.lname, email:req.body.email,password:req.body.password};
-    let user = new Users(record);
-    user.save((err,response)=>{
-         if(err){
-             console.log(err);
-         }
-         else{
-            res.json("Your Registration Successful");
-         }
-    });
- });
-
-
- router.get('/getProducts',(req,res)=>{
-    Files.find({},{_id:0,__v:0},function(err, response){
-        res.json(response);
-        
+var storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'public/files')
+    },
+    filename: (req, file, cb) => {
+        cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname))
+    }
 });
-});
+const upload = multer({storage: storage});
 
 router.get('/logout',(req,res)=>{
    res.json("success")
 });
 
-router.post('/authenticate',(req,res)=>{
-    let token = req.body.token;
-    
-    if (token) {
-        if (token.startsWith('Bearer ')) {
-            // Remove Bearer from string
-            token = token.slice(7, token.length);
-          }
-        jwt.verify(token, config.secret, (err, decoded) => {
-          if (err) {
-            return res.json(false);
-          } else {
-            req.decoded = decoded;
-            return res.json(true);
-          }
-        });
-      } else {
-        return res.json({
-          success: false,
-          message: 'Auth token is not supplied'
-        });
-      }
-});
+router.post('/upload', upload.single('fileInput'), (req, res, next) => {
+    const file = req.file;
+    if (!file) {
+        const error = new Error('Please upload a file');
+        error.httpStatusCode = 400;
+        return next(error);
+    }
 
+    let fileRecord = new Files(
+        {
+            name: file.originalname,
+            filename: file.filename,
+            path: file.path,
+            mimetype: file.mimetype
+        }
+    );
 
-
-router.post('/login',(req,res)=>{
-    let record = { email:req.body.email,password:req.body.password};
-    Users.findOne({ email: record.email,password:record.password }, function (err,response) {
-        
-        if (err) {
-            res.json(err);
-         } else {
-             
-             if(response != null){
-                console.log(response);
-                
-                let token = jwt.sign({username:response.fname},
-                    config.secret,
-                    { expiresIn: '10m' // expires in 1 hour
-                    }
-                  );
-                  // return the JWT token for the future API calls
-                  //res.json("success")
-                  //res.setHeader("Content-Type", "application/json");
-                  res.json({
-                    success: true,
-                    message: 'Authentication successful!',
-                    token: token,
-                    user:response.fname
-                  });
-             }
-             else{
-                res.json({
-                    success: false,
-                    message: 'Incorrect username or password'
-                  });
-             }
-            
-            
+    fileRecord.save((err,response)=>{
+        if(err){
+            console.log(err);
         }
     });
  });
+
+
+});
+
+router.get('/',(req,res)=>{
+    Files.find({},{_id:0,__v:0},function(err, response){
+        res.json(response);
+    });
+});
+
+router.get('/get/:name', function (req, res, next) {
+
+    var options = {
+        root: process.env.PWD + '/public/files/',
+        dotfiles: 'deny',
+        headers: {
+            'x-timestamp': Date.now(),
+            'x-sent': true
+        }
+    };
+
+    var fileName = req.params.name;
+    res.sendFile(fileName, options, function (err) {
+        if (err) {
+            next(err);
+        } else {
+            console.log('Sent:', fileName);
+        }
+    });
+
+});
+
 
  module.exports = router;
