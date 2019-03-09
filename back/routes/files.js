@@ -17,7 +17,7 @@ var storage = multer.diskStorage({
 });
 const upload = multer({storage: storage});
 
-
+// upload
 router.post('/', upload.single('fileInput'), (req, res, next) => {
     const file = req.file;
     console.log(file);
@@ -48,6 +48,8 @@ router.post('/', upload.single('fileInput'), (req, res, next) => {
     console.log(fileRecord);
 });
 
+
+// delete
 router.delete('/', function (req, res) {
     const fileId = req.body.id;
 
@@ -77,6 +79,7 @@ router.delete('/', function (req, res) {
 
 });
 
+//get all files
 router.get('/', (req, res) => {
     Files.find({}, function (err, response) {
         console.log(response);
@@ -84,7 +87,7 @@ router.get('/', (req, res) => {
     });
 });
 
-
+//show file
 router.get('/get/:name', function (req, res, next) {
 
     var options = {
@@ -104,6 +107,35 @@ router.get('/get/:name', function (req, res, next) {
             console.log('Sent:', fileName);
         }
     });
+
+});
+
+
+//show file
+router.post('/run', function (req, res, next) {
+
+    const fileId = req.body.id;
+
+    if(!mongoose.Types.ObjectId.isValid(fileId)) res.status(500).send("invalid id");
+
+    Files.findOne({_id: fileId}, function (err, response) {
+
+        if (err) return res.status(500).send(err);
+        if (!response) return res.status(500).send("invalid id");
+
+        console.log(response);
+
+        const path = process.env.PWD + '/' + response.path;
+
+        // appel fonction convertir
+
+        // ecrire dans le fichier
+
+        return res.status(200).send("A bien marché !!");
+
+    });
+
+
 
 });
 
