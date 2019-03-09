@@ -1,6 +1,6 @@
 const express = require('express');
 var router = express.Router();
-var Products = require('./../models/products');
+var Files = require('../models/files');
 let jwt = require('jsonwebtoken');
 let config = require('./../config');
 let middleware = require('./../middleware');
@@ -21,7 +21,7 @@ router.post('/register',(req,res)=>{
 
 
  router.get('/getProducts',(req,res)=>{
-    Products.find({},{_id:0,__v:0},function(err,response){
+    Files.find({},{_id:0,__v:0},function(err, response){
         res.json(response);
         
 });

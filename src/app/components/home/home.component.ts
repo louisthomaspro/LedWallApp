@@ -21,10 +21,12 @@ export class HomeComponent implements OnInit {
             headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + this.token })
           };
     }
-    this.userService.getUsers(this.httpOptions).subscribe((res) => {
-      console.log(res);
-      this.registeredUsers = res;
-    } );
+    // this.userService.getUsers(this.httpOptions).subscribe((res) => {
+    //   console.log(res);
+    //   this.registeredUsers = res;
+    // } );
+
+
   }
 
 

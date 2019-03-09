@@ -20,7 +20,7 @@ app.use(cors());
 
 //re rourting to the User Registration
 const userRouter = require('./routes/users');
-const productRouter = require('./routes/products');
+const productRouter = require('./routes/files');
 app.use('/users', userRouter);
 app.use('/products', productRouter);
 
