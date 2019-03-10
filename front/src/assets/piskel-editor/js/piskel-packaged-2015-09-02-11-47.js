@@ -25138,6 +25138,7 @@ zlib.js 2012 - imaya [ https://github.com/imaya/zlib.js ] The MIT License
     };
 
     ns.SaveController.prototype.saveToDatabase_ = function () {
+        this.beforeSaving_();
         var pixelart = JSON.parse(pskl.app.piskelController.serialize());
         console.log(pixelart);
         $.post( "http://localhost:8080/pixelarts", pixelart)
