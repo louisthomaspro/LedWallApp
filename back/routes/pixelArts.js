@@ -35,9 +35,7 @@ router.post('/', function (req, res, next) {
     pixelart.base64Thumb = layers.base64PNG;
 
 
-
-
-
+    // add
     if (!pixelart._id) {
         console.log('add');
         delete pixelart._id;
@@ -47,18 +45,18 @@ router.post('/', function (req, res, next) {
             if (err) {
                 console.log(err);
             } else {
-                return res.json("Successful add !");
+                return res.json(response._id);
             }
         });
 
-    } else {
+    } else { // update
 
         console.log('update id :' + pixelart._id);
         PixelArts.updateOne({_id: pixelart._id}, { $set: { modelVersion: pixelart.modelVersion, base64Thumb: pixelart.base64Thumb, piskel: pixelart.piskel } }, function(err, affected, resp) {
             if (err) {
                 console.log(err);
             } else {
-                return res.json("Successful update !");
+                return res.json(pixelart._id);
             }
         });
     }
