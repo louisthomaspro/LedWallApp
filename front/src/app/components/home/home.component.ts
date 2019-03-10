@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {UserService} from '../../services/users.service';
-import {LwFilesService} from '../../services/lw-files.service';
+import {PixelArtService} from '../../services/pixelArtService';
 import {Observable} from 'rxjs';
 // import {  HttpHeaders} from '@angular/common/http';
 // import {FormBuilder, Validators} from '@angular/forms';
@@ -16,11 +16,11 @@ export class HomeComponent implements OnInit {
   // httpOptions: any;
   // registeredUsers: any;
 
-  filesGallery: any;
+  pixelArtGalleryGallery: any;
 
   @ViewChild('form') form;
 
-  constructor(private userService: UserService, private lwImageService: LwFilesService) {
+  constructor(private userService: UserService, private pixelArtService: PixelArtService) {
   }
 
   ngOnInit() {
@@ -31,35 +31,35 @@ export class HomeComponent implements OnInit {
     //       };
     // }
 
-    this.lwImageService.getFiles().subscribe((res) => {
+    this.pixelArtService.getPixelArts().subscribe((res) => {
       console.log(res);
-      this.filesGallery = res;
+      this.pixelArtGalleryGallery = res;
     });
   }
 
 
-  deleteFiles(id) {
-    this.lwImageService.deleteFiles(id).subscribe((res) => {
+  deletePixelArt(id) {
+    this.pixelArtService.deletePixelArts(id).subscribe((res) => {
       console.log(res);
       this.ngOnInit();
     });
   }
 
-  uploadFiles(targetFile) {
-
-    if (targetFile.length > 0) {
-      const file: File = targetFile[0];
-      this.lwImageService.uploadFiles(file).subscribe((res) => {
-        console.log(res);
-        this.ngOnInit();
-      });
-
-    }
-
-
-
-    this.form.nativeElement.reset();
-  }
+  // uploadFiles(targetFile) { // (deprecated)
+  //
+  //   if (targetFile.length > 0) {
+  //     const file: File = targetFile[0];
+  //     this.pixelArtService.uploadFiles(file).subscribe((res) => {
+  //       console.log(res);
+  //       this.ngOnInit();
+  //     });
+  //
+  //   }
+  //
+  //
+  //
+  //   this.form.nativeElement.reset();
+  // }
 
 
 
