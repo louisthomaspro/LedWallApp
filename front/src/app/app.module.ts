@@ -2,12 +2,10 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
-import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { RegisterComponent } from './components/register/register.component';
 import { LoginComponent } from './components/login/login.component';
@@ -20,24 +18,38 @@ import { MustMatchDirective } from './directives/check-match.directive';
 import { UserService } from './services/users.service';
 import { AuthGuard } from './guards/authGuard';
 import { AuthService } from './services/auth.service';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { MatToolbarModule, MatSidenavModule, MatListModule, MatButtonModule, MatIconModule, MatCardModule, MatMenuModule } from '@angular/material';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { EditorComponent } from './components/editor/editor.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent,
     FooterComponent,
     RegisterComponent,
     LoginComponent,
     NotfoundComponent,
     HomeComponent,
-    MustMatchDirective
+    MustMatchDirective,
+    EditorComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     AppRoutingModule,
-    NgbModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule,
+    MatToolbarModule,
+    MatSidenavModule,
+    MatListModule,
+    MatIconModule,
+    MatButtonModule,
+    FlexLayoutModule,
+    MatCardModule,
+    MatMenuModule
   ],
   providers: [UserService, AuthGuard, AuthService],
   bootstrap: [AppComponent]

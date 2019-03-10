@@ -1,4 +1,27 @@
 
-<app-header ></app-header>
-<router-outlet></router-outlet>
-<app-footer></app-footer>
+<mat-toolbar color="primary">
+    <mat-toolbar-row>
+        <button mat-icon-button class="mr-3" (click)="sidenav.toggle()" fxShow="true" fxHide.gt-sm>
+            <mat-icon>menu</mat-icon>
+        </button>
+        <a class="app-title" href="#" routerLink="/" mat-button>LedWallApp</a>
+        <div fxShow="true" fxHide.lt-md>
+            <a href="#" routerLink="editor" mat-button class="ml-3">Editor</a>
+        </div>
+    </mat-toolbar-row>
+</mat-toolbar>
+
+<mat-sidenav-container fxFlexFill>
+    <mat-sidenav #sidenav>
+        <mat-nav-list>
+            <a (click)="sidenav.toggle()" routerLink="/" mat-list-item>Home</a>
+            <a (click)="sidenav.toggle()" routerLink="editor" mat-list-item>Editor</a>
+        </mat-nav-list>
+    </mat-sidenav>
+
+    <mat-sidenav-content fxFlexFill><router-outlet></router-outlet></mat-sidenav-content>
+
+</mat-sidenav-container>
+
+
+<app-footer *ngIf="router.url !== '/editor'"></app-footer>

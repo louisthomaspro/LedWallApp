@@ -1,4 +1,26 @@
-.table img {
-  image-rendering: pixelated;
-  height: 100px;
+
+.file-card-container {
+
+  img {
+    image-rendering: pixelated;
+  }
+
+  .file-card {
+    display: inline-block;
+    max-width: 200px;
+  }
+
+  mat-card-actions {
+    display:flex;
+  }
+
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+
+.mat-fab .mat-icon {
+  display: block;
 }
