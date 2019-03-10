@@ -3,8 +3,8 @@ const bodyParser = require('body-parser');
 const app = express();
 const cors = require('cors');
 const mongoose = require('mongoose');
-const ws = require('ws');
-
+const websocket = require('ws');
+const ws2812 = require('./ws2812');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -23,7 +23,17 @@ app.use('/users', usersRouter);
 app.use('/files', filesRouter);
 
 
+//WS2812 Direct link websocket
+const wss = new websocket.Server({ port: 8069 });
 
+wss.on('connection', function connection(ws) {
+  ws.on('message', function incoming(message) {
+    //console.log('received: %s', JSON.parse(message));
+    var img_data = ws2812.WS2812JSONToRgb(message);
+    ws2812.WS2812DisplayImage(img_data);
+  });
+  ws.send('connected');
+});
 
 // database connection setup
 db = require('./DB');
@@ -45,3 +55,5 @@ app.get('/', (req,res) => {
 app.listen(port,() => {
     console.log(`App Server Listening at ${port}`);
   });
+
+
