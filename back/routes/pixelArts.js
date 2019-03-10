@@ -31,21 +31,44 @@ router.post('/', function (req, res, next) {
         return next(error);
     }
 
-    let pixelArtRecord = new PixelArts(pixelart);
+    const layers = JSON.parse(pixelart.piskel.layers[0]);
+    pixelart.base64Thumb = layers.base64PNG;
 
-    pixelArtRecord.save((err, response) => {
-        if (err) {
-            console.log(err);
-        } else {
-            return res.json("Successful upload !");
-        }
-    });
+
+
+
+
+    if (!pixelart._id) {
+        console.log('add');
+        delete pixelart._id;
+        let pixelArtRecord = new PixelArts(pixelart);
+
+        pixelArtRecord.save((err, response) => {
+            if (err) {
+                console.log(err);
+            } else {
+                return res.json("Successful add !");
+            }
+        });
+
+    } else {
+
+        console.log('update id :' + pixelart._id);
+        PixelArts.updateOne({_id: pixelart._id}, { $set: { modelVersion: pixelart.modelVersion, base64Thumb: pixelart.base64Thumb, piskel: pixelart.piskel } }, function(err, affected, resp) {
+            if (err) {
+                console.log(err);
+            } else {
+                return res.json("Successful update !");
+            }
+        });
+    }
 });
+
 
 
 // delete
 router.delete('/', function (req, res) {
-    const pixelArtId = req.body.id;
+    let pixelArtId = req.body.id;
 
     if(!mongoose.Types.ObjectId.isValid(pixelArtId)) res.status(500).send("invalid id");
 
@@ -123,6 +146,27 @@ router.post('/run', function (req, res, next) {
 
 
 });
+
+
+// get one
+router.get('/id/:id', function (req, res) {
+    let pixelArtId = req.params.id;
+    if(!mongoose.Types.ObjectId.isValid(pixelArtId)) res.status(500).send("invalid id");
+
+    PixelArts.findOne({_id: pixelArtId}, function (err, response) {
+
+        if (err) return res.status(500).send(err);
+        if (!response) return res.status(500).send("invalid id");
+
+        return res.json(response);
+
+    });
+
+});
+
+
+
+
 
 
 module.exports = router;

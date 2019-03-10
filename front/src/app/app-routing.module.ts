@@ -13,6 +13,7 @@ const routes: Routes = [
   // { path: 'register', component: RegisterComponent },
   // { path: 'login', component: LoginComponent },
   { path: 'notFound', component: NotfoundComponent },
+  { path: 'editor/:id', component: EditorComponent },
   { path: 'editor', component: EditorComponent },
   { path: '**', redirectTo: '/notFound' }
   ];
