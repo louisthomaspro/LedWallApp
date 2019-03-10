@@ -24,8 +24,6 @@ function WS2812DisplayImage(img_data)
     });
 }
 
-function DisplayImage(img)
-
 var storage = multer.diskStorage({
     destination: (req, file, cb) => {
         cb(null, 'public/files')
