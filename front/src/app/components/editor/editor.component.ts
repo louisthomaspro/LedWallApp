@@ -1,11 +1,11 @@
-import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 
 @Component({
   selector: 'app-editor',
   templateUrl: './editor.component.html',
   styleUrls: ['./editor.component.scss']
 })
-export class EditorComponent implements OnInit, AfterViewInit {
+export class EditorComponent implements OnInit {
 
   loadAPI: Promise<any>;
   @ViewChild('iframe') iframe: ElementRef;
@@ -20,11 +20,6 @@ export class EditorComponent implements OnInit, AfterViewInit {
   }
 
 
-
-  ngAfterViewInit() {
-    // this.loadSprite(this.pixelart);
-  }
-
   public iframeLoaded() {
     setTimeout( () => { this.loadSprite(this.pixelart); }, 1000 );
   }
@@ -32,8 +27,6 @@ export class EditorComponent implements OnInit, AfterViewInit {
   public loadSprite(sprite) {
     const contentWindow = this.iframe.nativeElement.contentWindow;
     console.log(contentWindow);
-    const iframeloader = contentWindow.iframeloader;
-    console.log(iframeloader);
     const pskl = contentWindow.pskl;
     console.log(pskl);
     if (pskl) {
