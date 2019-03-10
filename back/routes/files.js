@@ -3,9 +3,28 @@ const router = express.Router();
 const Files = require('../models/files');
 const multer = require('multer');
 const path = require('path');
-var fs = require('fs');
+const jpegjs = require('jpeg-js');
+const fs = require('fs');
 
 const mongoose = require('mongoose');
+
+function WS2812ImageToRgb(img_path)
+{
+    var jpeg_data = fs.readFileSync(img_path);
+    var raw_image_data = jpeg.decode(jpeg_data);
+    return raw_image_data.data;
+}
+
+function WS2812DisplayImage(img_data)
+{
+    fs.writeFile("ws2812driver", img_data, function(err) {
+        if (err) {
+            return console.log(err);
+        }
+    });
+}
+
+function DisplayImage(img)
 
 var storage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -128,8 +147,9 @@ router.post('/run', function (req, res, next) {
         const path = process.env.PWD + '/' + response.path;
 
         // appel fonction convertir
-
+        var img_data = WS2812ImageToRgb(path);
         // ecrire dans le fichier
+        WS2812DisplayImage(img_data);
 
         return res.status(200).send("A bien marché !!");
 
