@@ -3,7 +3,8 @@ const router = express.Router();
 const Files = require('../models/files');
 const multer = require('multer');
 const path = require('path');
-var fs = require('fs');
+const fs = require('fs');
+const ws2812 = require('../ws2812');
 
 const mongoose = require('mongoose');
 
@@ -128,8 +129,9 @@ router.post('/run', function (req, res, next) {
         const path = process.env.PWD + '/' + response.path;
 
         // appel fonction convertir
-
+        var img_data = ws2812.WS2812ImageToRgb(path);
         // ecrire dans le fichier
+        ws2812.WS2812DisplayImage(img_data);
 
         return res.status(200).send("A bien marché !!");
 
