@@ -1,17 +1,32 @@
 
-.file-card-container {
+.pixelart-card-container {
 
-  img {
-    image-rendering: pixelated;
+  .mat-card-image {
+
+
+    .pixelart-thumb {
+      height: 150px;
+      image-rendering: pixelated;
+      background-size: contain;
+      background-repeat:no-repeat;
+      background-position: center center;
+    }
   }
 
-  .file-card {
+  .pixelart-card {
     display: inline-block;
-    max-width: 200px;
+    width: 180px;
   }
 
   mat-card-actions {
     display:flex;
+  }
+
+  .pixelart-title {
+    font-size: 20px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
   }
 
 }
@@ -23,4 +38,17 @@
 
 .mat-fab .mat-icon {
   display: block;
+}
+
+.pa-grid-container {
+  margin: 0;
+  padding: 0;
+  background-image: linear-gradient(#ffffff, #ececec);
+  border-radius: 4px;
+}
+.pa-grid{
+  background-color: transparent;
+  background-image:       linear-gradient(0deg, transparent 24%, rgba(0, 0, 0, .07) 25%, rgba(0, 0, 0, .07) 26%, transparent 27%, transparent 74%, rgba(0, 0, 0, .07) 75%, rgba(0, 0, 0, .07) 76%, transparent 77%, transparent), linear-gradient(90deg, transparent 24%, rgba(0, 0, 0, .07) 25%, rgba(0, 0, 0, .07) 26%, transparent 27%, transparent 74%, rgba(0, 0, 0, .07) 75%, rgba(0, 0, 0, .07) 76%, transparent 77%, transparent);
+  height:100%;
+  background-size:50px 50px;
 }

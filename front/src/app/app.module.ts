@@ -20,9 +20,12 @@ import { AuthGuard } from './guards/authGuard';
 import { AuthService } from './services/auth.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { MatToolbarModule, MatSidenavModule, MatListModule, MatButtonModule, MatIconModule, MatCardModule, MatMenuModule } from '@angular/material';
+import { MatToolbarModule, MatSidenavModule, MatListModule, MatButtonModule, MatIconModule, MatCardModule, MatMenuModule, MatDialogModule, MatGridListModule, MatSnackBarModule } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { EditorComponent } from './components/editor/editor.component';
+import { PixelArtInformationDialogComponent } from './components/pixelart-information-dialog/pixel-art-information-dialog.component';
+import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
+
 
 
 @NgModule({
@@ -34,7 +37,9 @@ import { EditorComponent } from './components/editor/editor.component';
     NotfoundComponent,
     HomeComponent,
     MustMatchDirective,
-    EditorComponent
+    EditorComponent,
+    PixelArtInformationDialogComponent,
+    ConfirmDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -49,9 +54,13 @@ import { EditorComponent } from './components/editor/editor.component';
     MatButtonModule,
     FlexLayoutModule,
     MatCardModule,
-    MatMenuModule
+    MatMenuModule,
+    MatDialogModule,
+    MatGridListModule,
+    MatSnackBarModule
   ],
   providers: [UserService, AuthGuard, AuthService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [ PixelArtInformationDialogComponent, ConfirmDialogComponent ]
 })
 export class AppModule { }

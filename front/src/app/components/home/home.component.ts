@@ -1,9 +1,11 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {UserService} from '../../services/users.service';
 import {PixelArtService} from '../../services/pixelArtService';
-import {Observable} from 'rxjs';
-// import {  HttpHeaders} from '@angular/common/http';
-// import {FormBuilder, Validators} from '@angular/forms';
+
+import {PixelArtInformationDialogComponent} from '../pixelart-information-dialog/pixel-art-information-dialog.component';
+import {ConfirmDialogComponent} from '../confirm-dialog/confirm-dialog.component';
+
+import {MatDialog, MatSnackBar} from '@angular/material';
 
 @Component({
   selector: 'app-home',
@@ -18,9 +20,11 @@ export class HomeComponent implements OnInit {
 
   pixelArtGalleryGallery: any;
 
+  sadGifs: Array<string> = [];
+
   @ViewChild('form') form;
 
-  constructor(private userService: UserService, private pixelArtService: PixelArtService) {
+  constructor(private userService: UserService, private pixelArtService: PixelArtService, public dialog: MatDialog, private snackBar: MatSnackBar) {
   }
 
   ngOnInit() {
@@ -32,20 +36,57 @@ export class HomeComponent implements OnInit {
     // }
 
     this.pixelArtService.getPixelArts().subscribe((res) => {
-      console.log(res);
+      // console.log(res);
       this.pixelArtGalleryGallery = res;
     });
-  }
 
+    const gifNames = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+    for (const name of gifNames) {
+      this.sadGifs.push('assets/gifs/sad/' + name + '.gif');
+    }
+  }
 
   deletePixelArt(id) {
     this.pixelArtService.deletePixelArts(id).subscribe((res) => {
-      console.log(res);
       this.ngOnInit();
     });
   }
 
-  // uploadFiles(targetFile) { // (deprecated)
+  openSnackBar(message: string) {
+    this.snackBar.open(message, null, {
+      duration: 3000,
+    });
+  }
+
+  openPixelArtInformationDialog(pa): void {
+    const dialogRef = this.dialog.open(PixelArtInformationDialogComponent, {
+      width: '400px',
+      data: pa
+    });
+    dialogRef.afterClosed().subscribe(result => {
+    });
+  }
+
+  confirmDialog(id): void {
+    const item = this.sadGifs[Math.floor(Math.random() * this.sadGifs.length)];
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      data: { title: 'WARNING', text: 'Are you sure you want to delete this beautiful pixel art ? He will leave us forever ...', gif: item}
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+          this.deletePixelArt(id);
+          this.openSnackBar('No mercy :\'(');
+      }
+    });
+  }
+
+  runPixelArt() {
+    this.openSnackBar('RUN FORREST RUN !');
+  }
+
+
+
+  // uploadFiles(targetFile) { // (deprecated but maybe usefull for python script ???)
   //
   //   if (targetFile.length > 0) {
   //     const file: File = targetFile[0];
@@ -60,7 +101,6 @@ export class HomeComponent implements OnInit {
   //
   //   this.form.nativeElement.reset();
   // }
-
 
 
 

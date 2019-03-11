@@ -20789,7 +20789,7 @@ zlib.js 2012 - imaya [ https://github.com/imaya/zlib.js ] The MIT License
      * @param {String} name
      * @param {String} description
      */
-    ns.Piskel = function (width, height, descriptor) {
+    ns.Piskel = function (width, height, descriptor, id=null) {
         if (width && height && descriptor) {
             /** @type {Array} */
             this.layers = [];
@@ -20806,7 +20806,7 @@ zlib.js 2012 - imaya [ https://github.com/imaya/zlib.js ] The MIT License
             this.savePath = null;
 
             /** @type {String} */
-            this._id = null;
+            this._id = id;
 
         } else {
             throw 'Missing arguments in Piskel constructor : ' + Array.prototype.join.call(arguments, ',');
@@ -20819,11 +20819,11 @@ zlib.js 2012 - imaya [ https://github.com/imaya/zlib.js ] The MIT License
      * @param  {Array<pskl.model.Layer>} layers
      * @return {pskl.model.Piskel}
      */
-    ns.Piskel.fromLayers = function (layers, descriptor) {
+    ns.Piskel.fromLayers = function (layers, descriptor, id=null) {
         var piskel = null;
         if (layers.length > 0 && layers[0].size() > 0) {
             var sampleFrame = layers[0].getFrameAt(0);
-            piskel = new pskl.model.Piskel(sampleFrame.getWidth(), sampleFrame.getHeight(), descriptor);
+            piskel = new pskl.model.Piskel(sampleFrame.getWidth(), sampleFrame.getHeight(), descriptor, id);
             layers.forEach(piskel.addLayer.bind(piskel));
         } else {
             throw 'Piskel.fromLayers expects array of non empty pskl.model.Layer as first argument';
@@ -24845,15 +24845,26 @@ zlib.js 2012 - imaya [ https://github.com/imaya/zlib.js ] The MIT License
     ns.ResizeController.prototype.onResizeFormSubmit_ = function (evt) {
         evt.preventDefault();
 
+
         var resizedLayers = this.piskelController.getLayers().map(this.resizeLayer_.bind(this));
 
-        var piskel = pskl.model.Piskel.fromLayers(resizedLayers, this.piskelController.getPiskel().getDescriptor());
+        var id = pskl.app.piskelController.getPiskel().getId();
+
+        var piskel = pskl.model.Piskel.fromLayers(resizedLayers, this.piskelController.getPiskel().getDescriptor(), id);
+
+
 
         // propagate savepath to new Piskel
+
+
         piskel.savePath = pskl.app.piskelController.getSavePath();
+
         pskl.app.piskelController.setPiskel(piskel, true);
+        // console.log(JSON.parse(pskl.app.piskelController.serialize()));
 
         $.publish(Events.CLOSE_SETTINGS_DRAWER);
+
+        // console.log(pskl.app.piskelController.getId());
     };
 
     ns.ResizeController.prototype.resizeLayer_ = function (layer) {
@@ -25140,7 +25151,6 @@ zlib.js 2012 - imaya [ https://github.com/imaya/zlib.js ] The MIT License
     ns.SaveController.prototype.saveToDatabase_ = function () {
         this.beforeSaving_();
         var pixelart = JSON.parse(pskl.app.piskelController.serialize());
-        console.log(pixelart);
         $.post( "http://localhost:8080/pixelarts", pixelart)
             .done(function(res) {
                 pskl.app.piskelController.getPiskel().setId(res);

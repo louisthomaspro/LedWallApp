@@ -1,26 +1,35 @@
 <div class="p-4">
 
 
-    <div class="file-card-container mb-5">
+    <div class="pixelart-card-container mb-5">
 
-        <mat-card class="file-card m-2" *ngFor="let pa of pixelArtGalleryGallery">
-            <img mat-card-image [src]="pa.base64Thumb" alt="">
-            <mat-card-content>
-                <mat-card-title>{{ pa.piskel.name }}</mat-card-title>
-                <mat-card-subtitle>{{ pa.piskel.description }}</mat-card-subtitle>
+        <mat-card class="pixelart-card m-2" *ngFor="let pa of pixelArtGalleryGallery">
+            <div mat-card-image>
+                <div class="pa-grid-container">
+                    <div class="pa-grid">
+                        <div class="pixelart-thumb" [style.background-image]="'url(' + pa.base64Thumb + ')'"></div>
+                    </div>
+                </div>
+            </div>
+            <mat-card-content class="pixelart-title" title="{{ pa.piskel.name }}">
+                {{ pa.piskel.name }}
             </mat-card-content>
             <mat-card-actions>
-                <button mat-raised-button color="primary">RUN</button>
+                <button (click)="runPixelArt()" mat-raised-button color="primary">RUN</button>
                 <span class="spacer"></span>
                 <button mat-icon-button [matMenuTriggerFor]="menu">
                     <mat-icon>more_vert</mat-icon>
                 </button>
                 <mat-menu #menu="matMenu">
+                    <button (click)="openPixelArtInformationDialog(pa)" mat-menu-item>
+                        <mat-icon>info</mat-icon>
+                        <span>Information</span>
+                    </button>
                     <button [routerLink]="['editor']" [queryParams]="{id: pa._id}" mat-menu-item>
                         <mat-icon>edit</mat-icon>
                         <span>Edit</span>
                     </button>
-                    <button (click)="deletePixelArt(pa._id)" mat-menu-item>
+                    <button (click)="confirmDialog(pa._id)" mat-menu-item>
                         <mat-icon>delete</mat-icon>
                         <span>Delete</span>
                     </button>
