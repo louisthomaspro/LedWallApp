@@ -37,9 +37,13 @@ export class EditorComponent implements OnInit {
   }
 
   public iframeLoaded() {
-    if (this.pixelart) {
-      setTimeout( () => { this.loadSprite(this.pixelart); }, 1000 );
-    }
+
+    setTimeout( () => {
+      if (this.pixelart) {
+        this.loadSprite(this.pixelart);
+      }
+    }, 1000 );
+
   }
 
   public loadSprite(sprite) {
