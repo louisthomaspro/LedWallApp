@@ -84,6 +84,7 @@ router.get('/', (req, res) => {
 router.get('/run/:id', function (req, res, next) {
 
     let pixelArtId = req.params.id;
+    console.log('ici');
 
     if(!mongoose.Types.ObjectId.isValid(pixelArtId)) res.status(500).send("invalid id");
 
@@ -99,7 +100,11 @@ router.get('/run/:id', function (req, res, next) {
         // ecrire dans le fichier
         // ws2812.WS2812DisplayImage(img_data);
 
-        return res.status(200);
+
+        const r = {
+            message: "Successful run !"
+        };
+        res.status(200).send(r);
 
     });
 });
