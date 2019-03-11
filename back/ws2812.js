@@ -11,6 +11,12 @@ module.exports = {
     WS2812JSONToRgb: function(json_obj)
     {
         var img_data = JSON.parse(json_obj);
+        for (var i = 0; i < img_data.width * img_data.length; i++)
+        {
+            var x = (i / 4) % img_data.width;
+            var y = Math.floor((i / 4) / img_data.width);
+            indexed_image_data[i] = img_data[x][y];
+        }
         return img_data.color_data;                     //We only need the data buffer
     },
     WS2812DisplayImage: function(img_data)
