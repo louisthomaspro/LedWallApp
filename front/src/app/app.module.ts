@@ -20,10 +20,11 @@ import { AuthGuard } from './guards/authGuard';
 import { AuthService } from './services/auth.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { MatToolbarModule, MatSidenavModule, MatListModule, MatButtonModule, MatIconModule, MatCardModule, MatMenuModule, MatDialogModule, MatGridListModule } from '@angular/material';
+import { MatToolbarModule, MatSidenavModule, MatListModule, MatButtonModule, MatIconModule, MatCardModule, MatMenuModule, MatDialogModule, MatGridListModule, MatSnackBarModule } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { EditorComponent } from './components/editor/editor.component';
 import { PixelArtInformationDialogComponent } from './components/pixelart-information-dialog/pixel-art-information-dialog.component';
+import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
 
 
 
@@ -37,7 +38,8 @@ import { PixelArtInformationDialogComponent } from './components/pixelart-inform
     HomeComponent,
     MustMatchDirective,
     EditorComponent,
-    PixelArtInformationDialogComponent
+    PixelArtInformationDialogComponent,
+    ConfirmDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -54,10 +56,11 @@ import { PixelArtInformationDialogComponent } from './components/pixelart-inform
     MatCardModule,
     MatMenuModule,
     MatDialogModule,
-    MatGridListModule
+    MatGridListModule,
+    MatSnackBarModule
   ],
   providers: [UserService, AuthGuard, AuthService],
   bootstrap: [AppComponent],
-  entryComponents: [ PixelArtInformationDialogComponent ]
+  entryComponents: [ PixelArtInformationDialogComponent, ConfirmDialogComponent ]
 })
 export class AppModule { }

@@ -5,7 +5,7 @@
 
 
     .pixelart-thumb {
-      height: 100px;
+      height: 150px;
       image-rendering: pixelated;
       background-size: contain;
       background-repeat:no-repeat;
@@ -15,7 +15,7 @@
 
   .pixelart-card {
     display: inline-block;
-    width: 150px;
+    width: 180px;
   }
 
   mat-card-actions {
@@ -38,4 +38,17 @@
 
 .mat-fab .mat-icon {
   display: block;
+}
+
+.pa-grid-container {
+  margin: 0;
+  padding: 0;
+  background-image: linear-gradient(#ffffff, #ececec);
+  border-radius: 4px;
+}
+.pa-grid{
+  background-color: transparent;
+  background-image:       linear-gradient(0deg, transparent 24%, rgba(0, 0, 0, .07) 25%, rgba(0, 0, 0, .07) 26%, transparent 27%, transparent 74%, rgba(0, 0, 0, .07) 75%, rgba(0, 0, 0, .07) 76%, transparent 77%, transparent), linear-gradient(90deg, transparent 24%, rgba(0, 0, 0, .07) 25%, rgba(0, 0, 0, .07) 26%, transparent 27%, transparent 74%, rgba(0, 0, 0, .07) 75%, rgba(0, 0, 0, .07) 76%, transparent 77%, transparent);
+  height:100%;
+  background-size:50px 50px;
 }

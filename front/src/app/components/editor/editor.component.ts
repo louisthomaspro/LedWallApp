@@ -1,6 +1,7 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {PixelArtService} from '../../services/pixelArtService';
+import {MatSnackBar} from '@angular/material';
 
 @Component({
   selector: 'app-editor',
@@ -15,21 +16,25 @@ export class EditorComponent implements OnInit {
   pixelart: any;
   id: string;
 
-  constructor(private route: ActivatedRoute, private pixelArtService: PixelArtService) {
+  constructor(private route: ActivatedRoute, private pixelArtService: PixelArtService, private snackBar: MatSnackBar) {
   }
 
   ngOnInit() {
     const id = this.route.snapshot.queryParams['id'];
-    console.log(id);
     if (id) {
       this.id = id;
       this.pixelArtService.getPixelArtsById(id).subscribe((res) => {
         this.pixelart = res;
-        console.log(res);
+        console.log('Id found ! Loading ' + res.piskel.name);
       });
     }
   }
 
+  openSnackBar(message: string) {
+    this.snackBar.open(message, null, {
+      duration: 3000,
+    });
+  }
 
   public iframeLoaded() {
     if (this.pixelart) {
@@ -39,10 +44,10 @@ export class EditorComponent implements OnInit {
 
   public loadSprite(sprite) {
     const contentWindow = this.iframe.nativeElement.contentWindow;
-    console.log(contentWindow);
     const pskl = contentWindow.pskl;
-    console.log(pskl);
-    if (pskl) {
+    if (!pskl) {
+      this.openSnackBar('An error occured... CODE : 241');
+    } else {
       const fps = sprite.piskel.fps;
       const id = this.id;
       const piskel = sprite.piskel;

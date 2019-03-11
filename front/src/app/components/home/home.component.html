@@ -5,13 +5,17 @@
 
         <mat-card class="pixelart-card m-2" *ngFor="let pa of pixelArtGalleryGallery">
             <div mat-card-image>
-                <div class="pixelart-thumb" [style.background-image]="'url(' + pa.base64Thumb + ')'"></div>
+                <div class="pa-grid-container">
+                    <div class="pa-grid">
+                        <div class="pixelart-thumb" [style.background-image]="'url(' + pa.base64Thumb + ')'"></div>
+                    </div>
+                </div>
             </div>
             <mat-card-content class="pixelart-title" title="{{ pa.piskel.name }}">
                 {{ pa.piskel.name }}
             </mat-card-content>
             <mat-card-actions>
-                <button mat-raised-button color="primary">RUN</button>
+                <button (click)="runPixelArt()" mat-raised-button color="primary">RUN</button>
                 <span class="spacer"></span>
                 <button mat-icon-button [matMenuTriggerFor]="menu">
                     <mat-icon>more_vert</mat-icon>
@@ -25,7 +29,7 @@
                         <mat-icon>edit</mat-icon>
                         <span>Edit</span>
                     </button>
-                    <button (click)="deletePixelArt(pa._id)" mat-menu-item>
+                    <button (click)="confirmDialog(pa._id)" mat-menu-item>
                         <mat-icon>delete</mat-icon>
                         <span>Delete</span>
                     </button>
