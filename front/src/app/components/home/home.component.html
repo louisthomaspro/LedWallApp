@@ -15,7 +15,7 @@
                 {{ pa.piskel.name }}
             </mat-card-content>
             <mat-card-actions>
-                <button (click)="runPixelArt()" mat-raised-button color="primary">RUN</button>
+                <button (click)="runPixelArt(pa._id)" mat-raised-button color="primary">RUN</button>
                 <span class="spacer"></span>
                 <button mat-icon-button [matMenuTriggerFor]="menu">
                     <mat-icon>more_vert</mat-icon>

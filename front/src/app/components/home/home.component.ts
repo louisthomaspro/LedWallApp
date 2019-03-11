@@ -80,8 +80,12 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  runPixelArt() {
+  runPixelArt(id) {
     this.openSnackBar('RUN FORREST RUN !');
+    this.pixelArtService.runPixelArts(id).subscribe((res) => {
+      console.log(res);
+    });
+
   }
 
 

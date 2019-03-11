@@ -1,27 +1,14 @@
 const express = require('express');
 const router = express.Router();
 const PixelArts = require('../models/pixelArts');
-const multer = require('multer');
-const path = require('path');
-const fs = require('fs');
 const ws2812 = require('../ws2812');
 
 const mongoose = require('mongoose');
 
-var storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, 'public/files')
-    },
-    filename: (req, file, cb) => {
-        cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname))
-    }
-});
-const upload = multer({storage: storage});
 
 
 
-
-// upload
+// create/update
 router.post('/', function (req, res, next) {
     const pixelart = req.body;
     console.log(pixelart);
@@ -82,6 +69,7 @@ router.delete('/', function (req, res) {
 });
 
 
+
 // get all
 router.get('/', (req, res) => {
     PixelArts.find({}, function (err, response) {
@@ -92,34 +80,10 @@ router.get('/', (req, res) => {
 
 
 
-//show file (deprecated)
-// router.get('/get/:name', function (req, res, next) {
-//
-//     var options = {
-//         root: process.env.PWD + '/public/files/',
-//         dotfiles: 'deny',
-//         headers: {
-//             'x-timestamp': Date.now(),
-//             'x-sent': true
-//         }
-//     };
-//
-//     var fileName = req.params.name;
-//     res.sendFile(fileName, options, function (err) {
-//         if (err) {
-//             next(err);
-//         } else {
-//             console.log('Sent:', fileName);
-//         }
-//     });
-//
-// });
+//run
+router.get('/run/:id', function (req, res, next) {
 
-
-//show file
-router.post('/run', function (req, res, next) {
-
-    const pixelArtId = req.body.id;
+    let pixelArtId = req.params.id;
 
     if(!mongoose.Types.ObjectId.isValid(pixelArtId)) res.status(500).send("invalid id");
 
@@ -128,26 +92,21 @@ router.post('/run', function (req, res, next) {
         if (err) return res.status(500).send(err);
         if (!response) return res.status(500).send("invalid id");
 
-        console.log(response);
-
-        const path = process.env.PWD + '/' + response.path;
+        const piskel = response;
 
         // appel fonction convertir
-        var img_data = ws2812.WS2812ImageToRgb(path);
+        // var img_data = ws2812.WS2812ImageToRgb(path);
         // ecrire dans le fichier
-        ws2812.WS2812DisplayImage(img_data);
+        // ws2812.WS2812DisplayImage(img_data);
 
-        return res.status(200).send("A bien marché !!");
+        return res.status(200);
 
     });
-
-
-
 });
 
 
 // get one
-router.get('/id/:id', function (req, res) {
+router.get('/:id', function (req, res) {
     let pixelArtId = req.params.id;
     if(!mongoose.Types.ObjectId.isValid(pixelArtId)) res.status(500).send("invalid id");
 

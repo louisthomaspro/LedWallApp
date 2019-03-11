@@ -16,7 +16,6 @@ export class PixelArtService {
   }
 
 
-
   deletePixelArts(id): Observable<any> {
     const options = {
       headers: new HttpHeaders({
@@ -29,9 +28,12 @@ export class PixelArtService {
     return this.http.delete<any>(`${this.uri}/`, options);
   }
 
+  runPixelArts(id): Observable<any> {
+    return this.http.get<any>(`${this.uri}/run/` + id);
+  }
 
   getPixelArtsById(id): Observable<any> {
-    return this.http.get<any>(`${this.uri}/id/` + id);
+    return this.http.get<any>(`${this.uri}/` + id);
   }
 
 
