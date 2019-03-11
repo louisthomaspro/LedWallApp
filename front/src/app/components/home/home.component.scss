@@ -1,17 +1,32 @@
 
-.file-card-container {
+.pixelart-card-container {
 
-  img {
-    image-rendering: pixelated;
+  .mat-card-image {
+
+
+    .pixelart-thumb {
+      height: 100px;
+      image-rendering: pixelated;
+      background-size: contain;
+      background-repeat:no-repeat;
+      background-position: center center;
+    }
   }
 
-  .file-card {
+  .pixelart-card {
     display: inline-block;
-    max-width: 200px;
+    width: 150px;
   }
 
   mat-card-actions {
     display:flex;
+  }
+
+  .pixelart-title {
+    font-size: 20px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
   }
 
 }
