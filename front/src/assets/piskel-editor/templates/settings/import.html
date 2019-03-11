@@ -1,17 +1,17 @@
 <div class="settings-section">
-  <div class="settings-title">
+  <div class="settings-title d-none">
     Load from Browser
   </div>
-  <div class="settings-item">
+  <div class="settings-item d-none">
     <span>Load a <span class="import-highlight">local piskel</span> saved in this Browser</span>
     <div class="import-section">
       <button type="button" class="button  button-primary browse-local-button">Browse local saves</button>
     </div>
   </div>
-  <div class="settings-title">
+  <div class="settings-title d-none">
     Load .piskel file
   </div>
-  <div class="settings-item">
+  <div class="settings-item d-none">
     <span>Load a <span class="import-highlight">.piskel</span> file from your computer</span>
 
     <div class="import-section">
@@ -34,10 +34,10 @@
         value="file" accept="image/*"/>
     </div>
   </div>
-  <div class="settings-title">
+  <div class="settings-title d-none">
     Recover recent sessions
   </div>
-  <div class="settings-item previous-session">
+  <div class="settings-item previous-session d-none">
       <!-- <span>Load a <span class="import-highlight">backup</span> from a recent session</span>
       <div class="import-section">
         <button type="button" class="button  button-primary load-recent-button">Browse recent sessions</button>
@@ -45,7 +45,7 @@
   </div>
 
   <script type="text/template" id="previous-session-info-template">
-    <div>
+    <div class="d-none">
       Restore a backup of <span style="color:gold">{{name}}</span>, saved at <span style="color:white">{{date}}</span> ?
       <div style="margin-top:10px;">
         <button type="button" class="button  button-primary restore-session-button">Restore</button>
