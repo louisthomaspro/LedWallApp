@@ -20,9 +20,11 @@ import { AuthGuard } from './guards/authGuard';
 import { AuthService } from './services/auth.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { MatToolbarModule, MatSidenavModule, MatListModule, MatButtonModule, MatIconModule, MatCardModule, MatMenuModule } from '@angular/material';
+import { MatToolbarModule, MatSidenavModule, MatListModule, MatButtonModule, MatIconModule, MatCardModule, MatMenuModule, MatDialogModule, MatGridListModule } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { EditorComponent } from './components/editor/editor.component';
+import { PixelArtInformationDialogComponent } from './components/pixelart-information-dialog/pixel-art-information-dialog.component';
+
 
 
 @NgModule({
@@ -34,7 +36,8 @@ import { EditorComponent } from './components/editor/editor.component';
     NotfoundComponent,
     HomeComponent,
     MustMatchDirective,
-    EditorComponent
+    EditorComponent,
+    PixelArtInformationDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -49,9 +52,12 @@ import { EditorComponent } from './components/editor/editor.component';
     MatButtonModule,
     FlexLayoutModule,
     MatCardModule,
-    MatMenuModule
+    MatMenuModule,
+    MatDialogModule,
+    MatGridListModule
   ],
   providers: [UserService, AuthGuard, AuthService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [ PixelArtInformationDialogComponent ]
 })
 export class AppModule { }

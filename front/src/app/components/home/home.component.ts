@@ -1,9 +1,9 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {UserService} from '../../services/users.service';
 import {PixelArtService} from '../../services/pixelArtService';
-import {Observable} from 'rxjs';
-// import {  HttpHeaders} from '@angular/common/http';
-// import {FormBuilder, Validators} from '@angular/forms';
+
+import {PixelArtInformationDialogComponent} from '../pixelart-information-dialog/pixel-art-information-dialog.component';
+import {MatDialog} from '@angular/material';
 
 @Component({
   selector: 'app-home',
@@ -20,7 +20,7 @@ export class HomeComponent implements OnInit {
 
   @ViewChild('form') form;
 
-  constructor(private userService: UserService, private pixelArtService: PixelArtService) {
+  constructor(private userService: UserService, private pixelArtService: PixelArtService, public dialog: MatDialog) {
   }
 
   ngOnInit() {
@@ -42,6 +42,18 @@ export class HomeComponent implements OnInit {
     this.pixelArtService.deletePixelArts(id).subscribe((res) => {
       console.log(res);
       this.ngOnInit();
+    });
+  }
+
+  openPixelArtInformationDialog(pa): void {
+    console.log('ici');
+    const dialogRef = this.dialog.open(PixelArtInformationDialogComponent, {
+      width: '400px',
+      data: pa
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
     });
   }
 

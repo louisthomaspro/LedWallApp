@@ -17,6 +17,10 @@
                     <mat-icon>more_vert</mat-icon>
                 </button>
                 <mat-menu #menu="matMenu">
+                    <button (click)="openPixelArtInformationDialog(pa)" mat-menu-item>
+                        <mat-icon>info</mat-icon>
+                        <span>Information</span>
+                    </button>
                     <button [routerLink]="['editor']" [queryParams]="{id: pa._id}" mat-menu-item>
                         <mat-icon>edit</mat-icon>
                         <span>Edit</span>
