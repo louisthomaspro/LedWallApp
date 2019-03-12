@@ -1,32 +1,25 @@
-# ExpenseManager
+# LedWallApp
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.2.3.
+Web application deployed on UDOO board to control the LedWall.
 
-## Development server
+- **front** : expressjs
+- **back** : angular 7
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## Running the app
 
-## Code scaffolding
+To run the project you need to have [node](https://nodejs.org/en/download/) installed with [npm](https://www.npmjs.com/get-npm) and [Angular CLI](https://cli.angular.io/).
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+1. Clone project
+2. Go in front folder
+4. `npm install`
+5. `ng serve`
+6. Go in back folder
+7. `npm install`
+8. `node server.js`
+9. Navigate to `http://localhost:4200/`
 
-## Build
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+## Config
 
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
-
-https://github.com/boopathi4291/MEAN
-
-change default size of piskel :
-front/src/assets/piskel-editor/js/piskel-packaged-2015-09-02-11-47.js (11782)
+Change default piskel size when opening editor :
+`front/src/assets/piskel-editor/js/piskel-packaged-2015-09-02-11-47.js (11782)`
