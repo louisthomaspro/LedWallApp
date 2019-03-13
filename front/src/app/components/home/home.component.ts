@@ -9,6 +9,9 @@ import {MatDialog, MatSnackBar} from '@angular/material';
 
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 
+import { Pixelart } from '../../pixelart';
+import { Animation } from '../../animation';
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -20,9 +23,9 @@ export class HomeComponent implements OnInit {
   // httpOptions: any;
   // registeredUsers: any;
 
-  pixelArtGalleryGallery: any;
+  pixelArtGalleryGallery: Array<Pixelart> = [];
 
-  timeline: Array<any> = [];
+  timeline: Array<Animation> = [];
 
   sadGifs: Array<string> = [];
 
@@ -53,12 +56,15 @@ export class HomeComponent implements OnInit {
 
 
   addToTimeline(pa) {
-    // parcourir les elements et regarder si il n'y a pas le mm id, sinon mettre ID-2 ... ID-3 ...
-    this.timeline.push(pa);
+    const animationToAdd: Animation = {
+      time: 3,
+      pixelart: pa
+    }
+    this.timeline.push(animationToAdd);
   }
 
-  deleteFromTimeline(id) {
-    // delete from this.timeline where id = id
+  deleteFromTimeline(key) {
+    this.timeline.splice(key, 1);
   }
 
 

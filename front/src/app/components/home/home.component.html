@@ -3,27 +3,27 @@
     <h2 class="mat-h2">Animation Timeline</h2>
     <div cdkDropList cdkDropListOrientation="horizontal" class="example-list" (cdkDropListDropped)="drop($event)">
 
-        <div class="drag-container" *ngFor="let pa of timeline" cdkDrag>
+        <div class="drag-container" *ngFor="let animation of timeline | keyvalue" cdkDrag>
             <mat-card class="pixelart-card-small">
                 <div class="example-custom-placeholder" *CdkDragPreview></div>
                 <div mat-card-image>
                     <div class="pa-grid-container">
                         <div class="pa-grid">
                             <div class="pixelart-thumb-small"
-                                 [style.background-image]="'url(' + pa.base64Thumb + ')'"></div>
+                                 [style.background-image]="'url(' + animation.value.pixelart.base64Thumb + ')'"></div>
                         </div>
                     </div>
                 </div>
                 <mat-card-actions style="margin-left: 0;">
                     <button mat-stroked-button class="flex-grow-1">
                         <mat-icon class="mr-1">timer</mat-icon>
-                        0.5s
+                        {{ animation.value.time }}s
                     </button>
                     <button mat-icon-button [matMenuTriggerFor]="menu">
                         <mat-icon>more_vert</mat-icon>
                     </button>
                     <mat-menu #menu="matMenu">
-                        <button (click)="deleteFromTimeline(pa._id)" mat-menu-item>
+                        <button (click)="deleteFromTimeline(animation.key)" mat-menu-item>
                             <mat-icon>delete</mat-icon>
                             <span>Delete</span>
                         </button>

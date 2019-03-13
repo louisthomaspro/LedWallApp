@@ -26,8 +26,10 @@
 
   .pixelart-card-small {
     display: inline-block;
-    width: 155px;
     margin: 10px;
+
+    flex-grow: 1;
+    flex-basis: 0;
   }
 
   mat-card-actions {
@@ -83,7 +85,7 @@
   flex-direction: row;
   background: white;
   border-radius: 4px;
-  overflow: hidden;
+  overflow: auto;
   height: 210px;
 }
 
