@@ -7,6 +7,7 @@ import { LoginComponent } from './components/login/login.component';
 import { NotfoundComponent } from './components/notfound/notfound.component';
 import { AuthGuard } from './guards/authGuard';
 import { EditorComponent } from './components/editor/editor.component';
+import { ScriptComponent } from './components/script/script.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent/*, canActivate: [AuthGuard]*/ },
@@ -14,7 +15,9 @@ const routes: Routes = [
   // { path: 'login', component: LoginComponent },
   { path: 'notFound', component: NotfoundComponent },
   { path: 'editor/:id', component: EditorComponent },
+  { path: 'home', component: HomeComponent },
   { path: 'editor', component: EditorComponent },
+  { path: 'script', component: ScriptComponent },
   { path: '**', redirectTo: '/notFound' }
   ];
 

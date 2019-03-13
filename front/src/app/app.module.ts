@@ -20,11 +20,15 @@ import { AuthGuard } from './guards/authGuard';
 import { AuthService } from './services/auth.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { MatToolbarModule, MatSidenavModule, MatListModule, MatButtonModule, MatIconModule, MatCardModule, MatMenuModule, MatDialogModule, MatGridListModule, MatSnackBarModule } from '@angular/material';
+import { MatToolbarModule, MatSidenavModule, MatListModule, MatButtonModule, MatIconModule, MatCardModule, MatMenuModule, MatDialogModule, MatGridListModule, MatSnackBarModule, MatBadgeModule } from '@angular/material';
+
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { EditorComponent } from './components/editor/editor.component';
 import { PixelArtInformationDialogComponent } from './components/pixelart-information-dialog/pixel-art-information-dialog.component';
 import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
+import { ScriptComponent } from './components/script/script.component';
+
+import {DragDropModule} from '@angular/cdk/drag-drop';
 
 
 
@@ -39,7 +43,8 @@ import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dial
     MustMatchDirective,
     EditorComponent,
     PixelArtInformationDialogComponent,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    ScriptComponent
   ],
   imports: [
     BrowserModule,
@@ -57,7 +62,9 @@ import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dial
     MatMenuModule,
     MatDialogModule,
     MatGridListModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    DragDropModule,
+    MatBadgeModule
   ],
   providers: [UserService, AuthGuard, AuthService],
   bootstrap: [AppComponent],

@@ -4,9 +4,11 @@
         <button mat-icon-button class="mr-3" (click)="sidenav.toggle()" fxShow="true" fxHide.gt-sm>
             <mat-icon>menu</mat-icon>
         </button>
-        <a class="app-title" href="#" routerLink="/" mat-button>LedWallApp</a>
+        <a class="app-title mr-3" href="#" routerLink="/" mat-button>LedWallApp</a>
         <div fxShow="true" fxHide.lt-md>
-            <a href="#" routerLink="editor" mat-button class="ml-3">Editor</a>
+            <a href="#" routerLink="home" mat-button>Home</a>
+            <a href="#" routerLink="editor" mat-button>Pixelart Editor</a>
+            <a href="#" routerLink="script" mat-button>Script</a>
         </div>
     </mat-toolbar-row>
 </mat-toolbar>
@@ -14,8 +16,9 @@
 <mat-sidenav-container fxFlexFill>
     <mat-sidenav #sidenav>
         <mat-nav-list>
-            <a (click)="sidenav.toggle()" routerLink="/" mat-list-item>Home</a>
-            <a (click)="sidenav.toggle()" routerLink="editor" mat-list-item>Editor</a>
+            <a (click)="sidenav.toggle()" routerLink="home" mat-list-item>Home</a>
+            <a (click)="sidenav.toggle()" routerLink="editorhomehome" mat-list-item>Pixelart Editor</a>
+            <a (click)="sidenav.toggle()" routerLink="script" mat-list-item>Script</a>
         </mat-nav-list>
     </mat-sidenav>
 

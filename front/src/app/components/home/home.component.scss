@@ -1,21 +1,33 @@
 
-.pixelart-card-container {
-
-  .mat-card-image {
 
 
-    .pixelart-thumb {
-      height: 150px;
-      image-rendering: pixelated;
-      background-size: contain;
-      background-repeat:no-repeat;
-      background-position: center center;
-    }
+
+  .pixelart-thumb {
+    height: 150px;
+    image-rendering: pixelated;
+    background-size: contain;
+    background-repeat:no-repeat;
+    background-position: center center;
   }
+
+  .pixelart-thumb-small {
+    height: 100px;
+    image-rendering: pixelated;
+    background-size: contain;
+    background-repeat:no-repeat;
+    background-position: center center;
+  }
+
 
   .pixelart-card {
     display: inline-block;
     width: 180px;
+  }
+
+  .pixelart-card-small {
+    display: inline-block;
+    width: 155px;
+    margin: 10px;
   }
 
   mat-card-actions {
@@ -24,12 +36,12 @@
 
   .pixelart-title {
     font-size: 20px;
+    font-weight: 300;
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
   }
 
-}
 
 .spacer {
   flex: 1 1 auto;
@@ -43,12 +55,60 @@
 .pa-grid-container {
   margin: 0;
   padding: 0;
-  background-image: linear-gradient(#ffffff, #ececec);
+  background-image: linear-gradient(#d4d4d4, #ececec);
   border-radius: 4px;
 }
-.pa-grid{
+/*.pa-grid{
   background-color: transparent;
   background-image:       linear-gradient(0deg, transparent 24%, rgba(0, 0, 0, .07) 25%, rgba(0, 0, 0, .07) 26%, transparent 27%, transparent 74%, rgba(0, 0, 0, .07) 75%, rgba(0, 0, 0, .07) 76%, transparent 77%, transparent), linear-gradient(90deg, transparent 24%, rgba(0, 0, 0, .07) 25%, rgba(0, 0, 0, .07) 26%, transparent 27%, transparent 74%, rgba(0, 0, 0, .07) 75%, rgba(0, 0, 0, .07) 76%, transparent 77%, transparent);
   height:100%;
   background-size:50px 50px;
+}*/
+
+
+
+  .time {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+  }
+
+
+
+.example-list {
+  width: 100%;
+  max-width: 100%;
+  border: solid 1px #ccc;
+  display: flex;
+  flex-direction: row;
+  background: white;
+  border-radius: 4px;
+  overflow: hidden;
+  height: 210px;
+}
+
+.cdk-drag-preview > div {
+  box-sizing: border-box;
+  border-radius: 4px;
+  box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
+  0 8px 10px 1px rgba(0, 0, 0, 0.14),
+  0 3px 14px 2px rgba(0, 0, 0, 0.12);
+}
+
+.cdk-drag-animating {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.example-box:last-child {
+  border: none;
+}
+
+.cdk-drag-placeholder {
+  //background: #ccc;
+  //border: dotted 3px #999;
+  //width: 175px;
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+  z-index: 100;
+  position: relative;
+  opacity: 0.5;
 }

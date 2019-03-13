@@ -7,6 +7,8 @@ import {ConfirmDialogComponent} from '../confirm-dialog/confirm-dialog.component
 
 import {MatDialog, MatSnackBar} from '@angular/material';
 
+import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -20,9 +22,12 @@ export class HomeComponent implements OnInit {
 
   pixelArtGalleryGallery: any;
 
+  timeline: Array<any> = [];
+
   sadGifs: Array<string> = [];
 
   @ViewChild('form') form;
+
 
   constructor(private userService: UserService, private pixelArtService: PixelArtService, public dialog: MatDialog, private snackBar: MatSnackBar) {
   }
@@ -45,6 +50,22 @@ export class HomeComponent implements OnInit {
       this.sadGifs.push('assets/gifs/sad/' + name + '.gif');
     }
   }
+
+
+  addToTimeline(pa) {
+    // parcourir les elements et regarder si il n'y a pas le mm id, sinon mettre ID-2 ... ID-3 ...
+    this.timeline.push(pa);
+  }
+
+  deleteFromTimeline(id) {
+    // delete from this.timeline where id = id
+  }
+
+
+  drop(event: CdkDragDrop<string[]>) {
+    moveItemInArray(this.timeline, event.previousIndex, event.currentIndex);
+  }
+
 
   deletePixelArt(id) {
     this.pixelArtService.deletePixelArts(id).subscribe((res) => {

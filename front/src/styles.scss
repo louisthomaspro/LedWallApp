@@ -104,3 +104,14 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 *::after {
   box-sizing: border-box; // 1
 }
+
+.c-grey {
+  color: #757575;
+}
+
+
+/* Coerce the <span> icon container away from display:inline */
+.mat-icon-button .mat-button-wrapper {
+  display: flex;
+  justify-content: center;
+}
