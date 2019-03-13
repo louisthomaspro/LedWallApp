@@ -9,7 +9,7 @@ let Schema = mongoose.Schema({
         fps: Number,
         height: Number,
         width: Number,
-        layers: []
+        layers: [String]
     }
 },
 {
