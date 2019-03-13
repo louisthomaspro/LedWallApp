@@ -66,9 +66,4 @@ export class EditorComponent implements OnInit {
   };
 
   // init();
-
-
-
-
-
 }

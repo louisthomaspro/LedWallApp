@@ -43,8 +43,8 @@ class Application(tk.Frame):
         fo = open("ws2812driver", "r")
         rgb_values = fo.readlines()[0].split(',')
         print(rgb_values)
-        for i in range(16):
-            for j in range(10):
+        for j in range(10):
+            for i in range(16):
                 color = '#%02x%02x%02x' % (int(rgb_values[idx_color]), int(rgb_values[idx_color + 1]), int(rgb_values[idx_color + 2]))
                 idx_color += 3
                 self.lw_canv.create_rectangle(i * PIXEL_SIZE, j * PIXEL_SIZE, i * PIXEL_SIZE + PIXEL_SIZE, j * PIXEL_SIZE + PIXEL_SIZE, fill=color)
@@ -54,19 +54,19 @@ s = sched.scheduler(time.time, time.sleep)
 
 root = tk.Tk()
 app = Application(master=root)
-
-while True:
-    app.update()
-    idx_color = 0;
-    fo = open("ws2812driver", "r")
-    rgb_values = fo.readlines()[0].split(',')
-    #print(rgb_values)
-    for i in range(16):
-        for j in range(10):
-            color = '#%02x%02x%02x' % (int(rgb_values[idx_color]), int(rgb_values[idx_color + 1]), int(rgb_values[idx_color + 2]))
-            idx_color += 3
-            app.lw_canv.create_rectangle(i * PIXEL_SIZE, j * PIXEL_SIZE, i * PIXEL_SIZE + PIXEL_SIZE, j * PIXEL_SIZE + PIXEL_SIZE, fill=color)
-    #print(idx_color)
-    time.sleep(0.5)
+app.mainloop()
+##while True:
+##    app.update()
+####    idx_color = 0;
+####    fo = open("ws2812driver", "r")
+####    rgb_values = fo.readlines()[0].split(',')
+####    #print(rgb_values)
+####    for i in range(16):
+####        for j in range(10):
+####            color = '#%02x%02x%02x' % (int(rgb_values[idx_color]), int(rgb_values[idx_color + 1]), int(rgb_values[idx_color + 2]))
+####            idx_color += 3
+####            app.lw_canv.create_rectangle(i * PIXEL_SIZE, j * PIXEL_SIZE, i * PIXEL_SIZE + PIXEL_SIZE, j * PIXEL_SIZE + PIXEL_SIZE, fill=color)
+####    #print(idx_color)
+##    time.sleep(0.1)
 
 

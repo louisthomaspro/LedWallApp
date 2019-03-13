@@ -115,11 +115,7 @@ router.get('/run/:id', function (req, res, next) {
 
         const piskel = response;
 
-        // appel fonction convertir
-        // var img_data = ws2812.WS2812ImageToRgb(path);
-        // ecrire dans le fichier
-        // ws2812.WS2812DisplayImage(img_data);
-
+        ws2812.WS2812RunEditorImage(piskel);
 
         console.log('Pixel art ' + pixelArtId + ' running');
 
