@@ -5,8 +5,7 @@ const ws2812 = require('../ws2812');
 
 const mongoose = require('mongoose');
 
-
-
+var anim_interval_id = -1;  //Used to stop the currently displayed animation/image
 
 // create/update
 router.post('/', function (req, res, next) {
@@ -19,7 +18,6 @@ router.post('/', function (req, res, next) {
 
     const layers = JSON.parse(pixelart.piskel.layers[0]);
     pixelart.base64Thumb = layers.base64PNG;
-
 
     // add
     if (!pixelart._id) {
@@ -115,7 +113,7 @@ router.get('/run/:id', function (req, res, next) {
 
         const piskel = response;
 
-        ws2812.WS2812RunEditorImage(piskel);
+        anim_interval_id = ws2812.WS2812RunEditorImage(piskel, anim_interval_id);
 
         console.log('Pixel art ' + pixelArtId + ' running');
 
@@ -126,11 +124,5 @@ router.get('/run/:id', function (req, res, next) {
 
     });
 });
-
-
-
-
-
-
 
 module.exports = router;
