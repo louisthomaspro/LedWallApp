@@ -23,3 +23,9 @@ To run the project you need to have [node](https://nodejs.org/en/download/) inst
 
 Change default piskel size when opening editor :
 `front/src/assets/piskel-editor/js/piskel-packaged-2015-09-02-11-47.js (11782)`
+
+## Sources
+
+* https://github.com/boopathi4291/MEAN
+* https://angular.io/
+* https://github.com/piskelapp/piskel-embed

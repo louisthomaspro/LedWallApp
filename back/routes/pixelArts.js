@@ -8,53 +8,68 @@ const mongoose = require('mongoose');
 
 
 
-// create/update
+// create
 router.post('/', function (req, res, next) {
-    const pixelart = req.body;
-    if (!pixelart) {
+    const pixelArt = req.body;
+    if (!pixelArt) {
         const error = new Error('No data found');
         error.httpStatusCode = 400;
         return next(error);
     }
 
-    const layers = JSON.parse(pixelart.piskel.layers[0]);
-    pixelart.base64Thumb = layers.base64PNG;
+    const layers = JSON.parse(pixelArt.piskel.layers[0]);
+    pixelArt.base64Thumb = layers.base64PNG;
 
 
     // add
-    if (!pixelart._id) {
-        delete pixelart._id;
-        let pixelArtRecord = new PixelArts(pixelart);
+    delete pixelArt._id;
+    let pixelArtRecord = new PixelArts(pixelArt);
 
-        pixelArtRecord.save((err, response) => {
-            if (err) {
-                console.log(err);
-            } else {
-                console.log('Pixel art ' + response._id + ' added');
-                return res.json(response._id);
-            }
-        });
+    pixelArtRecord.save((err, response) => {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log('Pixel art ' + response._id + ' added');
+            return res.json(response._id);
+        }
+    });
 
-    } else { // update
+});
 
-        PixelArts.updateOne({_id: pixelart._id}, { $set: { modelVersion: pixelart.modelVersion, base64Thumb: pixelart.base64Thumb, piskel: pixelart.piskel } }, function(err, affected, resp) {
-            if (err) {
-                console.log(err);
-            } else {
-                console.log('Pixel art ' + pixelart._id + ' updated');
-                return res.json(pixelart._id);
-            }
-        });
+
+// update
+router.post('/:id', function (req, res, next) {
+
+    const pixelArtId = req.params.id;
+    const pixelArt = req.body;
+
+    if (!pixelArt) {
+        const error = new Error('No data found');
+        error.httpStatusCode = 400;
+        return next(error);
     }
+
+    const layers = JSON.parse(pixelArt.piskel.layers[0]);
+    pixelArt.base64Thumb = layers.base64PNG;
+
+    PixelArts.updateOne({_id: pixelArtId}, { $set: { modelVersion: pixelArt.modelVersion, base64Thumb: pixelArt.base64Thumb, piskel: pixelArt.piskel } }, function(err, affected, resp) {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log('Pixel art ' + pixelArtId + ' updated');
+            return res.json(pixelArtId);
+        }
+    });
+
 });
 
 
 
 // delete
-router.delete('/', function (req, res) {
-    let pixelArtId = req.body.id;
+router.delete('/:id', function (req, res) {
+    const pixelArtId = req.params.id;
 
-    if(!mongoose.Types.ObjectId.isValid(pixelArtId)) res.status(500).send("invalid id");
+    if(!mongoose.Types.ObjectId.isValid(pixelArtId)) res.status(500).send("invalid pixelArtId");
 
     PixelArts.deleteOne({_id: pixelArtId}, function (err) {
         if (err) return res.status(500).send(err);
@@ -70,16 +85,15 @@ router.delete('/', function (req, res) {
 });
 
 
-
 // get one
 router.get('/:id', function (req, res) {
-    let pixelArtId = req.params.id;
-    if(!mongoose.Types.ObjectId.isValid(pixelArtId)) res.status(500).send("invalid id");
+    const pixelArtId = req.params.id;
+    if(!mongoose.Types.ObjectId.isValid(pixelArtId)) res.status(500).send("invalid pixelArtId");
 
     PixelArts.findOne({_id: pixelArtId}, function (err, response) {
 
         if (err) return res.status(500).send(err);
-        if (!response) return res.status(500).send("invalid id");
+        if (!response) return res.status(500).send("invalid pixelArtId");
 
         console.log('Pixel art ' + pixelArtId + ' returned');
 
@@ -94,7 +108,7 @@ router.get('/:id', function (req, res) {
 // get all
 router.get('/', (req, res) => {
     PixelArts.find({}, function (err, response) {
-        console.log(response.length + ' pixels art returned');
+        console.log(response.length + ' pixelArts returned');
         return res.json(response);
     });
 });
@@ -104,14 +118,14 @@ router.get('/', (req, res) => {
 //run
 router.get('/run/:id', function (req, res, next) {
 
-    let pixelArtId = req.params.id;
+    const pixelArtId = req.params.id;
 
-    if(!mongoose.Types.ObjectId.isValid(pixelArtId)) res.status(500).send("invalid id");
+    if(!mongoose.Types.ObjectId.isValid(pixelArtId)) res.status(500).send("invalid pixelArtId");
 
     PixelArts.findOne({_id: pixelArtId}, function (err, response) {
 
         if (err) return res.status(500).send(err);
-        if (!response) return res.status(500).send("invalid id");
+        if (!response) return res.status(500).send("invalid pixelArtId");
 
         const piskel = response;
 
@@ -121,7 +135,7 @@ router.get('/run/:id', function (req, res, next) {
         // ws2812.WS2812DisplayImage(img_data);
 
 
-        console.log('Pixel art ' + pixelArtId + ' running');
+        console.log('PixelArt ' + pixelArtId + ' running');
 
         const r = {
             message: "Successful run !"
