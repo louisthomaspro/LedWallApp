@@ -6,11 +6,9 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
-import { FooterComponent } from './components/footer/footer.component';
-import { RegisterComponent } from './components/register/register.component';
-import { LoginComponent } from './components/login/login.component';
-import { NotfoundComponent } from './components/notfound/notfound.component';
-import { HomeComponent } from './components/home/home.component';
+import { RegisterComponent } from './components/auth/register/register.component';
+import { LoginComponent } from './components/auth/login/login.component';
+
 
 
 import { MustMatchDirective } from './directives/check-match.directive';
@@ -20,11 +18,21 @@ import { AuthGuard } from './guards/authGuard';
 import { AuthService } from './services/auth.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { MatToolbarModule, MatSidenavModule, MatListModule, MatButtonModule, MatIconModule, MatCardModule, MatMenuModule, MatDialogModule, MatGridListModule, MatSnackBarModule } from '@angular/material';
+import { MatToolbarModule, MatSidenavModule, MatListModule, MatButtonModule, MatIconModule, MatCardModule,
+  MatMenuModule, MatDialogModule, MatGridListModule, MatSnackBarModule, MatBadgeModule, MatFormFieldModule,
+  MatInputModule, MatExpansionModule } from '@angular/material';
+
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+
+import { FooterComponent } from './components/footer/footer.component';
+import { TimeDialogComponent } from './components/dialog/time-dialog/time-dialog.component';
+import { GalleryComponent } from './components/gallery/gallery.component';
+import { AnimationsComponent } from './components/animations/animations.component';
 import { EditorComponent } from './components/editor/editor.component';
-import { PixelArtInformationDialogComponent } from './components/pixelart-information-dialog/pixel-art-information-dialog.component';
-import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
+import { PixelArtInformationDialogComponent } from './components/dialog/pixelart-information-dialog/pixel-art-information-dialog.component';
+import { ConfirmDialogComponent } from './components/dialog/confirm-dialog/confirm-dialog.component';
+import { NotfoundComponent } from './components/notfound/notfound.component';
 
 
 
@@ -35,11 +43,13 @@ import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dial
     RegisterComponent,
     LoginComponent,
     NotfoundComponent,
-    HomeComponent,
     MustMatchDirective,
     EditorComponent,
     PixelArtInformationDialogComponent,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    TimeDialogComponent,
+    GalleryComponent,
+    AnimationsComponent
   ],
   imports: [
     BrowserModule,
@@ -57,10 +67,15 @@ import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dial
     MatMenuModule,
     MatDialogModule,
     MatGridListModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    DragDropModule,
+    MatBadgeModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatExpansionModule
   ],
   providers: [UserService, AuthGuard, AuthService],
   bootstrap: [AppComponent],
-  entryComponents: [ PixelArtInformationDialogComponent, ConfirmDialogComponent ]
+  entryComponents: [ PixelArtInformationDialogComponent, ConfirmDialogComponent, TimeDialogComponent ]
 })
 export class AppModule { }

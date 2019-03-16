@@ -18,9 +18,11 @@ app.use(cors({credentials: true, origin: 'http://localhost:4200'}));
 
 //re rourting to the User Registration
 const usersRouter = require('./routes/users');
-const filesRouter = require('./routes/pixelArts');
+const pixelArtsRouter = require('./routes/pixelArts');
+const animationsRouter = require('./routes/animations');
 app.use('/users', usersRouter);
-app.use('/pixelarts', filesRouter);
+app.use('/pixelarts', pixelArtsRouter);
+app.use('/animations', animationsRouter);
 
 
 //WS2812 Direct link websocket

@@ -55,7 +55,7 @@
         rtrim = core_rnotwhite.test("\xA0") ? (/^[\s\xA0]+|[\s\xA0]+$/g) : /^\s+|\s+$/g,
 
         // A simple way to check for HTML strings
-        // Prioritize #id over <tag> to avoid XSS via location.hash (#9521)
+        // Prioritize #pixelArtId over <tag> to avoid XSS via location.hash (#9521)
         rquickExpr = /^(?:[^#<]*(<[\w\W]+>)[^>]*$|#([\w\-]*)$)/,
 
         // Match a standalone tag
@@ -119,7 +119,7 @@
                     match = rquickExpr.exec(selector);
                 }
 
-                // Match html or make sure no context is specified for #id
+                // Match html or make sure no context is specified for #pixelArtId
                 if (match && (match[1] || !context)) {
 
                     // HANDLE: $(html) -> $(array)
@@ -135,7 +135,7 @@
 
                         return jQuery.merge(this, selector);
 
-                        // HANDLE: $(#id)
+                        // HANDLE: $(#pixelArtId)
                     } else {
                         elem = document.getElementById(match[2]);
 
@@ -3816,7 +3816,7 @@
             // Check if getElementsByName privileges form controls or returns elements by ID
             assertUsableName = assert(function (div) {
                 // Inject content
-                div.id = expando + 0;
+                div.pixelArtId = expando + 0;
                 div.innerHTML = "<a name='" + expando + "'></a><div name='" + expando + "'></div>";
                 docElem.insertBefore(div, docElem.firstChild);
 
@@ -5080,7 +5080,7 @@
 
                             try {
                                 push.apply(results, slice.call(newContext.querySelectorAll(
-                                    selector.replace(rgroups, "[id='" + nid + "'] $&")
+                                    selector.replace(rgroups, "[pixelArtId='" + nid + "'] $&")
                                 ), 0));
                                 return results;
                             } catch (qsaError) {
@@ -6062,7 +6062,7 @@
 
                 // Weird iteration because IE will replace the length property
                 // with an element if you are cloning the body and one of the
-                // elements on the page has a name or id of "length"
+                // elements on the page has a name or pixelArtId of "length"
                 for (i = 0; srcElements[i]; ++i) {
                     // Ensure that the destination node is not null; Fixes #9587
                     if (destElements[i]) {
@@ -9362,7 +9362,7 @@
         uniqueId: function () {
             return this.each(function () {
                 if (!this.id) {
-                    this.id = "ui-id-" + (++uuid);
+                    this.pixelArtId = "ui-pixelArtId-" + (++uuid);
                 }
             });
         },
@@ -13326,7 +13326,7 @@ if (!Function.prototype.bind) {
                 if (template) {
                     templates[templateId] = template.innerHTML;
                 } else {
-                    console.error('Could not find template for id :', templateId);
+                    console.error('Could not find template for pixelArtId :', templateId);
                 }
             }
             return templates[templateId];
@@ -23701,7 +23701,7 @@ zlib.js 2012 - imaya [ https://github.com/imaya/zlib.js ] The MIT License
         this.activateToolOnStage_(this.currentSelectedTool);
 
         var selectedToolElement = $('#tool-section .tool-icon.selected');
-        var toolElement = $('[data-tool-id=' + tool.instance.toolId + ']');
+        var toolElement = $('[data-tool-pixelArtId=' + tool.instance.toolId + ']');
 
         selectedToolElement.removeClass('selected');
         toolElement.addClass('selected');
@@ -23940,7 +23940,7 @@ zlib.js 2012 - imaya [ https://github.com/imaya/zlib.js ] The MIT License
         var palettes = this.paletteService.getPalettes();
 
         var html = palettes.map(function (palette) {
-            return pskl.utils.Template.replace('<option value="{{id}}">{{name}}</option>', palette);
+            return pskl.utils.Template.replace('<option value="{{pixelArtId}}">{{name}}</option>', palette);
         }).join('');
         this.colorPaletteSelect_.innerHTML = html;
     };
@@ -25150,15 +25150,32 @@ zlib.js 2012 - imaya [ https://github.com/imaya/zlib.js ] The MIT License
 
     ns.SaveController.prototype.saveToDatabase_ = function () {
         this.beforeSaving_();
+
         var pixelart = JSON.parse(pskl.app.piskelController.serialize());
-        $.post( "http://localhost:8080/pixelarts", pixelart)
-            .done(function(res) {
-                pskl.app.piskelController.getPiskel().setId(res);
-                alert( "Saved !" );
-            })
-            .fail(function() {
-                alert( "Error occured sorry :/" );
-            });
+        if (pixelart._id) {
+
+            $.post( "http://localhost:8080/pixelarts/" + pixelart._id, pixelart)
+                .done(function(res) {
+                    pskl.app.piskelController.getPiskel().setId(res);
+                    console.log("updated : " + pixelart._id);
+                    alert( "Saved !" );
+                })
+                .fail(function() {
+                    alert( "Error occured sorry :/" );
+                });
+        } else {
+            $.post( "http://localhost:8080/pixelarts", pixelart)
+                .done(function(res) {
+                    pskl.app.piskelController.getPiskel().setId(res);
+                    console.log("add : " + res);
+                    alert( "Saved !" );
+                })
+                .fail(function() {
+                    alert( "Error occured sorry :/" );
+                });
+        }
+
+
 
     };
 

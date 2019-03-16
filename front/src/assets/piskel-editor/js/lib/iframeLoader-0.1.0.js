@@ -30,7 +30,7 @@
   };
 
   /**
-   * Load the iframe content as a <script type="text/html" id={iframe-src}>{iframe-content}</script>
+   * Load the iframe content as a <script type="text/html" pixelArtId={iframe-src}>{iframe-content}</script>
    * The content can later be accessed by getting the script (through getElementById for instance) and reading innerHTML
    * @param  {HTMLElement} iframe
    */
