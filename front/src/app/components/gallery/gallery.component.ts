@@ -66,10 +66,37 @@ export class GalleryComponent implements OnInit {
 
 
   deletePixelArt(id) {
-    this.pixelArtService.delete(id).subscribe((res) => {
-      this.ngOnInit();
+    this.deleteConfirmDialog(id, 'Are you sure you want to delete this beautiful pixel art ? He will leave us forever ...', () => {
+      this.pixelArtService.delete(id).subscribe((res) => {
+        this.ngOnInit();
+      });
     });
   }
+
+
+  deleteAnimation(id) {
+    this.deleteConfirmDialog(id, 'Are you sure you want to delete this beautiful animation ? He will leave us forever ...', () => {
+      this.animationService.delete(id).subscribe((res) => {
+        this.ngOnInit();
+      });
+    });
+  }
+
+
+
+  deleteConfirmDialog(id, msg, callback): void {
+    const item = this.sadGifArray[Math.floor(Math.random() * this.sadGifArray.length)];
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      data: { title: 'WARNING', text: msg, gif: item}
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        callback();
+        this.openSnackBar('No mercy :\'(');
+      }
+    });
+  }
+
 
 
   openPixelArtInformationDialog(pa): void {
@@ -82,18 +109,6 @@ export class GalleryComponent implements OnInit {
   }
 
 
-  openConfirmDialog(id): void {
-    const item = this.sadGifArray[Math.floor(Math.random() * this.sadGifArray.length)];
-    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
-      data: { title: 'WARNING', text: 'Are you sure you want to delete this beautiful pixel art ? He will leave us forever ...', gif: item}
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.deletePixelArt(id);
-        this.openSnackBar('No mercy :\'(');
-      }
-    });
-  }
 
 
   runPixelArt(id) {
