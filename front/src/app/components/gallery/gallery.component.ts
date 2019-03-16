@@ -119,6 +119,13 @@ export class GalleryComponent implements OnInit {
   }
 
 
+  runAnimation(id) {
+    this.openSnackBar('RUN FORREST RUN !️');
+    this.animationService.run(id).subscribe((res) => {
+      console.log(res);
+    });
+  }
+
 
 
   // uploadFiles(targetFile) { // (deprecated but maybe usefull for python script ???)
