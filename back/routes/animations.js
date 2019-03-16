@@ -48,7 +48,7 @@ router.post('/:id', function (req, res, next) {
         if (err) {
             console.log(err);
         } else {
-            console.log('Aniamtion ' + animationId + ' updated');
+            console.log('Animation ' + animationId + ' updated');
             return res.json(animationId);
         }
     });

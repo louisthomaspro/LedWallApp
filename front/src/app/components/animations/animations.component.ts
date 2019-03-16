@@ -43,7 +43,6 @@ export class AnimationsComponent implements OnInit {
         this.timeline = res;
         this.animationId = res._id;
         console.log('Id found ! Loading ' + res.name);
-        console.log(this.timeline);
       });
     }
 
@@ -71,6 +70,9 @@ export class AnimationsComponent implements OnInit {
     const animationToAdd: AnimationItem = {
       time: 3,
       pixelArt: pa
+    };
+    if (!this.timeline.animationItems) {
+      this.timeline.animationItems = [];
     }
     this.timeline.animationItems.push(animationToAdd);
   }
@@ -94,13 +96,23 @@ export class AnimationsComponent implements OnInit {
 
   saveAnimation() {
     if (this.animationId) {
-      this.animationService.update(this.animationId, this.timeline).subscribe((res) => {
-        // console.log(res);
-      });
+      this.animationService.update(this.animationId, this.timeline).subscribe(
+          (res) => {
+            this.openSnackBar('Animation updated');
+          },
+          (err) => {
+            this.openSnackBar('An error occurred. Pls contact an administrator.');
+          }
+      );
     } else {
       this.animationService.create(this.timeline).subscribe((res) => {
-        this.animationId = res;
-      });
+          this.animationId = res;
+            this.openSnackBar('Animation created');
+          },
+          (err) => {
+            this.openSnackBar('An error occurred. Pls contact an administrator.');
+          }
+        );
     }
   }
 

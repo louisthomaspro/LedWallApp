@@ -45,7 +45,7 @@
             <div class="d-flex align-items-center">
                 <div class="flex-grow-1">
                     <mat-form-field class="w-50" style="max-width: 250px">
-                        <input matInput placeholder="Name" [value]="timeline.name">
+                        <input matInput placeholder="Name" [(ngModel)]="timeline.name">
                     </mat-form-field>
                 </div>
                 <button mat-raised-button color="accent" (click)="saveAnimation()">Save</button>
