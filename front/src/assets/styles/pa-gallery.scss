@@ -9,9 +9,9 @@
     border-radius: 4px;
   }
 
-  .pa-size-200 {
-    max-width: 200px;
-    min-width: 200px;
+  .pa-size-220{
+    max-width: 220px;
+    min-width: 220px;
   }
 
   .pa-size-150 {
@@ -25,6 +25,34 @@
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
+    text-align: left;
+    min-width: 0;
+  }
+
+  .card-hover {
+    .mat-card-actions {
+      position: absolute;
+      display: none;
+      margin: 0;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+
+      > div, > div > button {
+        width: 100%;
+        height: 100%;
+      }
+    }
+
+    &:hover {
+
+      .mat-card-actions {
+        display: block;
+      }
+
+    }
+
   }
 
   .pa-grid-container {
@@ -32,6 +60,13 @@
     padding: 0;
     background-image: linear-gradient(#d4d4d4, #ececec);
     border-radius: 4px;
+  }
+
+  .mat-card-content {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
   }
 
   //.pa-grid{

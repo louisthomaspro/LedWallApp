@@ -44,41 +44,42 @@
 
   <div class="mb-5 text-center pa-gallery">
 
-    <div class="d-inline-block p-2 pa-size-200" *ngFor="let pa of pixelArtArray">
-      <mat-card class="mat-elevation-z2">
-        <div mat-card-image>
+    <div class="d-inline-block p-2 pa-size-220" *ngFor="let pa of pixelArtArray">
+      <mat-card class="mat-elevation-z2 pb-2">
+        <div mat-card-image class="mb-2">
           <div class="pa-grid-container">
             <div class="pa-grid">
               <div class="pa-thumb" [style.background-image]="'url(' + pa.base64Thumb + ')'"></div>
             </div>
           </div>
         </div>
-        <mat-card-content class="pa-title" title="{{ pa.piskel.name }}">
-          {{ pa.piskel.name || 'No name' }}
+        <mat-card-content title="{{ pa.piskel.name }}">
+          <div class="pa-title">
+            {{ pa.piskel.name || 'No name' }}</div>
+          <div>
+            <button mat-icon-button [matMenuTriggerFor]="menu">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+              <button  (click)="runPixelArt(pa._id)" mat-menu-item>
+                <mat-icon>send</mat-icon>
+                <span>Run</span>
+              </button>
+              <button (click)="openPixelArtInformationDialog(pa)" mat-menu-item>
+                <mat-icon>info</mat-icon>
+                <span>Information</span>
+              </button>
+              <button [routerLink]="['/editor']" [queryParams]="{id: pa._id}" mat-menu-item>
+                <mat-icon>edit</mat-icon>
+                <span>Edit</span>
+              </button>
+              <button (click)="deletePixelArt(pa._id)" mat-menu-item>
+                <mat-icon>delete</mat-icon>
+                <span>Delete</span>
+              </button>
+            </mat-menu>
+          </div>
         </mat-card-content>
-        <mat-card-actions class="p-0 d-flex">
-          <button mat-stroked-button class="flex-grow-1" (click)="runPixelArt(pa._id)">
-            <mat-icon>play_circle_outline</mat-icon>
-          </button>
-          <span class="flex-grow-1"></span>
-          <button mat-icon-button [matMenuTriggerFor]="menu">
-            <mat-icon>more_vert</mat-icon>
-          </button>
-          <mat-menu #menu="matMenu">
-            <button (click)="openPixelArtInformationDialog(pa)" mat-menu-item>
-              <mat-icon>info</mat-icon>
-              <span>Information</span>
-            </button>
-            <button [routerLink]="['/editor']" [queryParams]="{id: pa._id}" mat-menu-item>
-              <mat-icon>edit</mat-icon>
-              <span>Edit</span>
-            </button>
-            <button (click)="deletePixelArt(pa._id)" mat-menu-item>
-              <mat-icon>delete</mat-icon>
-              <span>Delete</span>
-            </button>
-          </mat-menu>
-        </mat-card-actions>
       </mat-card>
     </div>
 
@@ -88,8 +89,8 @@
       <span> là maintenant !</span>
     </div>
 
-    <div *ngIf="pixelArtArray?.length > 0" class="d-inline-block p-2 pa-size-200 align-top">
-      <button [routerLink]="['/editor'] "style="border-radius: 4px;width: 100%;height: 220px;background-color: #ffffff61;" mat-raised-button>
+    <div *ngIf="pixelArtArray?.length > 0" class="d-inline-block p-2 pa-size-220 align-top">
+      <button [routerLink]="['/editor'] "style="border-radius: 4px;width: 100%;height: 180px;background-color: #ffffff61;" mat-raised-button>
         <mat-icon style="font-size: 48px;width: 48px;height: 48px;line-height: 48px;color: #464646;">add_circle_outline</mat-icon>
       </button>
     </div>

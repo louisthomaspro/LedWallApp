@@ -16,7 +16,7 @@
             <div class="mt-3 text-center pa-gallery">
 
                 <div class="d-inline-block p-2 pa-size-150" *ngFor="let pa of pixelArtArray">
-                    <mat-card class="mat-elevation-z2">
+                    <mat-card class="mat-elevation-z2 card-hover">
                         <div mat-card-image>
                             <div class="pa-grid-container">
                                 <div class="pa-grid">
@@ -25,13 +25,17 @@
                                 </div>
                             </div>
                         </div>
-                        <mat-card-content class="pa-title" title="{{ pa.piskel.name }}">
-                            {{ pa.piskel.name || 'No name' }}
+                        <mat-card-content class="mb-1" title="{{ pa.piskel.name }}">
+                            <div class="pa-title">
+                                {{ pa.piskel.name || 'No name' }}
+                            </div>
                         </mat-card-content>
                         <mat-card-actions class="p-0">
-                            <button mat-stroked-button class="w-100" (click)="addToTimeline(pa)">
-                                <mat-icon>playlist_add</mat-icon>
-                            </button>
+                            <div class="p-3">
+                                <button mat-raised-button class="w-100" (click)="addToTimeline(pa)">
+                                    <mat-icon>playlist_add</mat-icon>
+                                </button>
+                            </div>
                         </mat-card-actions>
                     </mat-card>
                 </div>
