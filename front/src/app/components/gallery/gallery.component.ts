@@ -44,10 +44,11 @@ export class GalleryComponent implements OnInit {
     this.pixelArtService.get().subscribe((res) => {
       this.pixelArtArray = res;
     });
-
+    
     // Init animatiosnArray
     this.animationService.get().subscribe((res) => {
       this.animationArray = res;
+      console.log(res);
     });
 
     // Init sad gifs
@@ -55,6 +56,26 @@ export class GalleryComponent implements OnInit {
     for (const name of gifNames) {
       this.sadGifArray.push('assets/gifs/sad/' + name + '.gif');
     }
+  }
+
+
+  animationBackground(animation: Animation): Object {
+    let backgroundImage = '';
+    for (const animationItem of animation.animationItems) {
+      backgroundImage += 'url(' + animationItem.pixelArt.base64Thumb + '),';
+    }
+    backgroundImage = backgroundImage.substring(0, backgroundImage.length - 1);
+    console.log(backgroundImage);
+    return {
+      'background-image': backgroundImage,
+      'background-size': '50%',
+      'background-repeat': 'no-repeat',
+      'background-position':
+        'top left,' +
+        'top right,' +
+        'bottom left,' +
+        'bottom right'
+    };
   }
 
 
