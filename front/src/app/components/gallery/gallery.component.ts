@@ -92,7 +92,7 @@ export class GalleryComponent implements OnInit {
 
 
   deletePixelArt(id) {
-    this.deleteConfirmDialog(id, 'Are you sure you want to delete this beautiful pixel art ? He will leave us forever ...', () => {
+    this.deleteConfirmDialog(id, 'Are you sure you want to delete this beautiful pixel art ? He will <u>also be deleted in the animations in which it appears.</u><br>In conclusion, he will leave us forever ...', () => {
       this.pixelArtService.delete(id).subscribe((res) => {
         this.ngOnInit();
       });

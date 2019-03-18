@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const PixelArts = require('../models/pixelArts');
+const Animations = require('../models/animations')
 const ws2812 = require('../ws2812');
 
 const mongoose = require('mongoose');
@@ -69,16 +70,29 @@ router.delete('/:id', function (req, res) {
 
     if(!mongoose.Types.ObjectId.isValid(pixelArtId)) res.status(500).send("invalid pixelArtId");
 
-    PixelArts.deleteOne({_id: pixelArtId}, function (err) {
-        if (err) return res.status(500).send(err);
+    Animations.update(
+        { animationItems: { $elemMatch: { pixelArt: pixelArtId } } },
+        { $pull: { animationItems: { pixelArt: pixelArtId } } },
+        { multi: true }, function(err1) {
+            if (err1) return res.status(500).send(err1);
 
-        console.log('Pixel art ' + pixelArtId + ' deleted');
-        const response = {
-            message: "Successful delete !",
-            id: pixelArtId
-        };
-        res.status(200).send(response);
+            PixelArts.deleteOne({_id: pixelArtId}, function (err2) {
+                if (err2) return res.status(500).send(err2);
+
+                console.log('Pixel art ' + pixelArtId + ' deleted');
+                const response = {
+                    message: "Successful delete !",
+                    id: pixelArtId
+                };
+
+                res.status(200).send(response);
+
+            });
     });
+
+
+
+
 
 });
 
