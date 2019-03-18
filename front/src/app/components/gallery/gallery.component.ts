@@ -44,8 +44,8 @@ export class GalleryComponent implements OnInit {
     this.pixelArtService.get().subscribe((res) => {
       this.pixelArtArray = res;
     });
-    
-    // Init animatiosnArray
+
+    // Init animationArray
     this.animationService.get().subscribe((res) => {
       this.animationArray = res;
       console.log(res);
@@ -61,8 +61,13 @@ export class GalleryComponent implements OnInit {
 
   animationBackground(animation: Animation): Object {
     let backgroundImage = '';
+    let i = 0;
     for (const animationItem of animation.animationItems) {
+      i++;
       backgroundImage += 'url(' + animationItem.pixelArt.base64Thumb + '),';
+      if (i >= 4) {
+        break;
+      }
     }
     backgroundImage = backgroundImage.substring(0, backgroundImage.length - 1);
     console.log(backgroundImage);

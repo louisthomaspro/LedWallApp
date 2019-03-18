@@ -100,7 +100,7 @@ router.get('/:id', function (req, res) {
 router.get('/', (req, res) => {
     Animations.find({}).populate('animationItems.pixelArt')
         .exec((err, response) => {
-            console.log(response.lengsth + ' animation returned');
+            console.log(response.length + ' animation returned');
             return res.json(response);
         });
 });
