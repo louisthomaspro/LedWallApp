@@ -20,7 +20,7 @@ export class EditorComponent implements OnInit {
   }
 
   ngOnInit() {
-    const pixelArtId = this.route.snapshot.queryParams['animationId'];
+    const pixelArtId = this.route.snapshot.queryParams['id'];
     if (pixelArtId) {
       this.pixelArtId = pixelArtId;
       this.pixelArtService.getById(pixelArtId).subscribe((res) => {
