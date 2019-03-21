@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const PixelArts = require('../models/pixelArts');
-const Animations = require('../models/animations')
+const Animations = require('../models/animations');
 const ws2812 = require('../ws2812');
 
 const mongoose = require('mongoose');

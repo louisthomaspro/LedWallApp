@@ -45,9 +45,8 @@
     </div>
 
     <div *ngIf="animationArray?.length <= 0">
-      <span>Aucune Animation. </span>
       <button mat-stroked-button class="flex-grow-1" [routerLink]="['/animations']">Créez</button>
-      <span> là maintenant !</span>
+      <span> votre première animation maintenant !</span>
     </div>
 
     <div *ngIf="animationArray?.length > 0" class="d-inline-block p-2 pa-size-220 align-top">
@@ -102,9 +101,8 @@
     </div>
 
     <div *ngIf="pixelArtArray?.length <= 0">
-      <span>Aucun PixelArt. </span>
       <button mat-stroked-button class="flex-grow-1" [routerLink]="['/editor']">Créez</button>
-      <span> là maintenant !</span>
+      <span> votre premier PixelArt maintenant !</span>
     </div>
 
     <div *ngIf="pixelArtArray?.length > 0" class="d-inline-block p-2 pa-size-220 align-top">
