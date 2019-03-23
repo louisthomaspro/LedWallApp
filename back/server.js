@@ -6,6 +6,11 @@ const mongoose = require('mongoose');
 const websocket = require('ws');
 const ws2812 = require('./ws2812');
 
+//assigning port 
+const API_PORT =  8080;
+const HTTP_PORT = 8000;
+
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -23,7 +28,7 @@ const animationsRouter = require('./routes/animations');
 app.use('/users', usersRouter);
 app.use('/pixelarts', pixelArtsRouter);
 app.use('/animations', animationsRouter);
-
+app.use(express.static('../front/dist/ledwall-app'));  //Serving the angular deployement files
 
 //WS2812 Direct link websocket
 const wss = new websocket.Server({ port: 8069 });
@@ -45,17 +50,10 @@ mongoose.connect(db.DB, { useNewUrlParser: true }).then(
   err => { console.log('Can not connect to the database'+ err)}
 );
 
-
-//assigning port 
-const port =  8080;
-
-
 app.get('/', (req,res) => {
   return res.end('Api working');
 })
 
-app.listen(port,() => {
-    console.log(`App Server Listening at ${port}`);
+app.listen(API_PORT,() => {
+    console.log(`App Server Listening at ${API_PORT}`);
   });
-
-
