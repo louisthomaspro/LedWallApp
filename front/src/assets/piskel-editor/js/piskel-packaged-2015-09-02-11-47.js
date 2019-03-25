@@ -9362,7 +9362,7 @@
         uniqueId: function () {
             return this.each(function () {
                 if (!this.id) {
-                    this.pixelArtId = "ui-pixelArtId-" + (++uuid);
+                    this.pixelartId = "ui-pixelArtId-" + (++uuid);
                 }
             });
         },

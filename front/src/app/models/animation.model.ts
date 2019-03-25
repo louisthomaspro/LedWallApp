@@ -1,4 +1,4 @@
-import { AnimationItem } from './animationItem';
+import { AnimationItem } from './animation-item.model';
 
 export class Animation {
     name: string;

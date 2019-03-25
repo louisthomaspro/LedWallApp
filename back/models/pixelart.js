@@ -17,5 +17,5 @@ let Schema = mongoose.Schema({
 });
 
 
-let PixelArts = mongoose.model("PixelArts", Schema);
-module.exports = PixelArts;
+let Pixelart = mongoose.model("Pixelart", Schema);
+module.exports = Pixelart;

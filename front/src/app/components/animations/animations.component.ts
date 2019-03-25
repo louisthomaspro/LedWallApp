@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {PixelArt} from '../../modals/pixelArt';
-import {Animation} from '../../modals/animation';
-import {AnimationItem} from '../../modals/animationItem';
-import {PixelArtService} from '../../services/pixelArt.service';
+import {Pixelart} from '../../models/pixelart.model';
+import {Animation} from '../../models/animation.model';
+import {AnimationItem} from '../../models/animation-item.model';
+import {PixelartService} from '../../services/pixelart.service';
 
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 import {TimeDialogComponent} from '../dialog/time-dialog/time-dialog.component';
@@ -17,12 +17,12 @@ import {AnimationService} from '../../services/animation.service';
 })
 export class AnimationsComponent implements OnInit {
 
-  pixelArtArray: Array<PixelArt> = [];
+  pixelartArray: Array<Pixelart> = [];
   timeline: Animation;
   animationId: string;
 
   constructor(
-      private pixelArtService: PixelArtService,
+      private pixelartService: PixelartService,
       private animationService: AnimationService,
       private snackBar: MatSnackBar,
       public dialog: MatDialog,
@@ -46,9 +46,9 @@ export class AnimationsComponent implements OnInit {
       });
     }
 
-    // Init pixelArtArray
-    this.pixelArtService.get().subscribe((res) => {
-      this.pixelArtArray = res;
+    // Init pixelartArray
+    this.pixelartService.get().subscribe((res) => {
+      this.pixelartArray = res;
     });
 
 
@@ -69,7 +69,7 @@ export class AnimationsComponent implements OnInit {
   addToTimeline(pa) {
     const animationToAdd: AnimationItem = {
       time: 3,
-      pixelArt: pa
+      pixelart: pa
     };
     if (!this.timeline.animationItems) {
       this.timeline.animationItems = [];

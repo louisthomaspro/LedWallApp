@@ -10,16 +10,19 @@ import { NotfoundComponent } from './components/notfound/notfound.component';
 import { EditorComponent } from './components/editor/editor.component';
 import { GalleryComponent} from './components/gallery/gallery.component';
 import { AnimationsComponent } from './components/animations/animations.component';
+import {WordartsComponent} from './components/wordarts/wordarts.component';
 
 
 const routes: Routes = [
   { path: '', component: GalleryComponent/*, canActivate: [AuthGuard]*/ },
   // { path: 'register', component: RegisterComponent },
   // { path: 'login', component: LoginComponent },
-  { path: 'editor/:pixelArtId', component: EditorComponent },
+  { path: 'editor/:id', component: EditorComponent },
   { path: 'gallery', component: GalleryComponent },
   { path: 'editor', component: EditorComponent },
   { path: 'animations', component: AnimationsComponent },
+  { path: 'wordarts/:id', component: WordartsComponent },
+  { path: 'wordarts', component: WordartsComponent },
   { path: 'notFound', component: NotfoundComponent }
   ];
 

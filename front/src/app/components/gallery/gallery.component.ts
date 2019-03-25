@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 
 // Objects
-import {PixelArt} from '../../modals/pixelArt';
-import {Animation} from '../../modals/animation';
+import {Pixelart} from '../../models/pixelart.model';
+import {Animation} from '../../models/animation.model';
+import {Script} from '../../models/script.model';
+import {Wordart} from '../../models/wordart.model';
 
 // Angular Modules
 import {MatDialog, MatSnackBar} from '@angular/material';
@@ -12,8 +14,10 @@ import {PixelArtInformationDialogComponent} from '../dialog/pixelart-information
 import {ConfirmDialogComponent} from '../dialog/confirm-dialog/confirm-dialog.component';
 
 // Services
-import {PixelArtService} from '../../services/pixelArt.service';
+import {PixelartService} from '../../services/pixelart.service';
 import {AnimationService} from '../../services/animation.service';
+import {ScriptService} from '../../services/script.service';
+import {WordartService} from '../../services/wordart.service';
 
 
 
@@ -24,34 +28,43 @@ import {AnimationService} from '../../services/animation.service';
 })
 export class GalleryComponent implements OnInit {
 
-  animationArray: Array<Animation>;
-  pixelArtArray: Array<PixelArt> = [];
+  animationArray: Array<Animation> = [];
+  pixelartArray: Array<Pixelart> = [];
+  wordartArray: Array<Wordart> = [];
+  scriptArray: Array<Script> = [];
+
   sadGifArray: Array<string> = [];
+
+  @ViewChild('form') form;
 
 
 
 
   constructor(
-      private pixelArtService: PixelArtService,
+      private pixelartService: PixelartService,
       private animationService: AnimationService,
+      private scriptService: ScriptService,
+      private wordartService: WordartService,
       public dialog: MatDialog, private snackBar: MatSnackBar
   ) { }
 
 
   ngOnInit() {
 
-    // Init pixelArtArray
-    this.pixelArtService.get().subscribe((res) => {
-      this.pixelArtArray = res;
+    // Init arrays
+    this.pixelartService.get().subscribe((res) => {
+      this.pixelartArray = res;
     });
-
-    // Init animationArray
     this.animationService.get().subscribe((res) => {
       this.animationArray = res;
-      console.log(res);
+    });
+    this.wordartService.get().subscribe((res) => {
+      this.wordartArray = res;
+    });
+    this.scriptService.get().subscribe((res) => {
+      this.scriptArray = res;
     });
 
-    // Init sad gifs
     const gifNames = [1, 2, 3, 4, 5, 6, 7, 8, 9];
     for (const name of gifNames) {
       this.sadGifArray.push('assets/gifs/sad/' + name + '.gif');
@@ -64,13 +77,12 @@ export class GalleryComponent implements OnInit {
     let i = 0;
     for (const animationItem of animation.animationItems) {
       i++;
-      backgroundImage += 'url(' + animationItem.pixelArt.base64Thumb + '),';
+      backgroundImage += 'url(' + animationItem.pixelart.base64Thumb + '),';
       if (i >= 4) {
         break;
       }
     }
     backgroundImage = backgroundImage.substring(0, backgroundImage.length - 1);
-    console.log(backgroundImage);
     return {
       'background-image': backgroundImage,
       'background-size': '50%',
@@ -89,25 +101,6 @@ export class GalleryComponent implements OnInit {
       duration: 3000,
     });
   }
-
-
-  deletePixelArt(id) {
-    this.deleteConfirmDialog(id, 'Are you sure you want to delete this beautiful pixel art ? He will <u>also be deleted in the animations in which it appears.</u><br>In conclusion, he will leave us forever ...', () => {
-      this.pixelArtService.delete(id).subscribe((res) => {
-        this.ngOnInit();
-      });
-    });
-  }
-
-
-  deleteAnimation(id) {
-    this.deleteConfirmDialog(id, 'Are you sure you want to delete this beautiful animation ? He will leave us forever ...', () => {
-      this.animationService.delete(id).subscribe((res) => {
-        this.ngOnInit();
-      });
-    });
-  }
-
 
 
   deleteConfirmDialog(id, msg, callback): void {
@@ -136,14 +129,68 @@ export class GalleryComponent implements OnInit {
 
 
 
+  uploadScript(targetFile) {
 
-  runPixelArt(id) {
-    this.openSnackBar('RUN FORREST RUN !️');
-    this.pixelArtService.run(id).subscribe((res) => {
-      console.log(res);
+    if (targetFile.length > 0) {
+      const file: File = targetFile[0];
+      this.scriptService.upload(file).subscribe((res) => {
+        console.log(res);
+        this.ngOnInit();
+      });
+
+    }
+
+    this.form.nativeElement.reset();
+  }
+
+
+
+
+
+  /* DELETE */
+
+  deletePixelArt(id) {
+    this.deleteConfirmDialog(id, 'Are you sure you want to delete this beautiful pixel art ? He will <u>also be deleted in the animations in which it appears.</u><br>In conclusion, he will leave us forever ...', () => {
+      this.pixelartService.delete(id).subscribe((res) => {
+        this.ngOnInit();
+      });
     });
   }
 
+  deleteAnimation(id) {
+    this.deleteConfirmDialog(id, 'Are you sure you want to delete this beautiful animation ? He will leave us forever ...', () => {
+      this.animationService.delete(id).subscribe((res) => {
+        this.ngOnInit();
+      });
+    });
+  }
+
+  deleteScript(id) {
+    this.deleteConfirmDialog(id, 'Are you sure you want to delete this script ? He will leave us forever ...', () => {
+      this.scriptService.delete(id).subscribe((res) => {
+        this.ngOnInit();
+      });
+    });
+  }
+
+  deleteWordart(id) {
+    this.deleteConfirmDialog(id, 'Are you sure you want to delete this wordart ? He will leave us forever ...', () => {
+      this.wordartService.delete(id).subscribe((res) => {
+        this.ngOnInit();
+      });
+    });
+  }
+
+
+
+  /* RUN */
+
+  runPixelart(id) {
+    this.openSnackBar('RUN FORREST RUN !️');
+    this.pixelartService.run(id).subscribe((res) => {
+      console.log(res);
+    });
+  }
 
   runAnimation(id) {
     this.openSnackBar('RUN FORREST RUN !️');
@@ -152,22 +199,18 @@ export class GalleryComponent implements OnInit {
     });
   }
 
+  runScript(id) {
+    this.openSnackBar('RUN FORREST RUN !️');
+    this.scriptService.run(id).subscribe((res) => {
+      console.log(res);
+    });
+  }
 
-
-  // uploadFiles(targetFile) { // (deprecated but maybe usefull for python script ???)
-  //
-  //   if (targetFile.length > 0) {
-  //     const file: File = targetFile[0];
-  //     this.pixelArtService.uploadFiles(file).subscribe((res) => {
-  //       console.log(res);
-  //       this.ngOnInit();
-  //     });
-  //
-  //   }
-  //
-  //
-  //
-  //   this.form.nativeElement.reset();
-  // }
+  runWordart(id) {
+    this.openSnackBar('RUN FORREST RUN !️');
+    this.wordartService.run(id).subscribe((res) => {
+      console.log(res);
+    });
+  }
 
 }

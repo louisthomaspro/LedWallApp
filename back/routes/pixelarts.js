@@ -1,12 +1,17 @@
 const express = require('express');
 const router = express.Router();
-const Animation = require('../models/animation');
+const Pixelart = require('../models/pixelart');
+const Animations = require('../models/animation');
 const ws2812 = require('../ws2812');
 
 const mongoose = require('mongoose');
 
-const objectName = 'Animation';
-const objectType = Animation;
+var anim_interval_id = -1;  //Used to stop the currently displayed animation/image
+
+
+
+const objectName = 'Pixelart';
+const objectType = Pixelart;
 
 
 
@@ -19,6 +24,13 @@ router.post('/', function (req, res, next) {
         err.statusCode = 400;
         return next(err);
     }
+
+    // init thumb
+    const layers = JSON.parse(object.piskel.layers[0]);
+    object.base64Thumb = layers.base64PNG;
+
+    delete object._id;
+
     let record = new objectType(object);
     record.save((err, response) => {
         if (err) return next(err);
@@ -38,9 +50,15 @@ router.post('/:id', function (req, res, next) {
         return next(err);
     }
     if(!mongoose.Types.ObjectId.isValid(objectId)) return next(new Error("invalid id"));
+
+    // init thumb
+    const layers = JSON.parse(object.piskel.layers[0]);
+    object.base64Thumb = layers.base64PNG;
+
     objectType.updateOne({_id: objectId}, { $set: {
-        name: object.name,
-        animationItems: object.animationItems
+        modelVersion: object.modelVersion,
+        base64Thumb: object.base64Thumb,
+        piskel: object.piskel
     } }, function(err) {
         if (err) return next(err);
         console.log('Object ' + objectName + ' ' + objectId + ' updated');
@@ -53,11 +71,17 @@ router.post('/:id', function (req, res, next) {
 router.delete('/:id', function (req, res, next) {
     const objectId = req.params.id;
     if(!mongoose.Types.ObjectId.isValid(objectId)) return next(new Error("invalid id"));
-    objectType.deleteOne({_id: objectId}, function (err) {
-        if (err) return next(err);
-        console.log('Object ' + objectName + ' ' + objectId + ' deleted');
-        return res.json('ok');
-    });
+    Animations.update(
+        { animationItems: { $elemMatch: { pixelart: objectId } } },
+        { $pull: { animationItems: { pixelart: objectId } } },
+        { multi: true }, function(err1) {
+            if (err1) return next(err1);
+            Pixelart.deleteOne({_id: pixelartId}, function (err2) {
+                if (err2) return next(err2);
+                console.log('Object ' + objectName + ' ' + objectId + ' deleted');
+                return res.json('ok');
+            });
+        });
 });
 
 
@@ -65,7 +89,7 @@ router.delete('/:id', function (req, res, next) {
 router.get('/:id', function (req, res, next) {
     const objectId = req.params.id;
     if(!mongoose.Types.ObjectId.isValid(objectId)) return next(new Error("invalid id"));
-    objectType.findOne({_id: objectId}).populate('animationItems.pixelart').exec((err, response) => {
+    objectType.findOne({_id: objectId}).exec((err, response) => {
         if (err) return next(err);
         console.log('Object ' + objectName + ' ' + objectId + ' returned');
         return res.json(response);
@@ -75,7 +99,7 @@ router.get('/:id', function (req, res, next) {
 
 // get all
 router.get('/', (req, res, next) => {
-    objectType.find({}).populate('animationItems.pixelart').exec((err, response) => {
+    objectType.find({}).exec((err, response) => {
         if (err) return next(err);
         console.log(response.length + ' ' + objectName + '(s) returned');
         return res.json(response);
@@ -90,18 +114,16 @@ router.get('/run/:id', function (req, res, next) {
     objectType.findOne({_id: objectId}, function (err, response) {
         if (err) return next(err);
 
-        const animation = response;
+        const pixelart = response;
         // TODO tester si la reponse est vide
 
-        // appel fonction convertir
-        // var img_data = ws2812.WS2812ImageToRgb(path);
-        // ecrire dans le fichier
-        // ws2812.WS2812DisplayImage(img_data);
+        anim_interval_id = ws2812.WS2812RunEditorImage(pixelart, anim_interval_id);
 
         console.log('Object ' + objectName + ' ' + objectId + ' running');
         return res.json('ok');
     });
 });
+
 
 
 module.exports = router;

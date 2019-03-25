@@ -1,4 +1,4 @@
-export class PixelArt {
+export class Pixelart {
     _id: string;
     modelVersion: string;
     base64Thumb: string;

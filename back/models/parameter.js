@@ -5,5 +5,5 @@ let Schema = mongoose.Schema({
 });
 
 
-let Parameters = mongoose.model("Parameters", Schema);
-module.exports = Parameters;
+let Parameter = mongoose.model("Parameter", Schema);
+module.exports = Parameter;

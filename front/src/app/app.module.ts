@@ -33,6 +33,7 @@ import { EditorComponent } from './components/editor/editor.component';
 import { PixelArtInformationDialogComponent } from './components/dialog/pixelart-information-dialog/pixel-art-information-dialog.component';
 import { ConfirmDialogComponent } from './components/dialog/confirm-dialog/confirm-dialog.component';
 import { NotfoundComponent } from './components/notfound/notfound.component';
+import { WordartsComponent } from './components/wordarts/wordarts.component';
 
 
 
@@ -49,7 +50,8 @@ import { NotfoundComponent } from './components/notfound/notfound.component';
     ConfirmDialogComponent,
     TimeDialogComponent,
     GalleryComponent,
-    AnimationsComponent
+    AnimationsComponent,
+    WordartsComponent
   ],
   imports: [
     BrowserModule,

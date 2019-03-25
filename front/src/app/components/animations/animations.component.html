@@ -15,7 +15,7 @@
 
             <div class="mt-3 text-center pa-gallery">
 
-                <div class="d-inline-block p-2 pa-size-150" *ngFor="let pa of pixelArtArray">
+                <div class="d-inline-block p-2 pa-size-150" *ngFor="let pa of pixelartArray">
                     <mat-card class="mat-elevation-z2 card-hover">
                         <div mat-card-image>
                             <div class="pa-grid-container">
@@ -61,10 +61,10 @@
 
                     <div style="width: 80px">
                         <div class="pa-thumb"
-                             [style.background-image]="'url(' + animationItem.value.pixelArt.base64Thumb + ')'"></div>
+                             [style.background-image]="'url(' + animationItem.value.pixelart.base64Thumb + ')'"></div>
                     </div>
 
-                    <div class="px-3 flex-grow-1 v-center">{{ animationItem.value.pixelArt.piskel.name }}</div>
+                    <div class="px-3 flex-grow-1 v-center">{{ animationItem.value.pixelart.piskel.name }}</div>
 
                     <button mat-stroked-button (click)="openDelayDialog(animationItem)" class="px-3">
                         <mat-icon class="mr-2">timer</mat-icon>

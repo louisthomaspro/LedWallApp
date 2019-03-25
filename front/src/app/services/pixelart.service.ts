@@ -1,15 +1,15 @@
 import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
-import {Animation} from '../models/animation.model';
+import {Pixelart} from '../models/pixelart.model';
 import {environment} from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AnimationService {
+export class PixelartService {
 
-  uri = environment.apiUrl + '/animations';
+  uri = environment.apiUrl + '/pixelarts';
 
   constructor(private http: HttpClient) { }
 
@@ -22,11 +22,11 @@ export class AnimationService {
     return this.http.get<any>(`${this.uri}/` + id);
   }
 
-  create(data: Animation): Observable<any> {
+  create(data: Pixelart): Observable<any> {
     return this.http.post<any>(`${this.uri}/`, data);
   }
 
-  update(id: string, data: any): Observable<any> {
+  update(id: string, data: Pixelart): Observable<any> {
     return this.http.post<any>(`${this.uri}/` + id, data);
   }
 
@@ -37,4 +37,5 @@ export class AnimationService {
   run(id): Observable<any> {
     return this.http.get<any>(`${this.uri}/run/` + id);
   }
+
 }

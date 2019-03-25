@@ -4,9 +4,9 @@ let Schema = mongoose.Schema({
     name: String,
     animationItems: [{
         time: Number, // seconds
-        pixelArt: {
+        pixelart: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: 'PixelArts'
+            ref: 'Pixelart'
         }
     }]
 },
@@ -15,5 +15,5 @@ let Schema = mongoose.Schema({
 });
 
 
-let Animations = mongoose.model("Animations", Schema);
-module.exports = Animations;
+let Animation = mongoose.model("Animation", Schema);
+module.exports = Animation;
