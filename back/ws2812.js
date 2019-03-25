@@ -35,7 +35,8 @@ module.exports = {
     },
     WS2812DisplayImage: function(img_data)
     {
-        fs.writeFile("ws2812driver", img_data.toString(), function(err) {
+        var bin_data = new Buffer.from(img_data, 'binary');
+        fs.writeFile("ws2812driver", bin_data, function(err) {
             if (err) {
                 return console.log(err);
             }
