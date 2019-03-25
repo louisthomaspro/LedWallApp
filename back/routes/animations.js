@@ -1,15 +1,17 @@
 const express = require('express');
 const router = express.Router();
 const Animations = require('../models/animations');
+const PixelArts = require('../models/pixelArts');
 const ws2812 = require('../ws2812');
 
 const mongoose = require('mongoose');
 
-
-
+var anim_interval_id = -1;
+var playlist_interval_id = -1;
+var oldplaylist_interval_id = -1;
 
 // create
-router.post('/', function (req, res, next) {
+router.post('/', function (req, rvoies, next) {
     const animation = req.body;
     if (!animation) {
         const error = new Error('No data found');
@@ -30,7 +32,6 @@ router.post('/', function (req, res, next) {
     });
 
 });
-
 
 // update
 router.post('/:id', function (req, res, next) {
@@ -111,7 +112,7 @@ router.get('/', (req, res) => {
 router.get('/run/:id', function (req, res, next) {
 
     const animationId = req.params.id;
-
+    clearInterval(oldplaylist_interval_id);
     if(!mongoose.Types.ObjectId.isValid(animationId)) res.status(500).send("invalid animationId");
 
     Animations.findOne({_id: animationId}, function (err, response) {
@@ -120,14 +121,37 @@ router.get('/run/:id', function (req, res, next) {
         if (!response) return res.status(500).send("invalid animationId");
 
         const animation = response;
+        var animation_idx = 0;
+        var animation_nb = animation.animationItems.length;
+        console.log(animation_nb);
 
-        // appel fonction convertir
-        // var img_data = ws2812.WS2812ImageToRgb(path);
-        // ecrire dans le fichier
-        // ws2812.WS2812DisplayImage(img_data);
+        var playlist_interval_id = setInterval(function() 
+        {
+            if (animation_idx == animation_nb)
+            {
+                animation_idx = 0
+            } 
+            else 
+            {
+                anim_img_id = animation.animationItems[animation_idx].pixelArt;
+                animation_idx += 1;
+                PixelArts.findOne({_id: anim_img_id}, function (err, response) {
 
+                    if (err) return res.status(500).send(err);
+                    if (!response) return res.status(500).send("invalid pixelArtId");
+            
+                    const piskel = response;
+            
+                    anim_interval_id = ws2812.WS2812RunEditorImage(piskel, anim_interval_id);
+            
+                    console.log('ANIMATION: PixelArt ' +  anim_img_id + ' running');
+                });
+            }
+        }, 3000);
 
-        console.log('Animation ' + animationId + ' running');
+        oldplaylist_interval_id = playlist_interval_id;
+
+        console.log('ANIMATION: Animation ' + animationId + ' running');
 
         const r = {
             message: "Successful run !"
