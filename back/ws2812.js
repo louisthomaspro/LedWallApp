@@ -1,11 +1,10 @@
 const jpegjs = require('jpeg-js');
 const PNG = require('pngjs').PNG;
 const fs = require('fs');
-var http = require("http");
 
-var DATA_URL_HEADER_OFFSET = 21;
-var LED_WALL_WIDTH = 16;
-var LED_WALL_HEIGHT = 10;
+const DATA_URL_HEADER_OFFSET = 21;
+const LED_WALL_WIDTH = 16;
+const LED_WALL_HEIGHT = 10;
 
 /*  This functions trims the data URL informations before the actual data we need 
     returns: trimmed base64 data of the image file
@@ -40,7 +39,7 @@ module.exports = {
             if (err) {
                 return console.log(err);
             }
-        })
+        });
     },
     WS2812RunEditorImage: function(json_obj, old_interval_id)
     {
