@@ -1,6 +1,6 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {PixelArtService} from '../../services/pixelArtService';
+import {PixelartService} from '../../services/pixelart.service';
 import {MatSnackBar} from '@angular/material';
 
 @Component({
@@ -14,16 +14,16 @@ export class EditorComponent implements OnInit {
   @ViewChild('iframe') iframe: ElementRef;
 
   pixelart: any;
-  id: string;
+  pixelartId: string;
 
-  constructor(private route: ActivatedRoute, private pixelArtService: PixelArtService, private snackBar: MatSnackBar) {
+  constructor(private route: ActivatedRoute, private pixelartService: PixelartService, private snackBar: MatSnackBar) {
   }
 
   ngOnInit() {
-    const id = this.route.snapshot.queryParams['id'];
-    if (id) {
-      this.id = id;
-      this.pixelArtService.getPixelArtsById(id).subscribe((res) => {
+    const pixelartId = this.route.snapshot.queryParams['id'];
+    if (pixelartId) {
+      this.pixelartId = pixelartId;
+      this.pixelartService.getById(pixelartId).subscribe((res) => {
         this.pixelart = res;
         console.log('Id found ! Loading ' + res.piskel.name);
       });
@@ -53,7 +53,7 @@ export class EditorComponent implements OnInit {
       this.openSnackBar('An error occured... CODE : 241');
     } else {
       const fps = sprite.piskel.fps;
-      const id = this.id;
+      const id = this.pixelartId;
       const piskel = sprite.piskel;
       const descriptor = new pskl.model.piskel.Descriptor(piskel.name, piskel.description, true);
       pskl.utils.serialization.Deserializer.deserialize(sprite, function (piskel) {
@@ -63,12 +63,7 @@ export class EditorComponent implements OnInit {
         pskl.app.previewController.setFPS(fps);
       });
     }
-  };
+  }
 
   // init();
-
-
-
-
-
 }

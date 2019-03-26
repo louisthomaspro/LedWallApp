@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -13,13 +13,16 @@ export class AppComponent implements OnInit {
   userName: any;
   httpOptions: any;
 
-  constructor(private router: Router) {
+  id: string;
+
+  constructor(private router: Router, private route: ActivatedRoute) {
   }
 
   ngOnInit() {
     if (this.currentUser) {
       this.userName = this.currentUser.name;
     }
+    this.id = this.route.snapshot.queryParams['id'];
   }
 
 }

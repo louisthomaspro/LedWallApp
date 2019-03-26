@@ -1,23 +1,26 @@
 
 <mat-toolbar color="primary">
     <mat-toolbar-row>
-        <button mat-icon-button class="mr-3" (click)="sidenav.toggle()" fxShow="true" fxHide.gt-sm>
-            <mat-icon>menu</mat-icon>
-        </button>
-        <a class="app-title" href="#" routerLink="/" mat-button>LedWallApp</a>
-        <div fxShow="true" fxHide.lt-md>
-            <a href="#" routerLink="editor" mat-button class="ml-3">Editor</a>
-        </div>
+        <!--<button mat-icon-button class="mr-3" (click)="sidenav.toggle()" fxShow="true" fxHide.gt-sm>-->
+            <!--<mat-icon>menu</mat-icon>-->
+        <!--</button>-->
+        <a class="app-title mr-3" href="#" routerLink="/" mat-button>LedWallApp</a>
+        <!--<div fxShow="true" fxHide.lt-md>-->
+            <!--<a href="#" [routerLink]="['/gallery']" mat-button>Gallery</a>-->
+            <!--<a href="#" [routerLink]="['/editor']" mat-button>Editor</a>-->
+            <!--<a href="#" [routerLink]="['/animations']" mat-button>Animations</a>-->
+        <!--</div>-->
     </mat-toolbar-row>
 </mat-toolbar>
 
 <mat-sidenav-container fxFlexFill>
-    <mat-sidenav #sidenav>
-        <mat-nav-list>
-            <a (click)="sidenav.toggle()" routerLink="/" mat-list-item>Home</a>
-            <a (click)="sidenav.toggle()" routerLink="editor" mat-list-item>Editor</a>
-        </mat-nav-list>
-    </mat-sidenav>
+    <!--<mat-sidenav #sidenav>-->
+        <!--<mat-nav-list>-->
+            <!--<a (click)="sidenav.toggle()" [routerLink]="['/gallery']" mat-list-item>Gallery</a>-->
+            <!--<a (click)="sidenav.toggle()" [routerLink]="['/editor']" mat-list-item>Editor</a>-->
+            <!--<a (click)="sidenav.toggle()" [routerLink]="['/animations']" mat-list-item>Animations</a>-->
+        <!--</mat-nav-list>-->
+    <!--</mat-sidenav>-->
 
     <mat-sidenav-content fxFlexFill><router-outlet></router-outlet></mat-sidenav-content>
 
@@ -25,3 +28,5 @@
 
 
 <app-footer *ngIf="router.url !== '/editor'"></app-footer>
+<!--// TODO remove footer when editor?id=monid-->
+<!--// TODO faire / au lieu de ?=-->

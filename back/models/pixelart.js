@@ -9,7 +9,7 @@ let Schema = mongoose.Schema({
         fps: Number,
         height: Number,
         width: Number,
-        layers: []
+        layers: [String]
     }
 },
 {
@@ -17,5 +17,5 @@ let Schema = mongoose.Schema({
 });
 
 
-let PixelArts = mongoose.model("pixelArts", Schema);
-module.exports = PixelArts;
+let Pixelart = mongoose.model("Pixelart", Schema);
+module.exports = Pixelart;

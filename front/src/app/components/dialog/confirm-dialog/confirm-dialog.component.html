@@ -1,6 +1,6 @@
 <h1 mat-dialog-title>{{ data.title }}</h1>
 <div mat-dialog-content>
-  <div>{{ data.text }}</div>
+  <div [innerHTML]="data.text"></div>
 
   <img *ngIf="data.gif" class="gif py-3 mx-auto d-block" [src]="data.gif" alt="">
 </div>

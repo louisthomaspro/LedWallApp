@@ -8,5 +8,5 @@ let Schema =mongoose.Schema({
     password:String
 });
 
-let Users = mongoose.model("users",Schema);
-module.exports = Users;
+let User = mongoose.model("User",Schema);
+module.exports = User;
