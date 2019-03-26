@@ -8,6 +8,7 @@
 #include "dma.h"
 #include "pwm.h"
 #include "ws2811.h"
+#include <errno.h>
 
 #define LED_WALL_WIDTH 16
 #define LED_WALL_HEIGHT 9

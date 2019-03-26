@@ -1,4 +1,5 @@
 #include "ledWall.h"
+#include <errno.h>
 
 Led FrameBuffer[LED_WALL_HEIGHT][LED_WALL_WIDTH];
 
@@ -50,16 +51,18 @@ int readFrame()
     int numberLedRead;
 
     Lwfb = fopen(LWFB_Path, "r");
-    if(!Lwfb)
+    if(!Lwfb)  
     {
-        perror("Could not open the framebuffer file for reading !\n");
+        //perror("Could not open the framebuffer file for reading !\n");
+        printf("ERROR: %s\n", strerror(errno));
         return 1;
     }
 
     numberLedRead = fread(&FrameBuffer, sizeof(Led), LED_WALL_HEIGHT*LED_WALL_WIDTH, Lwfb);
     if(numberLedRead != LED_WALL_HEIGHT*LED_WALL_WIDTH)
     {
-        perror("Did not read the right number of bytes !\n");
+        //perror("Did not read the right number of bytes !\n");
+        printf("ERROR: %s\n", strerror(errno));
         return 2;
     }
     fclose(Lwfb);
