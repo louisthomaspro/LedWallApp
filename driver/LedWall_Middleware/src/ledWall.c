@@ -34,7 +34,7 @@ ws2811_t ledstring =
 */
 uint8_t PixId(uint8_t x, uint8_t y)
 {
-  if ((LED_WALL_WIDTH - 1 - x) % 2 == 1)
+  if (x % 2 == 0)
   {
     return (LED_WALL_WIDTH - 1 - x) * LED_WALL_HEIGHT + y;
   }
@@ -51,11 +51,19 @@ int readFrame()
 
     Lwfb = fopen(LWFB_Path, "r");
     if(!Lwfb)
+    {
+        perror("Could not open the framebuffer file for reading !\n");
         return 1;
+    }
 
     numberLedRead = fread(&FrameBuffer, sizeof(Led), LED_WALL_HEIGHT*LED_WALL_WIDTH, Lwfb);
     if(numberLedRead != LED_WALL_HEIGHT*LED_WALL_WIDTH)
+    {
+        perror("Did not read the right number of bytes !\n");
         return 2;
+    }
+    fclose(Lwfb);
+
 
     return 0;
 }
@@ -77,7 +85,8 @@ void render_ledwall(void)
     {
         for (y = 0; y < LED_WALL_HEIGHT; y++)
         {
-            ledstring.channel[0].leds[PixId(x, y)] = (FrameBuffer[x][y].red << 16 | FrameBuffer[x][y].green << 8 | FrameBuffer[x][y].blue);
+            ledstring.channel[0].leds[PixId(x, y)] = (FrameBuffer[y][x].red << 16 | FrameBuffer[y][x].green << 8 | FrameBuffer[y][x].blue);
+            //printf("%d", PixId(x, y));
         }
     }
 

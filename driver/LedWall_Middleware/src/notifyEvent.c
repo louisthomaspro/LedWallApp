@@ -43,7 +43,10 @@ int initEvent()
 
     Wd = inotify_add_watch(InFd, LWFB_Path, IN_CLOSE_WRITE);
     if(Wd == -1)
+    {
+        perror("Could not add watch on /tmp/lwfb !\n");
         return -1;
+    }
     return 0;
 }
 
@@ -52,6 +55,10 @@ int waitForEvent()
     char buffer[EVENT_SIZE];
     int numRead = read(InFd, buffer, EVENT_SIZE);
     if(numRead != EVENT_SIZE)
+    {
+        perror("Did not read EVENT_SIZE of bytes !\n");
         return 1;
+    }
+
     return 0;
 }
