@@ -6,3 +6,5 @@ back/ws2812driver
 back/ws2812driver
 back/ws2812driver
 back/ws2812driver
+*.o
+*.layout

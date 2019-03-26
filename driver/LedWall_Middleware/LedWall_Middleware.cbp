@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="LedWall_Middleware" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin/Debug/LedWall_Middleware" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="arm-elf-gcc" />
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
+			</Target>
+			<Target title="Release">
+				<Option output="bin/Release/LedWall_Middleware" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+			<Add directory="inc" />
+		</Compiler>
+		<Unit filename="inc/clk.h" />
+		<Unit filename="inc/dma.h" />
+		<Unit filename="inc/gpio.h" />
+		<Unit filename="inc/led.h" />
+		<Unit filename="inc/ledWall.h" />
+		<Unit filename="inc/mailbox.h" />
+		<Unit filename="inc/notifyEvent.h" />
+		<Unit filename="inc/pcm.h" />
+		<Unit filename="inc/pwm.h" />
+		<Unit filename="inc/rpihw.h" />
+		<Unit filename="inc/ws2811.h" />
+		<Unit filename="src/dma.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/ledWall.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/mailbox.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/main.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/notifyEvent.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/pcm.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/pwm.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/rpihw.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/ws2811.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Extensions>
+			<envvars />
+			<code_completion />
+			<lib_finder disable_auto="1" />
+			<debugger />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

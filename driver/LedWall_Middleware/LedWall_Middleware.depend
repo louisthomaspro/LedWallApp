@@ -1,0 +1,241 @@
+# depslib dependency file v1.0
+1552913482 source:/home/corentin/LedWall_Middleware/main.c
+	<stdio.h>
+	<stdlib.h>
+	<sys/inotify.h>
+
+1553578994 source:/home/corentin/LedWall_Middleware/src/main.c
+	<stdio.h>
+	<stdlib.h>
+	<sys/inotify.h>
+	"notifyEvent.h"
+	"ledWall.h"
+
+1553595675 /home/corentin/LedWall_Middleware/inc/notifyEvent.h
+	<unistd.h>
+	<stdio.h>
+	<sys/inotify.h>
+	<sys/types.h>
+	<sys/stat.h>
+	<pwd.h>
+
+1553595638 source:/home/corentin/LedWall_Middleware/src/notifyEvent.c
+	"notifyEvent.h"
+
+1553578992 source:/home/corentin/LedWall_Middleware/src/ledWall.c
+	"ledWall.h"
+
+1553578996 /home/corentin/LedWall_Middleware/inc/ledWall.h
+	"led.h"
+	"notifyEvent.h"
+	"clk.h"
+	"gpio.h"
+	"dma.h"
+	"pwm.h"
+	"ws2811.h"
+
+1553578998 /home/corentin/LedWall_Middleware/inc/led.h
+
+1553479831 source:/home/corentin/Projets/LedWall/LedWall_Middleware/src/ledWall.c
+	"ledWall.h"
+
+1553582517 /home/corentin/Projets/LedWall/LedWall_Middleware/inc/ledWall.h
+	"led.h"
+	"notifyEvent.h"
+	"clk.h"
+	"gpio.h"
+	"dma.h"
+	"pwm.h"
+	"ws2811.h"
+
+1553443972 /home/corentin/Projets/LedWall/LedWall_Middleware/inc/led.h
+
+1553476367 /home/corentin/Projets/LedWall/LedWall_Middleware/inc/notifyEvent.h
+	<unistd.h>
+	<stdio.h>
+	<sys/inotify.h>
+
+1553443972 source:/home/corentin/Projets/LedWall/LedWall_Middleware/src/notifyEvent.c
+	"notifyEvent.h"
+
+1553456587 source:/home/corentin/Projets/LedWall/LedWall_Middleware/src/dma.c
+	<stdint.h>
+	<stdio.h>
+	<string.h>
+	<stdlib.h>
+	<unistd.h>
+	<sys/types.h>
+	<sys/stat.h>
+	<sys/mman.h>
+	"dma.h"
+
+1553456587 /home/corentin/Projets/LedWall/LedWall_Middleware/inc/dma.h
+
+1553456587 source:/home/corentin/Projets/LedWall/LedWall_Middleware/src/mailbox.c
+	<stdio.h>
+	<string.h>
+	<stdlib.h>
+	<fcntl.h>
+	<unistd.h>
+	<assert.h>
+	<stdint.h>
+	<errno.h>
+	<unistd.h>
+	<sys/mman.h>
+	<sys/ioctl.h>
+	<sys/sysmacros.h>
+	<sys/stat.h>
+	"mailbox.h"
+
+1553456587 /home/corentin/Projets/LedWall/LedWall_Middleware/inc/mailbox.h
+	<linux/ioctl.h>
+
+1553456587 source:/home/corentin/Projets/LedWall/LedWall_Middleware/src/pcm.c
+	<stdint.h>
+	"pcm.h"
+
+1553456587 /home/corentin/Projets/LedWall/LedWall_Middleware/inc/pcm.h
+
+1553456587 source:/home/corentin/Projets/LedWall/LedWall_Middleware/src/pwm.c
+	<stdint.h>
+	"ws2811.h"
+	"pwm.h"
+
+1553456587 /home/corentin/Projets/LedWall/LedWall_Middleware/inc/ws2811.h
+	"rpihw.h"
+	"pwm.h"
+
+1553456587 /home/corentin/Projets/LedWall/LedWall_Middleware/inc/rpihw.h
+
+1553456587 /home/corentin/Projets/LedWall/LedWall_Middleware/inc/pwm.h
+
+1553456587 source:/home/corentin/Projets/LedWall/LedWall_Middleware/src/rpihw.c
+	<stdint.h>
+	<stdio.h>
+	<string.h>
+	<stdlib.h>
+	<errno.h>
+	<byteswap.h>
+	"rpihw.h"
+
+1553456587 source:/home/corentin/Projets/LedWall/LedWall_Middleware/src/ws2811.c
+	<stdint.h>
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<unistd.h>
+	<sys/stat.h>
+	<fcntl.h>
+	<sys/ioctl.h>
+	<sys/mman.h>
+	<signal.h>
+	<linux/types.h>
+	<linux/spi/spidev.h>
+	<time.h>
+	"mailbox.h"
+	"clk.h"
+	"gpio.h"
+	"dma.h"
+	"pwm.h"
+	"pcm.h"
+	"rpihw.h"
+	"ws2811.h"
+
+1553456587 /home/corentin/Projets/LedWall/LedWall_Middleware/inc/clk.h
+
+1553456587 /home/corentin/Projets/LedWall/LedWall_Middleware/inc/gpio.h
+
+1553476666 source:/home/corentin/Projets/LedWall/LedWall_Middleware/src/main.c
+	<stdio.h>
+	<stdlib.h>
+	<sys/inotify.h>
+	"notifyEvent.h"
+	"ledWall.h"
+
+1553578994 source:/home/corentin/LedWall_Middleware/src/dma.c
+	<stdint.h>
+	<stdio.h>
+	<string.h>
+	<stdlib.h>
+	<unistd.h>
+	<sys/types.h>
+	<sys/stat.h>
+	<sys/mman.h>
+	"dma.h"
+
+1553578998 /home/corentin/LedWall_Middleware/inc/dma.h
+
+1553578996 /home/corentin/LedWall_Middleware/inc/clk.h
+
+1553578996 /home/corentin/LedWall_Middleware/inc/gpio.h
+
+1553578998 /home/corentin/LedWall_Middleware/inc/pwm.h
+
+1553578996 /home/corentin/LedWall_Middleware/inc/ws2811.h
+	"rpihw.h"
+	"pwm.h"
+
+1553578996 /home/corentin/LedWall_Middleware/inc/rpihw.h
+
+1553578992 source:/home/corentin/LedWall_Middleware/src/mailbox.c
+	<stdio.h>
+	<string.h>
+	<stdlib.h>
+	<fcntl.h>
+	<unistd.h>
+	<assert.h>
+	<stdint.h>
+	<errno.h>
+	<unistd.h>
+	<sys/mman.h>
+	<sys/ioctl.h>
+	<sys/sysmacros.h>
+	<sys/stat.h>
+	"mailbox.h"
+
+1553578996 /home/corentin/LedWall_Middleware/inc/mailbox.h
+	<linux/ioctl.h>
+
+1553578994 source:/home/corentin/LedWall_Middleware/src/pcm.c
+	<stdint.h>
+	"pcm.h"
+
+1553578994 /home/corentin/LedWall_Middleware/inc/pcm.h
+
+1553578992 source:/home/corentin/LedWall_Middleware/src/pwm.c
+	<stdint.h>
+	"ws2811.h"
+	"pwm.h"
+
+1553578992 source:/home/corentin/LedWall_Middleware/src/rpihw.c
+	<stdint.h>
+	<stdio.h>
+	<string.h>
+	<stdlib.h>
+	<errno.h>
+	<byteswap.h>
+	"rpihw.h"
+
+1553578994 source:/home/corentin/LedWall_Middleware/src/ws2811.c
+	<stdint.h>
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<unistd.h>
+	<sys/stat.h>
+	<fcntl.h>
+	<sys/ioctl.h>
+	<sys/mman.h>
+	<signal.h>
+	<linux/types.h>
+	<linux/spi/spidev.h>
+	<time.h>
+	"mailbox.h"
+	"clk.h"
+	"gpio.h"
+	"dma.h"
+	"pwm.h"
+	"pcm.h"
+	"rpihw.h"
+	"ws2811.h"
+
