@@ -6,6 +6,7 @@
 #include <sys/inotify.h>
 #include <sys/types.h>
 #include <sys/stat.h>
+#include <string.h>
 #include <pwd.h>
 
 #define EVENT_SIZE  ( sizeof (struct inotify_event) )

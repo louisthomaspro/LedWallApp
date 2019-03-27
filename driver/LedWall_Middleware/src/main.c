@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <sys/inotify.h>
 #include "notifyEvent.h"
 #include "ledWall.h"
 
@@ -32,7 +31,7 @@ int main()
                 printf("{%02X,%02X,%02X}", FrameBuffer[i][j].red, FrameBuffer[i][j].green, FrameBuffer[i][j].blue);
             printf("|\n");
         }*/
-
+        applyColorCorrection(COLOR_BALANCE);
         render_ledwall();
 
 
