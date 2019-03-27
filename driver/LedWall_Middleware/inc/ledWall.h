@@ -1,6 +1,9 @@
 #ifndef LEDWALL_H_INCLUDED
 #define LEDWALL_H_INCLUDED
 
+
+#include <errno.h>
+#include <string.h>
 #include "led.h"
 #include "notifyEvent.h"
 #include "clk.h"
@@ -8,11 +11,11 @@
 #include "dma.h"
 #include "pwm.h"
 #include "ws2811.h"
-#include <errno.h>
 
 #define LED_WALL_WIDTH 16
 #define LED_WALL_HEIGHT 9
 #define LED_COUNT               (LED_WALL_WIDTH * LED_WALL_HEIGHT)
+#define COLOR_BALANCE 0xFFB0F0
 
 #define TARGET_FREQ             WS2811_TARGET_FREQ
 #define GPIO_PIN                18
@@ -25,6 +28,8 @@ extern Led FrameBuffer[LED_WALL_HEIGHT][LED_WALL_WIDTH];
 int readFrame();
 
 ws2811_return_t init_ledwall();
+
+void applyColorCorrection(uint32_t balance);
 
 void render_ledwall();
 

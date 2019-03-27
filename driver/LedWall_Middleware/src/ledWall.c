@@ -51,7 +51,7 @@ int readFrame()
     int numberLedRead;
 
     Lwfb = fopen(LWFB_Path, "r");
-    if(!Lwfb)  
+    if(!Lwfb)
     {
         //perror("Could not open the framebuffer file for reading !\n");
         printf("ERROR: %s\n", strerror(errno));
@@ -78,6 +78,18 @@ ws2811_return_t init_ledwall()
         fprintf(stderr, "ws2811_init failed: %s\n", ws2811_get_return_t_str(ret));
     }
     return ret;
+}
+void applyColorCorrection(uint32_t balance)
+{
+    for (uint8_t x = 0; x < LED_WALL_WIDTH; x++)
+    {
+        for (uint8_t y = 0; y < LED_WALL_HEIGHT; y++)
+        {
+            FrameBuffer[y][x].red = FrameBuffer[y][x].red * ((balance >> 16) & 0xFF) / 0xFF;
+            FrameBuffer[y][x].green = FrameBuffer[y][x].green * ((balance >> 8) & 0xFF) / 0xFF;
+            FrameBuffer[y][x].blue = FrameBuffer[y][x].blue * (balance & 0xFF) / 0xFF;
+        }
+    }
 }
 void render_ledwall(void)
 {
