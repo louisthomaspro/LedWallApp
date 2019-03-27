@@ -30,7 +30,19 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // app.use(cors());
 
 // Add headers
-app.use(cors({credentials: true, origin: 'http://' + ip.address() + ':4200'}));
+const whitelist = ['http://' + ip.address() + ':4200', 'http://' + 'localhost' + ':4200']
+const corsOptions = {
+  origin: function (origin, callback) {
+    if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true)
+    } else {
+      callback(new Error('Not allowed by CORS'))
+    }
+  },
+  credentials: true
+};
+
+app.use(cors(corsOptions));
 
 app.use('/users', require('./routes/users'));
 app.use('/pixelarts', require('./routes/pixelarts'));
