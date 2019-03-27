@@ -7,8 +7,8 @@ const websocket = require('ws');
 const ws2812 = require('./ws2812');
 const ip = require("ip");
 
-//assigning port 
-const PORT =  3000;
+//assigning port
+const PORT = process.env.PORT || '3000';
 
 
 
@@ -30,7 +30,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // app.use(cors());
 
 // Add headers
-const whitelist = ['http://' + ip.address() + ':4200', 'http://' + 'localhost' + ':4200']
+const whitelist = ['http://' + ip.address() + ':4200', 'http://' + 'localhost' + ':4200', 'http://' + 'localhost'];
 const corsOptions = {
   origin: function (origin, callback) {
     if (whitelist.indexOf(origin) !== -1) {
