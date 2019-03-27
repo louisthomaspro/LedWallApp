@@ -76,7 +76,7 @@ router.delete('/:id', function (req, res, next) {
         { $pull: { animationItems: { pixelart: objectId } } },
         { multi: true }, function(err1) {
             if (err1) return next(err1);
-            Pixelart.deleteOne({_id: pixelartId}, function (err2) {
+            Pixelart.deleteOne({_id: objectId}, function (err2) {
                 if (err2) return next(err2);
                 console.log('Object ' + objectName + ' ' + objectId + ' deleted');
                 return res.json('ok');
