@@ -65,10 +65,10 @@ module.exports = {
                 {
                     if (data.width > LED_WALL_WIDTH)    //That's an animation
                     {
-                        console.log("animation");
-                        console.log(frame_counter);
-                        console.log(LED_WALL_WIDTH * frame_counter);
-                        console.log(LED_WALL_WIDTH * (frame_counter + 1));
+                        // console.log("animation");
+                        // console.log(frame_counter);
+                        // console.log(LED_WALL_WIDTH * frame_counter);
+                        // console.log(LED_WALL_WIDTH * (frame_counter + 1));
                         for (var y = 0; y < data.height; y++) 
                         {
                             /* We scroll through the animation images. Indeed, animations are stored in a single PNG.        */
@@ -108,4 +108,3 @@ module.exports = {
         return interval_id; 
     }
 };
-  

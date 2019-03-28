@@ -1,0 +1,21 @@
+[Unit]
+Description=Ledwallapp API
+
+[Service]
+#ExecStart=/usr/bin/node /home/pi/Public/LedWallApp/back/server.js
+ExecStart=/usr/bin/node /home/louis/Public/LedWallApp/back/server.js
+
+Restart=always
+
+StandardOutput=syslog
+StandardError=syslog
+
+SyslogIdentifier=ledwallapp-api
+
+Environment=NODE_ENV=production PORT=3000
+
+#User=pi
+User=louis
+
+[Install]
+WantedBy=multi-user.target
