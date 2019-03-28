@@ -13,7 +13,7 @@
 #include "ws2811.h"
 
 #define LED_WALL_WIDTH 16
-#define LED_WALL_HEIGHT 9
+#define LED_WALL_HEIGHT 10
 #define LED_COUNT               (LED_WALL_WIDTH * LED_WALL_HEIGHT)
 #define COLOR_BALANCE 0xFFE08C
 
