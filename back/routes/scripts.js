@@ -4,6 +4,11 @@ const Script = require('../models/script');
 const ws2812 = require('../ws2812');
 const path = require('path');
 const fs = require('fs');
+const {PythonShell} = require('python-shell')
+
+let options = {
+    pythonPath: '/usr/bin/python3.6'
+};
 
 const multer = require('multer');
 
@@ -33,6 +38,8 @@ router.post('/', upload.single('fileInput'), (req, res, next) => {
         error.httpStatusCode = 400;
         return next(error);
     }
+    fs.chmodSync(file.path, 0550);
+
     let record = new Script(
         {
             name: file.originalname,
@@ -100,7 +107,10 @@ router.get('/run/:id', function (req, res, next) {
         const script = response;
         // TODO tester si la reponse est vide
 
-        // TODO algo à faire
+        PythonShell.run(script.path, options, function (err) {
+            if (err) throw err;
+            console.log('finished');
+        });
 
         console.log('Object ' + objectName + ' ' + objectId + ' running');
         return res.json('ok');

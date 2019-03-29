@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 
-LEDWALLAPP_HOME=/home/louis/Public/LedWallApp2
+LEDWALLAPP_HOME=/var/www/LedWallApp
 
 
 TITLE='\033[1;35m'
@@ -15,7 +15,7 @@ msg_title "Project Init"
 
 echo "Recreate Public directory..."
 rm -rf ${LEDWALLAPP_HOME} || exit 0
-mkdir ${LEDWALLAPP_HOME} || exit 0
+mkdir -p ${LEDWALLAPP_HOME} || exit 0
 
 echo "Cloning project..."
 git clone https://github.com/louisthomaspro/LedWallApp.git ${LEDWALLAPP_HOME} || exit 0
