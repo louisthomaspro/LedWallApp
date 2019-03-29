@@ -5,10 +5,22 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const websocket = require('ws');
 const ws2812 = require('./ws2812');
+const ip = require("ip");
 
-//assigning port 
-const API_PORT =  8080;
-const HTTP_PORT = 8000;
+//assigning port
+const PORT = process.env.PORT || '3000';
+
+
+
+if(process.env.NODE_ENV === "production")
+{
+  console.log('/*** PRODUCTION ***/');
+  console.log('- console.log disabled');
+  console.log = function(){};
+} else {
+  console.log('/*** DEVELOPMENT ***/');
+}
+
 
 
 app.use(bodyParser.json());
@@ -18,8 +30,19 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // app.use(cors());
 
 // Add headers
-app.use(cors({credentials: true, origin: 'http://localhost:4200'}));
+const whitelist = ['http://' + ip.address() + ':4200', 'http://' + 'localhost' + ':4200', 'http://' + 'localhost'];
+const corsOptions = {
+  origin: function (origin, callback) {
+    if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true)
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true
+};
 
+app.use(cors(corsOptions));
 
 app.use('/users', require('./routes/users'));
 app.use('/pixelarts', require('./routes/pixelarts'));
@@ -27,7 +50,6 @@ app.use('/animations', require('./routes/animations'));
 app.use('/wordarts', require('./routes/wordarts'));
 app.use('/scripts', require('./routes/scripts'));
 
-app.use(express.static('../front/dist/ledwall-app'));  //Serving the angular deployement files
 
 
 //WS2812 Direct link websocket
@@ -47,8 +69,8 @@ wss.on('connection', function connection(ws) {
 db = require('./DB');
 mongoose.Promise = global.Promise;
 mongoose.connect(db.DB, { useNewUrlParser: true }).then(
-  () => {console.log('Database is connected') },
-  err => { console.log('Can not connect to the database'+ err)}
+  () => {console.info('Database is connected') },
+  err => { console.error('Can not connect to the database'+ err)}
 );
 
 
@@ -70,6 +92,10 @@ app.use((err, req, res, next) => {
 });
 
 /* run api */
-app.listen(API_PORT,() => {
-  console.log(`App Server Listening at ${API_PORT}`);
+app.listen(PORT,(req) => {
+  if(process.env.NODE_ENV === "production") {
+    console.info('API running at http://' + ip.address() + ':' + PORT);
+  } else {
+    console.info('API running at http://' + 'localhost' + ':' + PORT);
+  }
 });

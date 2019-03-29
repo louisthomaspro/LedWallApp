@@ -1,0 +1,13 @@
+[Unit]
+Description=Ledwallapp Middleware
+
+[Service]
+ExecStart=PROJECT_PATH/driver/LedWall_Middleware/bin/Debug/LedWall_Middleware
+Restart=always
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=ledwallapp-middleware
+User=root
+
+[Install]
+WantedBy=multi-user.target

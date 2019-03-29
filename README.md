@@ -20,6 +20,13 @@ To run the project, you need to have [node](https://nodejs.org/en/download/) ins
 
 ## Deploying the app
 
+run : 
+`sudo -s`
+`source ./project_install.sh`
+
+
+or ...
+
 If you intend to deploy your app onto a device with small amount of memory, it would be wise to run the app with this method instead.
 
 1. Clone project
@@ -28,7 +35,7 @@ If you intend to deploy your app onto a device with small amount of memory, it w
 5. `ng build --prod`
 6. Go in back folder
 7. `npm install`
-8. `node server.js`
+8. `NODE_ENV=production node server.js`
 9. Navigate to `http://localhost:8080/`
 
 ## Config
