@@ -39,10 +39,10 @@ msg_info "Build front..."
 pushd ${LEDWALLAPP_HOME}/front && ng build --prod && popd || exit 0
 
 msg_title "Systemd Init"
-sh ../scripts/systemd_init.sh || exit 0
+sh ${LEDWALLAPP_HOME}/scripts/systemd_init.sh || exit 0
 
 msg_title "Nginx Init"
-sh ../scripts/nginx_init.sh || exit 0
+sh ${LEDWALLAPP_HOME}/scripts/nginx_init.sh || exit 0
 
 
 msg_finish "Project is ready !"
