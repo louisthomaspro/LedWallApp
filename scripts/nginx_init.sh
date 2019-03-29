@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 
-. parameters.sh
 
 msg_title "Nginx Init"
 
