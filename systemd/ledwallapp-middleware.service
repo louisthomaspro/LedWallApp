@@ -2,7 +2,7 @@
 Description=Ledwallapp Middleware
 
 [Service]
-ExecStart=${LEDWALLAPP_HOME}/driver/LedWall_Middleware/bin/Debug/LedWall_Middleware
+ExecStart=PROJECT_PATH/driver/LedWall_Middleware/bin/Debug/LedWall_Middleware
 Restart=always
 StandardOutput=syslog
 StandardError=syslog

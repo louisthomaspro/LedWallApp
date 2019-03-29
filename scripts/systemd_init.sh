@@ -1,9 +1,14 @@
 #!/usr/bin/env bash
 
 
-echo "Copy services..."
+echo "Copying services..."
 sudo cp ../systemd/ledwallapp-api.service /etc/systemd/system/ledwallapp-api.service || exit 0
 sudo cp ../systemd/ledwallapp-middleware.service /etc/systemd/system/ledwallapp-middleware.service || exit 0
+
+
+echo "Replacing exec path..."
+sed "s+PROJECT_PATH+$LEDWALLAPP_HOME+g" /etc/systemd/system/ledwallapp-api.service
+sed -i "s+PROJECT_PATH+$LEDWALLAPP_HOME+g" /etc/systemd/system/ledwallapp-middleware.service
 
 echo "Reloading systemd manager configuration..."
 sudo systemctl daemon-reload || exit 0

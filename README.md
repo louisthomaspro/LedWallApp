@@ -20,6 +20,13 @@ To run the project, you need to have [node](https://nodejs.org/en/download/) ins
 
 ## Deploying the app
 
+run : 
+`sudo -s`
+`source ./project_install.sh`
+
+
+or ...
+
 If you intend to deploy your app onto a device with small amount of memory, it would be wise to run the app with this method instead.
 
 1. Clone project

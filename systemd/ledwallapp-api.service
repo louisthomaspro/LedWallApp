@@ -3,13 +3,13 @@ Description=Ledwallapp API
 After=mongodb.service
 
 [Service]
-ExecStart=/usr/bin/node ${LEDWALLAPP_HOME}/back/server.js
+ExecStart=/usr/bin/node PROJECT_PATH/back/server.js
 Restart=always
 StandardOutput=syslog
 StandardError=syslog
 SyslogIdentifier=ledwallapp-api
 Environment=NODE_ENV=production PORT=3000
-User=pi
+User=louis
 
 [Install]
 WantedBy=multi-user.target
