@@ -2,18 +2,12 @@
 Description=Ledwallapp Middleware
 
 [Service]
-#ExecStart=/home/pi/Public/LedWallApp/driver/LedWall_Middleware/bin/Debug/LedWall_Middleware
-ExecStart=/home/louis/Public/LedWallApp/driver/LedWall_Middleware/bin/Debug/LedWall_Middleware
-
+ExecStart=${LEDWALLAPP_HOME}/driver/LedWall_Middleware/bin/Debug/LedWall_Middleware
 Restart=always
-
 StandardOutput=syslog
 StandardError=syslog
-
 SyslogIdentifier=ledwallapp-middleware
-
-#User=pi
-User=louis
+User=root
 
 [Install]
 WantedBy=multi-user.target
