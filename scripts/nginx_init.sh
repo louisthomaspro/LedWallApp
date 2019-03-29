@@ -1,18 +1,14 @@
 #!/usr/bin/env bash
 
 
-msg_title "Nginx Init"
+echo "Delete all enabled sites..."
+sudo rm -rf /etc/nginx/sites-enabled/* || exit 0
 
-msg_info "Delete all enabled sites..."
-sudo rm -rf /etc/nginx/sites-enabled/* || msg_err
+echo "Copy nginx ledwallapp configuration..."
+sudo cp ../front/config/nginx.conf /etc/nginx/sites-available/ledwallapp.conf || exit 0
 
-msg_info "Copy nginx ledwallapp configuration..."
-sudo cp ../front/config/nginx.conf /etc/nginx/sites-available/ledwallapp.conf || msg_err
+echo "Enable configuration..."
+sudo ln -s -f /etc/nginx/sites-available/ledwallapp.conf /etc/nginx/sites-enabled/ledwallapp.conf || exit 0
 
-msg_info "Enable configuration..."
-sudo ln -s -f /etc/nginx/sites-available/ledwallapp.conf /etc/nginx/sites-enabled/ledwallapp.conf || msg_err
-
-msg_info "Restart nginx..."
-sudo systemctl restart nginx || msg_err
-
-msg_finish "Nginx Init Finished Successfully"
+echo "Restart nginx..."
+sudo systemctl restart nginx || exit 0
