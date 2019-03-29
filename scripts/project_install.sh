@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 
-export LEDWALLAPP_HOME=/home/louis/Public/LedWallApp2
+LEDWALLAPP_HOME=/home/louis/Public/LedWallApp2
 
 
 TITLE='\033[1;35m'
@@ -30,7 +30,7 @@ echo "Build front..."
 pushd ${LEDWALLAPP_HOME}/front && ng build --prod && popd || exit 0
 
 msg_title "Systemd Init"
-sh ${LEDWALLAPP_HOME}/scripts/systemd_init.sh || exit 0
+sh ${LEDWALLAPP_HOME}/scripts/systemd_init.sh $LEDWALLAPP_HOME || exit 0
 
 msg_title "Nginx Init"
 sh ${LEDWALLAPP_HOME}/scripts/nginx_init.sh || exit 0
