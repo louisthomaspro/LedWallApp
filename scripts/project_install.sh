@@ -4,7 +4,7 @@
 
 
 
-msg_title "*** LedWallApp Project Initialization ***"
+msg_title "LedWallApp Project Initialization"
 
 msg_info "Recreate Public directory..."
 rm -rf ${LEDWALLAPP_HOME} || msg_err

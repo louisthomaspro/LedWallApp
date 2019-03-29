@@ -2,7 +2,6 @@
 
 
 export LEDWALLAPP_HOME='/home/louis/Public/LedWallApp2'
-PARAMETERS=1
 
 
 TITLE='\033[1;35m'

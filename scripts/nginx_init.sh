@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-[ -z "$PARAMETERS" ] && . parameters.sh
+. parameters.sh
 
 msg_title "Nginx Init"
 
