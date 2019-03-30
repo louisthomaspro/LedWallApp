@@ -15,7 +15,7 @@ export class ControllerComponent implements OnInit {
   }
 
   sendUp() {
-    const res = this.controllerService.up().subscribe();
+    this.controllerService.up().subscribe();
   }
 
   sendDown() {
