@@ -18,6 +18,7 @@ import {PixelartService} from '../../services/pixelart.service';
 import {AnimationService} from '../../services/animation.service';
 import {ScriptService} from '../../services/script.service';
 import {WordartService} from '../../services/wordart.service';
+import {DomSanitizer} from '@angular/platform-browser';
 
 
 
@@ -45,7 +46,8 @@ export class GalleryComponent implements OnInit {
       private animationService: AnimationService,
       private scriptService: ScriptService,
       private wordartService: WordartService,
-      public dialog: MatDialog, private snackBar: MatSnackBar
+      public dialog: MatDialog, private snackBar: MatSnackBar,
+      private sanitizer: DomSanitizer
   ) { }
 
 
@@ -82,18 +84,30 @@ export class GalleryComponent implements OnInit {
         break;
       }
     }
-    backgroundImage = backgroundImage.substring(0, backgroundImage.length - 1);
-    return {
-      'background-image': backgroundImage,
-      'background-size': '50%',
-      'background-repeat': 'no-repeat',
-      'background-position':
-        'top left,' +
-        'top right,' +
-        'bottom left,' +
-        'bottom right'
-    };
+    return this.sanitizer.bypassSecurityTrustStyle(backgroundImage.substring(0, backgroundImage.length - 1));
   }
+
+
+
+    scriptBackground(script: Script): Object {
+        let image = '';
+        switch (script.extension) {
+            case 'py': {
+                image = 'assets/img/scripts/python.png';
+                break;
+            }
+
+            default: {
+                image = '';
+                break;
+            }
+        }
+        const backgroundImage = 'url(' + image + '),';
+
+        return this.sanitizer.bypassSecurityTrustStyle(backgroundImage.substring(0, backgroundImage.length - 1));
+    }
+
+
 
 
   openSnackBar(message: string) {
@@ -158,7 +172,7 @@ export class GalleryComponent implements OnInit {
   }
 
   deleteAnimation(id) {
-    this.deleteConfirmDialog(id, 'Are you sure you want to delete this beautiful animation ? He will leave us forever ...', () => {
+    this.deleteConfirmDialog(id, 'Are you sure you want to delete this beautiful obj ? He will leave us forever ...', () => {
       this.animationService.delete(id).subscribe((res) => {
         this.ngOnInit();
       });

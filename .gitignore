@@ -10,3 +10,5 @@ back/ws2812driver
 *.layout
 
 *.gypi
+
+back/public/scripts/
