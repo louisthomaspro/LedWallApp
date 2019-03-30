@@ -50,6 +50,7 @@ app.use('/animations', require('./routes/animations'));
 app.use('/wordarts', require('./routes/wordarts'));
 app.use('/scripts', require('./routes/scripts'));
 app.use('/controller', require('./routes/controller'));
+app.use('/special', require('./routes/special'));
 
 
 

@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 
+import { SpecialService } from './services/special.service';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -15,7 +17,12 @@ export class AppComponent implements OnInit {
 
   id: string;
 
-  constructor(public router: Router, private route: ActivatedRoute) {
+  constructor(
+      public router: Router,
+      private route: ActivatedRoute,
+      private specialService: SpecialService
+  )
+  {
   }
 
   ngOnInit() {
@@ -23,6 +30,10 @@ export class AppComponent implements OnInit {
       this.userName = this.currentUser.name;
     }
     this.id = this.route.snapshot.queryParams['id'];
+  }
+
+  turnOff() {
+    this.specialService.turnoff().subscribe();
   }
 
 }

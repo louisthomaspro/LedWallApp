@@ -8,6 +8,8 @@
         <div fxShow="true" fxHide.lt-md>
             <a href="#" [routerLink]="['/controller']" mat-button>Controller</a>
         </div>
+        <div class="flex-grow-1"></div>
+        <button class="app-title ml-3" (click)="turnOff()" mat-button><mat-icon>power_off</mat-icon></button>
     </mat-toolbar-row>
 </mat-toolbar>
 

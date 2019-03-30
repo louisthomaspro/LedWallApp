@@ -25,7 +25,8 @@ const routes: Routes = [
   { path: 'wordarts/:id', component: WordartsComponent },
   { path: 'wordarts', component: WordartsComponent },
   { path: 'controller', component: ControllerComponent },
-  { path: 'notFound', component: NotfoundComponent }
+  { path: 'notFound', component: NotfoundComponent },
+  { path: '**', component: NotfoundComponent }
   ];
 
 
