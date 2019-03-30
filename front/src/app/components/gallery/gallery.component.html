@@ -139,11 +139,11 @@
     </div>
 
     <div *ngIf="wordartArray?.length > 0">
-      <button mat-raised-button color="primary" [routerLink]="['/wordart']">Create Wordart</button>
+      <button mat-raised-button color="primary" [routerLink]="['/wordarts']">Create Wordart</button>
     </div>
 
     <div *ngIf="wordartArray?.length <= 0">
-      <button mat-stroked-button class="flex-grow-1" [routerLink]="['/wordart']">Créez</button>
+      <button mat-stroked-button class="flex-grow-1" [routerLink]="['/wordarts']">Créez</button>
       <span> votre premier wordart maintenant !</span>
     </div>
 

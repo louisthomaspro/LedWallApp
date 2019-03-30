@@ -8,6 +8,8 @@ import {Wordart} from '../../models/wordart.model';
 
 // Angular Modules
 import {MatDialog, MatSnackBar} from '@angular/material';
+import {WordartService} from '../../services/wordart.service';
+import {DomSanitizer} from '@angular/platform-browser';
 
 // Components
 import {PixelArtInformationDialogComponent} from '../dialog/pixelart-information-dialog/pixel-art-information-dialog.component';
@@ -17,8 +19,7 @@ import {ConfirmDialogComponent} from '../dialog/confirm-dialog/confirm-dialog.co
 import {PixelartService} from '../../services/pixelart.service';
 import {AnimationService} from '../../services/animation.service';
 import {ScriptService} from '../../services/script.service';
-import {WordartService} from '../../services/wordart.service';
-import {DomSanitizer} from '@angular/platform-browser';
+
 
 
 

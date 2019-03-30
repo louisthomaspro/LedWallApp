@@ -10,7 +10,8 @@ import { NotfoundComponent } from './components/notfound/notfound.component';
 import { EditorComponent } from './components/editor/editor.component';
 import { GalleryComponent} from './components/gallery/gallery.component';
 import { AnimationsComponent } from './components/animations/animations.component';
-import {WordartsComponent} from './components/wordarts/wordarts.component';
+import { WordartsComponent } from './components/wordarts/wordarts.component';
+import { ControllerComponent } from './components/controller/controller.component';
 
 
 const routes: Routes = [
@@ -23,6 +24,7 @@ const routes: Routes = [
   { path: 'animations', component: AnimationsComponent },
   { path: 'wordarts/:id', component: WordartsComponent },
   { path: 'wordarts', component: WordartsComponent },
+  { path: 'controller', component: ControllerComponent },
   { path: 'notFound', component: NotfoundComponent }
   ];
 
