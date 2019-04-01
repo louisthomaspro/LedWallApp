@@ -5,6 +5,7 @@ const fs = require('fs');
 const DATA_URL_HEADER_OFFSET = 21;
 const LED_WALL_WIDTH = 16;
 const LED_WALL_HEIGHT = 10;
+const LED_WALL_FRAME_LEN = (LED_WALL_WIDTH * LED_WALL_HEIGHT) * 3;
 
 /*  This functions trims the data URL informations before the actual data we need 
     returns: trimmed base64 data of the image file
@@ -56,53 +57,61 @@ module.exports = {
             clearInterval(old_interval_id);
         }
 
+        var frame_RGB = [];
+        var png_file = new PNG({ filterType:4 }).parse(frame_PNGbuffer, function(error, data)
+        {
+            if (data.width > LED_WALL_WIDTH)    //That's an animation
+            {
+                // console.log("animation");
+                // console.log(frame_counter);
+                // console.log(LED_WALL_WIDTH * frame_counter);
+                // console.log(LED_WALL_WIDTH * (frame_counter + 1));
+                for (frame_counter = 0; frame_counter < frame_number; frame_counter += 1)
+                {
+                    for (var y = 0; y < data.height; y++) 
+                    {
+                        /* We scroll through the animation images. Indeed, animations are stored in a single PNG.        */
+                        /* Thus, a 4 frame animation will be stored as a 64*10 image, while a two frame one in a 32 * 10 */
+                        /* Rather straightforward.                                                                       */
+                        for (var x = LED_WALL_WIDTH * frame_counter; x < LED_WALL_WIDTH * (frame_counter + 1); x++)
+                        {
+                            var idx = (data.width * y + x) << 2;  //1D array to 2D coordinates, very important formula!
+                            frame_RGB.push(data.data[idx]);       //R
+                            frame_RGB.push(data.data[idx + 1]);   //G
+                            frame_RGB.push(data.data[idx + 2]);   //B
+                        }
+                    }   
+                }
+            }
+            else 
+            {
+                for (var y = 0; y < data.height; y++) 
+                {
+                    for (var x = 0; x < data.width; x++) 
+                    {
+                        var idx = (data.width * y + x) << 2;  //1D array to 2D coordinates, very important formula!
+                        frame_RGB.push(data.data[idx]);       //R
+                        frame_RGB.push(data.data[idx + 1]);   //G
+                        frame_RGB.push(data.data[idx + 2]);   //B
+                    }
+                }   
+            }
+            //console.log(frame_RGB);
+        });
+
+        frame_counter = 0;
+        
         var interval_id = setInterval(function() 
         { 
-            var frame_RGB = [];
             if (frame_counter < frame_number)
             {
-                var png_file = new PNG({ filterType:4 }).parse(frame_PNGbuffer, function(error, data)
-                {
-                    if (data.width > LED_WALL_WIDTH)    //That's an animation
-                    {
-                        // console.log("animation");
-                        // console.log(frame_counter);
-                        // console.log(LED_WALL_WIDTH * frame_counter);
-                        // console.log(LED_WALL_WIDTH * (frame_counter + 1));
-                        for (var y = 0; y < data.height; y++) 
-                        {
-                            /* We scroll through the animation images. Indeed, animations are stored in a single PNG.        */
-                            /* Thus, a 4 frame animation will be stored as a 64*10 image, while a two frame one in a 32 * 10 */
-                            /* Rather straightforward.                                                                       */
-                            for (var x = LED_WALL_WIDTH * frame_counter; x < LED_WALL_WIDTH * (frame_counter + 1); x++)
-                            {
-                                var idx = (data.width * y + x) << 2;  //1D array to 2D coordinates, very important formula!
-                                frame_RGB.push(data.data[idx]);       //R
-                                frame_RGB.push(data.data[idx + 1]);   //G
-                                frame_RGB.push(data.data[idx + 2]);   //B
-                            }
-                        }   
-                    }
-                    else 
-                    {
-                        for (var y = 0; y < data.height; y++) 
-                        {
-                            for (var x = 0; x < data.width; x++) 
-                            {
-                                var idx = (data.width * y + x) << 2;  //1D array to 2D coordinates, very important formula!
-                                frame_RGB.push(data.data[idx]);       //R
-                                frame_RGB.push(data.data[idx + 1]);   //G
-                                frame_RGB.push(data.data[idx + 2]);   //B
-                            }
-                        }   
-                    }
-                    //console.log(frame_RGB);
-                    module.exports.WS2812DisplayImage(frame_RGB);
-                    frame_counter += 1;
-                });
-            } else {
-                frame_counter = 0;
+                array_idx = frame_counter * LED_WALL_FRAME_LEN;
+                module.exports.WS2812DisplayImage(frame_RGB.slice(array_idx, array_idx + LED_WALL_FRAME_LEN));
+                frame_counter += 1;
             }
+            else {
+                frame_counter = 0;
+            }    
         }, frame_delay);
 
         return interval_id; 

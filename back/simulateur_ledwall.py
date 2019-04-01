@@ -63,12 +63,14 @@ class Application(tk.Frame):
         return 0
 
 root = tk.Tk()
+root.title("LED Wall simulator")
 app = Application(master=root)
 #app.mainloop()
 while True:
-    app.update()
     current_timestamp = os.path.getmtime(DRIVER_PATH)
     if (old_timestamp == 0 or current_timestamp != old_timestamp):
+        app.update()
         old_timestamp = current_timestamp
         app.refresh_file()
+        time.sleep(0.01)
 
