@@ -34,6 +34,7 @@ import { PixelArtInformationDialogComponent } from './components/dialog/pixelart
 import { ConfirmDialogComponent } from './components/dialog/confirm-dialog/confirm-dialog.component';
 import { NotfoundComponent } from './components/notfound/notfound.component';
 import { WordartsComponent } from './components/wordarts/wordarts.component';
+import { ControllerComponent } from './components/controller/controller.component';
 
 
 
@@ -51,7 +52,8 @@ import { WordartsComponent } from './components/wordarts/wordarts.component';
     TimeDialogComponent,
     GalleryComponent,
     AnimationsComponent,
-    WordartsComponent
+    WordartsComponent,
+    ControllerComponent
   ],
   imports: [
     BrowserModule,

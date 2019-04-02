@@ -1,43 +1,32 @@
-<div class="p-4 ">
+<div class="p-3 p-sm-4 ">
 
-  <section>
 
-    <h2 class="mat-h2 mt-3">Animation Gallery</h2>
 
-    <div class="mb-5 text-center pa-gallery">
 
-      <div class="d-inline-block p-2 pa-size-220" *ngFor="let animation of animationArray">
-        <mat-card class="mat-elevation-z2 pb-2">
-          <div mat-card-image class="mb-2">
-            <div class="pa-grid-container">
-              <div class="pa-grid">
-                <div class="pa-thumb" [ngStyle]="animationBackground(animation)"></div>
-              </div>
-            </div>
+  <section class="mt-2">
+
+    <h2 class="mat-h2">Animation Gallery</h2>
+
+    <div class="lw-gallery">
+
+      <div class="lw-w-md" *ngFor="let obj of animationArray">
+        <mat-card class="mat-elevation-z2">
+          <div mat-card-image (click)="runAnimation(obj._id)">
+            <div><div class="lw-thumb lw-multi-thumb" [style.background-image]="animationBackground(obj)"></div></div>
           </div>
-          <mat-card-content title="{{ animation.name }}">
-            <div class="pa-title">
-              {{ animation.name || 'No name' }}</div>
+          <mat-card-content title="{{ obj.name }}">
+            <span>{{ obj.name || 'No name' }}</span>
             <div>
-              <button mat-icon-button [matMenuTriggerFor]="menu">
-                <mat-icon>more_vert</mat-icon>
-              </button>
+              <button mat-icon-button [matMenuTriggerFor]="menu"><mat-icon>more_vert</mat-icon></button>
               <mat-menu #menu="matMenu">
-                <button  (click)="runAnimation(animation._id)" mat-menu-item>
-                  <mat-icon>send</mat-icon>
-                  <span>Run</span>
+                <button (click)="runAnimation(obj._id)" mat-menu-item>
+                  <mat-icon>send</mat-icon><span>Run</span>
                 </button>
-                <!--<button (click)="openPixelArtInformationDialog(pa)" mat-menu-item>-->
-                  <!--<mat-icon>info</mat-icon>-->
-                  <!--<span>Information</span>-->
-                <!--</button>-->
-                <button [routerLink]="['/animations']" [queryParams]="{id: animation._id}" mat-menu-item>
-                  <mat-icon>edit</mat-icon>
-                  <span>Edit</span>
+                <button [routerLink]="['/animations']" [queryParams]="{id: obj._id}" mat-menu-item>
+                  <mat-icon>edit</mat-icon><span>Edit</span>
                 </button>
-                <button (click)="deleteAnimation(animation._id)" mat-menu-item>
-                  <mat-icon>delete</mat-icon>
-                  <span>Delete</span>
+                <button (click)="deleteAnimation(obj._id)" mat-menu-item>
+                  <mat-icon>delete</mat-icon><span>Delete</span>
                 </button>
               </mat-menu>
             </div>
@@ -50,56 +39,47 @@
         <span> votre première animation maintenant !</span>
       </div>
 
-      <div *ngIf="animationArray?.length > 0" class="d-inline-block p-2 pa-size-220 align-top">
-        <button [routerLink]="['/animations'] "style="border-radius: 4px;width: 100%;height: 180px;background-color: #ffffff61;" mat-raised-button>
+      <div *ngIf="animationArray?.length > 0" class="lw-w-md align-top">
+        <button [routerLink]="['/animations']" class="lw-mirror" mat-raised-button>
           <mat-icon style="font-size: 48px;width: 48px;height: 48px;line-height: 48px;color: #464646;">add_circle_outline</mat-icon>
         </button>
       </div>
 
     </div>
 
-
   </section>
 
 
 
 
-  <section>
 
-    <h2 class="mat-h2 mt-3">Pixelart Gallery</h2>
 
-    <div class="mb-5 text-center pa-gallery">
+  <section class="mt-5">
 
-      <div class="d-inline-block p-2 pa-size-220" *ngFor="let pa of pixelartArray">
-        <mat-card class="mat-elevation-z2 pb-2">
-          <div mat-card-image class="mb-2">
-            <div class="pa-grid-container">
-              <div class="pa-grid">
-                <div class="pa-thumb" [style.background-image]="'url(' + pa.base64Thumb + ')'"></div>
-              </div>
-            </div>
+    <h2 class="mat-h2">Pixelart Gallery</h2>
+
+    <div class="lw-gallery">
+
+      <div class="lw-w-md" *ngFor="let obj of pixelartArray">
+        <mat-card class="mat-elevation-z2">
+          <div mat-card-image (click)="runAnimation(obj._id)">
+            <div><div class="lw-thumb" [style.background-image]="'url(' + obj.base64Thumb + ')'"></div></div>
           </div>
-          <mat-card-content title="{{ pa.piskel.name }}">
-            <div class="pa-title">
-              {{ pa.piskel.name || 'No name' }}</div>
+          <mat-card-content title="{{ obj.piskel.name }}">
+            <span>{{ obj.piskel.name || 'No name' }}</span>
             <div>
-              <button mat-icon-button [matMenuTriggerFor]="menu">
-                <mat-icon>more_vert</mat-icon>
-              </button>
+              <button mat-icon-button [matMenuTriggerFor]="menu"><mat-icon>more_vert</mat-icon></button>
               <mat-menu #menu="matMenu">
-                <button (click)="runPixelart(pa._id)" mat-menu-item>
-                  <mat-icon>send</mat-icon>
-                  <span>Run</span>
+                <button (click)="runPixelart(obj._id)" mat-menu-item>
+                  <mat-icon>send</mat-icon><span>Run</span>
                 </button>
-                <button (click)="openPixelArtInformationDialog(pa)" mat-menu-item>
-                  <mat-icon>info</mat-icon>
-                  <span>Information</span>
+                <button (click)="openPixelArtInformationDialog(obj)" mat-menu-item>
+                  <mat-icon>info</mat-icon><span>Information</span>
                 </button>
-                <button [routerLink]="['/editor']" [queryParams]="{id: pa._id}" mat-menu-item>
-                  <mat-icon>edit</mat-icon>
-                  <span>Edit</span>
+                <button [routerLink]="['/editor']" [queryParams]="{id: obj._id}" mat-menu-item>
+                  <mat-icon>edit</mat-icon><span>Edit</span>
                 </button>
-                <button (click)="deletePixelArt(pa._id)" mat-menu-item>
+                <button (click)="deletePixelArt(obj._id)" mat-menu-item>
                   <mat-icon>delete</mat-icon>
                   <span>Delete</span>
                 </button>
@@ -111,11 +91,11 @@
 
       <div *ngIf="pixelartArray?.length <= 0">
         <button mat-stroked-button class="flex-grow-1" [routerLink]="['/editor']">Créez</button>
-        <span> votre premier pixelart maintenant !</span>
+        <span> votre première animation maintenant !</span>
       </div>
 
-      <div *ngIf="pixelartArray?.length > 0" class="d-inline-block p-2 pa-size-220 align-top">
-        <button [routerLink]="['/editor'] "style="border-radius: 4px;width: 100%;height: 180px;background-color: #ffffff61;" mat-raised-button>
+      <div *ngIf="pixelartArray?.length > 0" class="lw-w-md align-top">
+        <button [routerLink]="['/editor']" class="lw-mirror" mat-raised-button>
           <mat-icon style="font-size: 48px;width: 48px;height: 48px;line-height: 48px;color: #464646;">add_circle_outline</mat-icon>
         </button>
       </div>
@@ -126,97 +106,78 @@
 
 
 
-  <section>
-
-    <h2 class="mat-h2 mt-3">Wordart Gallery</h2>
-
-    <div class="mb-5 text-center pa-gallery">
-
-      <div class="d-inline-block p-2 pa-size-220" *ngFor="let wa of wordartArray">
-        <mat-card class="mat-elevation-z2 pb-2">
-          <div mat-card-image class="mb-2">
-            <div class="pa-grid-container">
-              <div class="pa-grid">
-                <!--<div class="pa-thumb" [style.background-image]="'url(' + pa.base64Thumb + ')'"></div>-->
-              </div>
-            </div>
-          </div>
-          <mat-card-content title="{{ wa.text }}">
-            <div class="pa-title">
-              {{ wa.text || 'No name' }}</div>
-            <div>
-              <button mat-icon-button [matMenuTriggerFor]="menu">
-                <mat-icon>more_vert</mat-icon>
-              </button>
-              <mat-menu #menu="matMenu">
-                <button  (click)="runWordart(wa._id)" mat-menu-item>
-                  <mat-icon>send</mat-icon>
-                  <span>Run</span>
-                </button>
-                <button [routerLink]="['/wordarts']" [queryParams]="{id: wa._id}" mat-menu-item>
-                  <mat-icon>edit</mat-icon>
-                  <span>Edit</span>
-                </button>
-                <button (click)="deleteWordart(wa._id)" mat-menu-item>
-                  <mat-icon>delete</mat-icon>
-                  <span>Delete</span>
-                </button>
-              </mat-menu>
-            </div>
-          </mat-card-content>
-        </mat-card>
-      </div>
 
 
-      <div *ngIf="wordartArray?.length <= 0">
-        <button mat-stroked-button class="flex-grow-1" [routerLink]="['/wordart']">Créez</button>
-        <span> votre premier wordart maintenant !</span>
-      </div>
-
-      <!--<div *ngIf="pixelartArray?.length > 0" class="d-inline-block p-2 pa-size-220 align-top">-->
-        <!--<button [routerLink]="['/editor'] "style="border-radius: 4px;width: 100%;height: 180px;background-color: #ffffff61;" mat-raised-button>-->
-          <!--<mat-icon style="font-size: 48px;width: 48px;height: 48px;line-height: 48px;color: #464646;">add_circle_outline</mat-icon>-->
-        <!--</button>-->
-      <!--</div>-->
 
 
+
+
+  <section class="mt-5">
+
+    <h2 class="mat-h2">Wordart Gallery</h2>
+
+
+    <div class="timeline">
+
+      <li class="lw-item" *ngFor="let obj of wordartArray">
+        <div class="lw-title cursor-pointer" (click)="runWordart(obj._id)">{{ obj.text }}</div>
+        <button mat-icon-button [matMenuTriggerFor]="menu">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+          <button  (click)="runWordart(obj._id)" mat-menu-item>
+            <mat-icon>send</mat-icon><span>Run</span>
+          </button>
+          <button [routerLink]="['/wordarts']" [queryParams]="{id: obj._id}" mat-menu-item>
+            <mat-icon>edit</mat-icon><span>Edit</span>
+          </button>
+          <button (click)="deleteWordart(obj._id)" mat-menu-item>
+            <mat-icon>delete</mat-icon><span>Delete</span>
+          </button>
+        </mat-menu>
+      </li>
     </div>
+
+    <div *ngIf="wordartArray?.length > 0">
+      <button mat-raised-button color="primary" [routerLink]="['/wordarts']">Create Wordart</button>
+    </div>
+
+    <div *ngIf="wordartArray?.length <= 0">
+      <button mat-stroked-button class="flex-grow-1" [routerLink]="['/wordarts']">Créez</button>
+      <span> votre premier wordart maintenant !</span>
+    </div>
+
+
 
   </section>
 
 
 
 
-  <section>
 
-    <h2 class="mat-h2 mt-3">Script Gallery</h2>
 
-    <div class="mb-5 text-center pa-gallery">
 
-      <div class="d-inline-block p-2 pa-size-220" *ngFor="let script of scriptArray">
-        <mat-card class="mat-elevation-z2 pb-2">
-          <div mat-card-image class="mb-2">
-            <div class="pa-grid-container">
-              <div class="pa-grid">
-                <!--<div class="pa-thumb" [style.background-image]="'url(' + pa.base64Thumb + ')'"></div>-->
-              </div>
-            </div>
+  <section class="mt-5">
+
+    <h2 class="mat-h2">Script Gallery</h2>
+
+    <div class="lw-gallery">
+
+      <div class="lw-w-md" *ngFor="let obj of scriptArray">
+        <mat-card class="mat-elevation-z2">
+          <div mat-card-image (click)="runAnimation(obj._id)">
+            <div><div class="lw-thumb" [style.background-image]="scriptBackground(obj)"></div></div>
           </div>
-          <mat-card-content title="{{ script.name }}">
-            <div class="pa-title">
-              {{ script.name || 'No name' }}</div>
+          <mat-card-content title="{{ obj.name }}">
+            <span>{{ obj.name || 'No name' }}</span>
             <div>
-              <button mat-icon-button [matMenuTriggerFor]="menu">
-                <mat-icon>more_vert</mat-icon>
-              </button>
+              <button mat-icon-button [matMenuTriggerFor]="menu"><mat-icon>more_vert</mat-icon></button>
               <mat-menu #menu="matMenu">
-                <button (click)="runScript(script._id)" mat-menu-item>
-                  <mat-icon>send</mat-icon>
-                  <span>Run</span>
+                <button (click)="runScript(obj._id)" mat-menu-item>
+                  <mat-icon>send</mat-icon><span>Run</span>
                 </button>
-                <button (click)="deleteScript(script._id)" mat-menu-item>
-                  <mat-icon>delete</mat-icon>
-                  <span>Delete</span>
+                <button (click)="deleteScript(obj._id)" mat-menu-item>
+                  <mat-icon>delete</mat-icon><span>Delete</span>
                 </button>
               </mat-menu>
             </div>
@@ -224,38 +185,14 @@
         </mat-card>
       </div>
 
-      <div *ngIf="scriptArray?.length <= 0">
-        <!--<form #form class="mt-5">-->
-          <!--<div class="form-group">-->
-            <!--<input type="file"-->
-                   <!--id="file"-->
-                   <!--(change)="uploadScript($event.target.files)">-->
-          <!--</div>-->
-        <!--</form>-->
-        <!--<button mat-stroked-button class="flex-grow-1" [routerLink]="['/editor']">Importez</button>-->
-        <!--<span> votre premier script maintenant !</span>-->
-      </div>
-
-      <form #form class="mt-5">
-        <div class="form-group">
-          <input type="file"
-                 id="file"
-                 (change)="uploadScript($event.target.files)">
-        </div>
+      <form #form class="mt-4">
+        <input hidden id="input-file-id" type="file" id="file" #scriptInput (change)="uploadScript($event.target.files)"/>
+        <button mat-raised-button color="primary" type="button" (click)="scriptInput.click()">Upload script</button>
       </form>
 
-      <!--<div *ngIf="pixelartArray?.length > 0" class="d-inline-block p-2 pa-size-220 align-top">-->
-        <!--<button [routerLink]="['/editor'] "style="border-radius: 4px;width: 100%;height: 180px;background-color: #ffffff61;" mat-raised-button>-->
-          <!--<mat-icon style="font-size: 48px;width: 48px;height: 48px;line-height: 48px;color: #464646;">add_circle_outline</mat-icon>-->
-        <!--</button>-->
-      <!--</div>-->
-
-
-
     </div>
 
   </section>
-
 
 
 

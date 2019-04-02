@@ -35,6 +35,7 @@ export class AnimationsComponent implements OnInit {
 
     // Init timeline
     this.timeline = {
+      _id: null,
       name: 'New Animation',
       animationItems: []
     };

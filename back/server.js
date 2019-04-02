@@ -42,13 +42,15 @@ const corsOptions = {
   credentials: true
 };
 
-app.use(cors(corsOptions));
+app.use(cors());
 
 app.use('/users', require('./routes/users'));
 app.use('/pixelarts', require('./routes/pixelarts'));
 app.use('/animations', require('./routes/animations'));
 app.use('/wordarts', require('./routes/wordarts'));
 app.use('/scripts', require('./routes/scripts'));
+app.use('/controller', require('./routes/controller'));
+app.use('/special', require('./routes/special'));
 
 
 
