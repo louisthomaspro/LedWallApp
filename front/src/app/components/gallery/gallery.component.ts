@@ -11,6 +11,7 @@ import {MatDialog, MatSnackBar} from '@angular/material';
 import {WordartService} from '../../services/wordart.service';
 import {DomSanitizer} from '@angular/platform-browser';
 
+
 // Components
 import {PixelArtInformationDialogComponent} from '../dialog/pixelart-information-dialog/pixel-art-information-dialog.component';
 import {ConfirmDialogComponent} from '../dialog/confirm-dialog/confirm-dialog.component';
@@ -47,7 +48,8 @@ export class GalleryComponent implements OnInit {
       private animationService: AnimationService,
       private scriptService: ScriptService,
       private wordartService: WordartService,
-      public dialog: MatDialog, private snackBar: MatSnackBar,
+      public dialog: MatDialog,
+      private snackBar: MatSnackBar,
       private sanitizer: DomSanitizer
   ) { }
 

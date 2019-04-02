@@ -99,6 +99,18 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 }
 
 
+/* 5x7 font */
+/* @font-face kit by Fonts2u (https://fonts2u.com) */
+@font-face {
+  font-family:"5x7 practical Regular";
+  src:url("assets/fonts/5x7_practical.eot?") format("eot"),
+  url("assets/fonts/5x7_practical.woff") format("woff"),
+  url("assets/fonts/5x7_practical.ttf") format("truetype"),
+  url("assets/fonts/5x7_practical.svg#5x7-practical") format("svg");
+  font-weight:normal;
+  font-style:normal;
+}
+
 
 
 // MY IMPORTS

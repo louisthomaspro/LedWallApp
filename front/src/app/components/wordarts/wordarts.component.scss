@@ -1,0 +1,27 @@
+#box-preview {
+  border: 1px solid grey;
+  position: relative;
+  overflow: hidden;
+  height: 100px;
+
+  #text-preview {
+    text-align: center;
+    font-family: '5x7 practical Regular', serif;
+    font-size: 6em;
+    white-space: nowrap;
+    top:0;
+  }
+}
+
+
+
+#text-preview {
+  position:absolute;
+  -webkit-animation:linear infinite;
+  -webkit-animation-name: run;
+  -webkit-animation-duration: 10s;
+}
+@-webkit-keyframes run {
+  0% { }
+  100%{ left : 100%;}
+}

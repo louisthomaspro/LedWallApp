@@ -27,7 +27,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 
-// app.use(cors());
+
 
 // Add headers
 const whitelist = ['http://' + ip.address() + ':4200', 'http://' + 'localhost' + ':4200', 'http://' + 'localhost'];
@@ -42,7 +42,9 @@ const corsOptions = {
   credentials: true
 };
 
-app.use(cors());
+app.use(cors(corsOptions));
+
+
 
 app.use('/users', require('./routes/users'));
 app.use('/pixelarts', require('./routes/pixelarts'));
@@ -70,7 +72,7 @@ wss.on('connection', function connection(ws) {
 /* Database connection setup */
 db = require('./DB');
 mongoose.Promise = global.Promise;
-mongoose.connect(db.DB, { useNewUrlParser: true }).then(
+mongoose.connect(db.DB, { useMongoClient:true }).then(
   () => {console.info('Database is connected') },
   err => { console.error('Can not connect to the database'+ err)}
 );

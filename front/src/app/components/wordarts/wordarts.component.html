@@ -8,13 +8,55 @@
       <mat-form-field>
         <input matInput placeholder="Text to display">
       </mat-form-field>
+
+
+      <h3 class="mat-h3">Font color</h3>
+
+      <div id="fontPicker">
+        <div class="fontPicker"
+             acp-color="#efe7e7"
+             acp-show-alpha
+             acp-show-rgb="no"
+             acp-show-hsl="no"
+             acp-palette="red|#ffc107|rgb(255,221,0)">
+        </div>
+      </div>
+
+      <div class="my-4"></div>
+
+      <h3 class="mat-h3">Background color</h3>
+
+      <div id="bgPicker">
+        <div class="bgPicker"
+             acp-color="#efe7e7"
+             acp-show-alpha
+             acp-show-rgb="no"
+             acp-show-hsl="no"
+             acp-palette="red|#ffc107|rgb(255,221,0)">
+        </div>
+      </div>
+
+
+
     </div>
 
     <div class="col-sm-6">
 
+      <h3 class="mat-h3">Text preview</h3>
+
+      <div id="box-preview" [style.background-color]="bgColor">
+        <div id="text-preview" [style.left.px]="textWidth"  [style.color]="fontColor">le text qui est un peu trop long</div>
+      </div>
+
+
+
     </div>
 
+
+
   </div>
+
+
 
 
 
