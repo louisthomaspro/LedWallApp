@@ -120,7 +120,7 @@
     <div class="lw-list mb-3" style="max-width: 650px;">
 
       <li class="lw-item" *ngFor="let obj of wordartArray">
-        <div class="lw-title cursor-pointer lw-font" (click)="runWordart(obj._id)" [style.background-color]="obj.bgColor" [style.color]="obj.textColor">
+        <div class="lw-title cursor-pointer lw-font" (click)="runWordart(obj._id)" [style.background-color]="rgbToHex(obj.bgColor)" [style.color]="rgbToHex(obj.textColor)">
           <span>{{ obj.text }}</span>
         </div>
         <button mat-icon-button [matMenuTriggerFor]="menu">

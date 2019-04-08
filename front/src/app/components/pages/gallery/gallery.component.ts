@@ -21,7 +21,8 @@ import {PixelartService} from '../../../services/pixelart.service';
 import {AnimationService} from '../../../services/animation.service';
 import {ScriptService} from '../../../services/script.service';
 
-
+// Npm
+import * as AColorPicker from 'a-color-picker';
 
 
 @Component({
@@ -66,6 +67,10 @@ export class GalleryComponent implements OnInit {
     this.scriptService.get().subscribe((res) => {
       this.scriptArray = res;
     });
+  }
+
+  rgbToHex(rgb): string {
+    return AColorPicker.parseColor(rgb, 'hex');
   }
 
 

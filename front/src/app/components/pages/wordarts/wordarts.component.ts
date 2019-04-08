@@ -40,13 +40,11 @@ export class WordartsComponent implements OnInit, DoCheck {
       private route: ActivatedRoute,
       private wordartService: WordartService,
       private snackBar: MatSnackBar,
-      differs: KeyValueDiffers,
+      private differs: KeyValueDiffers,
       private router: Router,
       private confirmDialogService: ConfirmDialogService,
       private location: Location
   ) {
-    this.differ = {};
-    this.differ['wordart'] = differs.find([]).create();
   }
 
   ngOnInit() {
@@ -92,6 +90,9 @@ export class WordartsComponent implements OnInit, DoCheck {
     });
 
     this.textInput.control.markAsTouched();
+
+    this.differ = {};
+    this.differ['wordart'] = this.differs.find([]).create();
   }
 
   ngDoCheck() {
