@@ -13,7 +13,6 @@ export class AppComponent implements OnInit {
   localStorage: Storage;
   currentUser = JSON.parse(localStorage.getItem('currentUser'));
   userName: any;
-  httpOptions: any;
 
   id: string;
 

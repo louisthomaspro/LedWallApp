@@ -27,10 +27,12 @@ router.post('/', function (req, res, next) {
         err.statusCode = 400;
         return next(err);
     }
+    delete object._id;
     let record = new objectType(object);
     record.save((err, response) => {
         if (err) return next(err);
         console.log('Object ' + objectName + ' ' + response._id + ' added');
+        console.log(response);
         return res.json(response._id);
     });
 });
@@ -47,8 +49,9 @@ router.post('/:id', function (req, res, next) {
     }
     if(!mongoose.Types.ObjectId.isValid(objectId)) return next(new Error("invalid id"));
     objectType.updateOne({_id: objectId}, { $set: {
-            name: object.name,
-            animationItems: object.animationItems
+            text: object.text,
+            bgColor: object.bgColor,
+            textColor: object.textColor
         } }, function(err) {
         if (err) return next(err);
         console.log('Object ' + objectName + ' ' + objectId + ' updated');

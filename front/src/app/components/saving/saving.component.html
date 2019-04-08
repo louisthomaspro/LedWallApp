@@ -1,0 +1,4 @@
+<span *ngIf="display">
+<span *ngIf="saving; else saved" class="app-saving"><span>Saving...</span></span>
+<ng-template #saved><span class="app-saving"><span >All changed saved<i class="material-icons">check</i></span></span></ng-template>
+</span>

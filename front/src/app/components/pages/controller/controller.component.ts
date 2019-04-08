@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import {ControllerService} from '../../services/controller.service';
+import {ControllerService} from '../../../services/controller.service';
 
 @Component({
   selector: 'app-controller',

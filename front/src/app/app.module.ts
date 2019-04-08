@@ -27,14 +27,15 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 
 import { FooterComponent } from './components/footer/footer.component';
 import { TimeDialogComponent } from './components/dialog/time-dialog/time-dialog.component';
-import { GalleryComponent } from './components/gallery/gallery.component';
-import { AnimationsComponent } from './components/animations/animations.component';
-import { EditorComponent } from './components/editor/editor.component';
+import { GalleryComponent } from './components/pages/gallery/gallery.component';
+import { AnimationsComponent } from './components/pages/animations/animations.component';
+import { EditorComponent } from './components/pages/editor/editor.component';
 import { PixelArtInformationDialogComponent } from './components/dialog/pixelart-information-dialog/pixel-art-information-dialog.component';
 import { ConfirmDialogComponent } from './components/dialog/confirm-dialog/confirm-dialog.component';
-import { NotfoundComponent } from './components/notfound/notfound.component';
-import { WordartsComponent } from './components/wordarts/wordarts.component';
-import { ControllerComponent } from './components/controller/controller.component';
+import { NotfoundComponent } from './components/pages/notfound/notfound.component';
+import { WordartsComponent } from './components/pages/wordarts/wordarts.component';
+import { ControllerComponent } from './components/pages/controller/controller.component';
+import { SavingComponent } from './components/saving/saving.component';
 
 
 
@@ -53,7 +54,8 @@ import { ControllerComponent } from './components/controller/controller.componen
     GalleryComponent,
     AnimationsComponent,
     WordartsComponent,
-    ControllerComponent
+    ControllerComponent,
+    SavingComponent
   ],
   imports: [
     BrowserModule,

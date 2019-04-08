@@ -19,6 +19,7 @@ router.post('/', function (req, res, next) {
         err.statusCode = 400;
         return next(err);
     }
+    delete object._id;
     let record = new objectType(object);
     record.save((err, response) => {
         if (err) return next(err);

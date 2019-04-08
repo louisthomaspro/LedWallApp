@@ -1,0 +1,59 @@
+<div class="lw-page-container">
+
+  <h2 class="mat-h2 mt-3 d-flex">
+    <span>Wordart builder</span>
+    <app-saving #savingComponent></app-saving>
+    <span style="flex-grow: 1"></span>
+    <button mat-icon-button>
+      <mat-icon aria-label="delete" color="warn" *ngIf="wordart._id != null" (click)="deleteWordart()">delete</mat-icon>
+    </button>
+  </h2>
+
+      <mat-form-field>
+        <input matInput [(ngModel)]="wordart.text" value="text" placeholder="Text to display" required>
+      </mat-form-field>
+
+      <div class="w-100">
+        <div class="d-inline-block m-2">
+          <h3 class="mat-h3">Font color</h3>
+
+          <div id="textPicker">
+            <div class="textPicker"
+                 acp-show-alpha
+                 acp-show-rgb="no"
+                 acp-show-hsl="no"
+                 acp-palette="red|#ffc107|rgb(255,221,0)">
+            </div>
+          </div>
+        </div>
+
+        <div class="d-inline-block m-2">
+          <h3 class="mat-h3">Background color</h3>
+
+          <div id="bgPicker">
+            <div class="bgPicker"
+                 acp-show-alpha
+                 acp-show-rgb="no"
+                 acp-show-hsl="no"
+                 acp-palette="red|#ffc107|rgb(255,221,0)">
+            </div>
+          </div>
+        </div>
+      </div>
+
+<!--      <h3 class="mat-h3">Text preview</h3>-->
+<!--      <div id="box-preview" [style.background-color]="bgColor">-->
+<!--        <div id="text-preview" #textPreview [style.left.px]="-textPreview.offsetWidth"  [style.color]="fontColor">{{ text }}</div>-->
+<!--      </div>-->
+
+  <div class="mt-4">
+    <button mat-raised-button color="primary" (click)="run()">Run</button>
+  </div>
+
+
+
+
+
+
+
+</div>
