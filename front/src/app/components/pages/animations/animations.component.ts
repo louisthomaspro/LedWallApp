@@ -29,7 +29,7 @@ export class AnimationsComponent implements OnInit, DoCheck {
   form: FormGroup;
 
   changeSubject: Subject<any> = new Subject();
-  differ: any;
+  differ: any = {};
 
   @ViewChild('savingComponent') savingComponent: SavingComponent;
   @ViewChild('textInput') textInput: NgModel;
@@ -41,13 +41,10 @@ export class AnimationsComponent implements OnInit, DoCheck {
       public dialog: MatDialog,
       private route: ActivatedRoute,
       private confirmDialogService: ConfirmDialogService,
-      differs: KeyValueDiffers,
+      private differs: KeyValueDiffers,
       private location: Location,
       private router: Router
   ) {
-    this.differ = {};
-    this.differ['animation'] = differs.find([]).create();
-    this.differ['animationItems'] = differs.find([]).create();
   }
 
   ngOnInit() {
@@ -79,12 +76,22 @@ export class AnimationsComponent implements OnInit, DoCheck {
 
     this.textInput.control.markAsTouched();
 
+    this.differ['animation'] = this.differs.find([]).create();
+    this.differ['animationItems'] = this.differs.find([]).create();
   }
 
 
   ngDoCheck() {
-    const animationChange = this.differ['animation'].diff(this.animation) || this.differ['animationItems'].diff(this.animation.animationItems);
-    if (animationChange && this.animation.name !== '') {
+    const animationChange =
+        (this.differ['animation'] ? this.differ['animation'].diff(this.animation) : false)
+        ||
+        ((this.differ['animationItems']) ? this.differ['animationItems'].diff(this.animation.animationItems) : false);
+    if (animationChange) { this.runSaving(); }
+  }
+
+
+  runSaving() {
+    if (this.animation.name !== '') {
       this.savingComponent.savingState = true;
       this.changeSubject.next();
     }
@@ -126,6 +133,7 @@ export class AnimationsComponent implements OnInit, DoCheck {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         animation.value.time = result;
+        this.runSaving();
       }
     });
   }
