@@ -2,8 +2,8 @@ const mongoose = require('mongoose');
 
 let Schema = mongoose.Schema({
     text: String,
-    textColor: String,
-    bgColor: String
+    textColor: [Number],
+    bgColor: [Number]
     // bgPixelArt: {
     //     type: mongoose.Schema.Types.ObjectId,
     //     ref: 'Pixelart'

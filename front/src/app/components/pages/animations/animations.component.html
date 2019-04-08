@@ -46,7 +46,7 @@
 
         <div class="d-flex align-items-center mb-3">
             <mat-form-field class="w-100" style="max-width: 250px" [hideRequiredMarker]="false">
-                <input matInput placeholder="Name" [(ngModel)]="animation.name" #animationName="ngModel" required>
+                <input matInput placeholder="Name" [(ngModel)]="animation.name" #textInput="ngModel" required>
                 <mat-error>Donnez un titre pour sauvegarder l'animation.</mat-error>
             </mat-form-field>
         </div>

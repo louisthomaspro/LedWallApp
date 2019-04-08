@@ -10,7 +10,7 @@
   </h2>
 
       <mat-form-field>
-        <input matInput [(ngModel)]="wordart.text" value="text" placeholder="Text to display" required>
+        <input matInput [(ngModel)]="wordart.text" value="text" placeholder="Text to display" #textInput="ngModel" required>
       </mat-form-field>
 
       <div class="w-100">
@@ -19,10 +19,7 @@
 
           <div id="textPicker">
             <div class="textPicker"
-                 acp-show-alpha
-                 acp-show-rgb="no"
-                 acp-show-hsl="no"
-                 acp-palette="red|#ffc107|rgb(255,221,0)">
+                 acp-show-hsl="no">
             </div>
           </div>
         </div>
@@ -32,10 +29,7 @@
 
           <div id="bgPicker">
             <div class="bgPicker"
-                 acp-show-alpha
-                 acp-show-rgb="no"
-                 acp-show-hsl="no"
-                 acp-palette="red|#ffc107|rgb(255,221,0)">
+                 acp-show-hsl="no">
             </div>
           </div>
         </div>

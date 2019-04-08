@@ -62,7 +62,7 @@
 
       <div class="lw-item" *ngFor="let obj of pixelartArray">
         <mat-card>
-          <div mat-card-image (click)="runAnimation(obj._id)">
+          <div mat-card-image (click)="runPixelart(obj._id)">
             <div><div class="lw-thumb" [style.background-image]="'url(' + obj.base64Thumb + ')'"></div></div>
           </div>
           <mat-card-content title="{{ obj.piskel.name }}">

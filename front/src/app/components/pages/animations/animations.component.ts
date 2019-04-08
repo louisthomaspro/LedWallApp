@@ -32,7 +32,7 @@ export class AnimationsComponent implements OnInit, DoCheck {
   differ: any;
 
   @ViewChild('savingComponent') savingComponent: SavingComponent;
-  @ViewChild('animationName') animationName: NgModel;
+  @ViewChild('textInput') textInput: NgModel;
 
   constructor(
       private pixelartService: PixelartService,
@@ -77,7 +77,7 @@ export class AnimationsComponent implements OnInit, DoCheck {
     });
 
 
-    this.animationName.control.markAsTouched();
+    this.textInput.control.markAsTouched();
 
   }
 

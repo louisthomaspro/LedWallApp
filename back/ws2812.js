@@ -311,13 +311,13 @@ function drawCharAt4x5(xref, yref, c, color)
     }
 }
 
-function drawStringAt4x5(xref, yref, s, color)
+function drawStringAt4x5(xref, yref, s, textColor, bgColor)
 {
     var frame_RGB = [];
 
     for(var i = 0; i < s.length; i++)
     {
-        drawCharAt4x5(xref, yref, s[i], color);
+        drawCharAt4x5(xref, yref, s[i], textColor);
         xref += 5;
     }
 
@@ -327,15 +327,15 @@ function drawStringAt4x5(xref, yref, s, color)
         {
             if (pixels[y][x] == 255)
             {
-                frame_RGB.push(color[0])
-                frame_RGB.push(color[1]);
-                frame_RGB.push(color[2]);
+                frame_RGB.push(textColor[0]);
+                frame_RGB.push(textColor[1]);
+                frame_RGB.push(textColor[2]);
             }
             else
             {
-                frame_RGB.push(0)
-                frame_RGB.push(0);
-                frame_RGB.push(0);
+                frame_RGB.push(bgColor[0]);
+                frame_RGB.push(bgColor[1]);
+                frame_RGB.push(bgColor[2]);
             }
         }
     }
@@ -390,15 +390,11 @@ module.exports = {
             }
         });
     },
-    WS2812RunWordArt: function(text, color, old_interval_id)
+    WS2812RunWordArt: function(text, textColor, bgColor, old_interval_id)
     {
         var xref = 0;
         var yref = 0;
         var i = 0;
-        text1 = "ISHISH";
-        text2 = "LEDWALL 2019";
-        color1 = [255, 0, 0];
-        color2 = [0, 255, 0];
 
         for(var x = 0; x < LED_WALL_WIDTH; x++)
         {
@@ -415,10 +411,10 @@ module.exports = {
         { 
             clearPixels();
 
-            drawStringAt4x5(xref + 3, 0, text2, color2);
+            drawStringAt4x5(xref + 3, 0, text, textColor, bgColor);
 
             //drawStringAt4x5(xref + 3, 5, text2, color2);
-            if(xref < -text2.length * 6)
+            if(xref < - text.length * 6)
             {
                 xref = LED_WALL_WIDTH;
             }
@@ -444,6 +440,7 @@ module.exports = {
             console.log("Killed old animation");
             clearInterval(old_interval_id);
         }
+        console.log('ici');
 
         var frame_RGB = [];
         var png_file = new PNG({ filterType:4 }).parse(frame_PNGbuffer, function(error, data)

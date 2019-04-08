@@ -17,6 +17,7 @@ import {debounceTime} from 'rxjs/operators';
 import {ConfirmDialogService} from '../../../services/confirm-dialog.service';
 
 import {Location} from '@angular/common';
+import {NgModel} from '@angular/forms';
 
 
 @Component({
@@ -32,7 +33,7 @@ export class WordartsComponent implements OnInit, DoCheck {
   differ: any;
 
   @ViewChild('savingComponent') savingComponent: SavingComponent;
-
+  @ViewChild('textInput') textInput: NgModel;
 
   constructor(
       private cd: ChangeDetectorRef,
@@ -52,12 +53,14 @@ export class WordartsComponent implements OnInit, DoCheck {
 
     const textPicker = AColorPicker.createPicker('.textPicker')
     .on('change', (picker, color) => {
-      this.wordart.textColor = AColorPicker.parseColor(color, 'hexcss4');
+      const colors = AColorPicker.parseColor(color, '{ }');
+      this.wordart.textColor = [colors[0], colors[1], colors[2]];
     });
 
     const bgPicker = AColorPicker.createPicker('.bgPicker')
     .on('change', (picker, color) => {
-      this.wordart.bgColor = AColorPicker.parseColor(color, 'hexcss4');
+      const colors = AColorPicker.parseColor(color, '{ }');
+      this.wordart.bgColor = [colors[0], colors[1], colors[2]];
     });
 
     const wordartId = this.route.snapshot.paramMap.get('id');
@@ -66,8 +69,8 @@ export class WordartsComponent implements OnInit, DoCheck {
     this.wordart = {
       _id: null,
       text: '',
-      bgColor: '#000000',
-      textColor: '#ffffff'
+      bgColor: [0, 0, 0],
+      textColor: [255, 255, 255]
     };
 
     textPicker.color = this.wordart.textColor;
@@ -87,6 +90,8 @@ export class WordartsComponent implements OnInit, DoCheck {
     this.changeSubject.pipe(debounceTime(500)).subscribe(() => {
       this.save();
     });
+
+    this.textInput.control.markAsTouched();
   }
 
   ngDoCheck() {

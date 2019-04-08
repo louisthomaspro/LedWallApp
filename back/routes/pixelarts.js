@@ -114,11 +114,11 @@ router.get('/run/:id', function (req, res, next) {
     objectType.findOne({_id: objectId}, function (err, response) {
         if (err) return next(err);
 
-        const pixelart = response;
+        const obj = response;
         // TODO tester si la reponse est vide
 
-        //anim_interval_id = ws2812.WS2812RunEditorImage(pixelart, anim_interval_id);
-        anim_interval_id = ws2812.WS2812RunWordArt("LED WALL 2019", [255, 0, 0], anim_interval_id);
+        anim_interval_id = ws2812.WS2812RunEditorImage(obj, anim_interval_id);
+        // anim_interval_id = ws2812.WS2812RunWordArt("LED WALL 2019", [255, 0, 0], anim_interval_id);
         console.log('Object ' + objectName + ' ' + objectId + ' running');
         return res.json('ok');
     });
