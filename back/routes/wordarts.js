@@ -100,8 +100,9 @@ router.get('/run/:id', function (req, res, next) {
 
         const wordart = response;
         // TODO tester si la reponse est vide
-
+        console.log(wordart);
         // TODO algo à faire
+
 
         console.log('Object ' + objectName + ' ' + objectId + ' running');
         return res.json('ok');
