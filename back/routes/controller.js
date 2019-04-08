@@ -3,9 +3,6 @@ const router = express.Router();
 
 const ks = require('node-key-sender');
 
-
-
-
 router.get('/up', function (req, res, next) {
     console.log('Key : UP');
     ks.sendKey('@38');

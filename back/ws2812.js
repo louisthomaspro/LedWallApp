@@ -364,6 +364,10 @@ function Base64ExtractPNG(data_url)
 }
 
 module.exports = {
+    WS2812Clear: function(img_path)
+    {
+        module.exports.WS2812DisplayImage(new Array(480));            //We only need the data buffer
+    },
     WS2812JPEGToRgb: function(img_path)
     {
         var jpeg_data = fs.readFileSync(img_path);      //File read

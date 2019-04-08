@@ -6,15 +6,16 @@ const ws2812 = require('../ws2812');
 
 const mongoose = require('mongoose');
 
-var anim_interval_id = -1;  //Used to stop the currently displayed animation/image
-
-
-
 const objectName = 'Pixelart';
 const objectType = Pixelart;
 
-
-
+function LWClearIntervals()
+{
+    clearInterval(anim_interval_id);  //Used to stop the currently displayed animation/image
+    clearInterval(oldplaylist_interval_id);
+    clearInterval(playlist_interval_id);
+    ws2812.WS2812Clear();
+}
 
 // create
 router.post('/', function (req, res, next) {
@@ -114,6 +115,7 @@ router.get('/run/:id', function (req, res, next) {
     objectType.findOne({_id: objectId}, function (err, response) {
         if (err) return next(err);
 
+        LWClearIntervals();
         const obj = response;
         // TODO tester si la reponse est vide
 

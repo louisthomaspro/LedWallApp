@@ -2,16 +2,19 @@ const express = require('express');
 const router = express.Router();
 const Wordart = require('../models/wordart');
 const ws2812 = require('../ws2812');
-// const jimp = require('');
 
 const mongoose = require('mongoose');
-
-var anim_interval_id = -1;  //Used to stop the currently displayed animation/image
-
 
 const objectName = 'Wordart';
 const objectType = Wordart;
 
+function LWClearIntervals()
+{
+    clearInterval(anim_interval_id);  //Used to stop the currently displayed animation/image
+    clearInterval(oldplaylist_interval_id);
+    clearInterval(playlist_interval_id);
+    ws2812.WS2812Clear();
+}
 
 // {
 //     "text": "Le meilleur ledwall !",
@@ -102,7 +105,8 @@ router.get('/run/:id', function (req, res, next) {
     if(!mongoose.Types.ObjectId.isValid(objectId)) return next(new Error("invalid id"));
     objectType.findOne({_id: objectId}, function (err, response) {
         if (err) return next(err);
-
+        
+        LWClearIntervals();
         const obj = response;
         // TODO tester si la reponse est vide
         console.log(obj.text);

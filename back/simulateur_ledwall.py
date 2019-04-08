@@ -45,7 +45,7 @@ class Application(tk.Frame):
                 self.lw_canv.create_rectangle(i * PIXEL_SIZE, j * PIXEL_SIZE, i * PIXEL_SIZE + PIXEL_SIZE, j * PIXEL_SIZE + PIXEL_SIZE, fill=("#" + "%06x" % random.randint(0, 0xFFFFFF)))
 
     def refresh_file(self):
-        idx_color = 0;
+        idx_color = 0
         bytes_read = open(DRIVER_PATH, "rb").read()
         rgb_values = []
         for b in bytes_read:
@@ -67,9 +67,9 @@ root.title("LED Wall simulator")
 app = Application(master=root)
 #app.mainloop()
 while True:
-    app.update()
     current_timestamp = os.path.getmtime(DRIVER_PATH)
     if (old_timestamp == 0 or current_timestamp != old_timestamp):
+        app.update()
         old_timestamp = current_timestamp
         app.refresh_file()
         time.sleep(0.01)
