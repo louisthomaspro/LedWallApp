@@ -45,8 +45,10 @@ class Application(tk.Frame):
                 self.lw_canv.create_rectangle(i * PIXEL_SIZE, j * PIXEL_SIZE, i * PIXEL_SIZE + PIXEL_SIZE, j * PIXEL_SIZE + PIXEL_SIZE, fill=("#" + "%06x" % random.randint(0, 0xFFFFFF)))
 
     def refresh_file(self):
-        idx_color = 0;
-        bytes_read = open(DRIVER_PATH, "rb").read()
+        idx_color = 0
+        file_hdlr = open(DRIVER_PATH, "rb")
+        bytes_read = file_hdlr.read()
+        file_hdlr.close()
         rgb_values = []
         for b in bytes_read:
             rgb_values.append(int(b))
