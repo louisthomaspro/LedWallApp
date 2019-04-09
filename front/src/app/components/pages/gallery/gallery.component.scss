@@ -1,0 +1,12 @@
+.lw-font {
+  font-family: '5x7 practical Regular', serif;
+  font-size: 3em;
+  white-space: nowrap;
+  text-align: left;
+  min-width: 0;
+
+  > span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}

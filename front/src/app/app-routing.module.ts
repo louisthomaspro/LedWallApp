@@ -5,13 +5,13 @@ import { RegisterComponent } from './components/auth/register/register.component
 import { LoginComponent } from './components/auth/login/login.component';
 import { AuthGuard } from './guards/authGuard';
 
-import { NotfoundComponent } from './components/notfound/notfound.component';
+import { NotfoundComponent } from './components/pages/notfound/notfound.component';
 
-import { EditorComponent } from './components/editor/editor.component';
-import { GalleryComponent} from './components/gallery/gallery.component';
-import { AnimationsComponent } from './components/animations/animations.component';
-import { WordartsComponent } from './components/wordarts/wordarts.component';
-import { ControllerComponent } from './components/controller/controller.component';
+import { EditorComponent } from './components/pages/editor/editor.component';
+import { GalleryComponent} from './components/pages/gallery/gallery.component';
+import { AnimationsComponent } from './components/pages/animations/animations.component';
+import { WordartsComponent } from './components/pages/wordarts/wordarts.component';
+import { ControllerComponent } from './components/pages/controller/controller.component';
 
 
 const routes: Routes = [
@@ -22,6 +22,7 @@ const routes: Routes = [
   { path: 'gallery', component: GalleryComponent },
   { path: 'editor', component: EditorComponent },
   { path: 'animations', component: AnimationsComponent },
+  { path: 'animations/:id', component: AnimationsComponent },
   { path: 'wordarts/:id', component: WordartsComponent },
   { path: 'wordarts', component: WordartsComponent },
   { path: 'controller', component: ControllerComponent },

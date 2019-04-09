@@ -1,27 +1,28 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, Host, OnInit, ViewChild} from '@angular/core';
 
 // Objects
-import {Pixelart} from '../../models/pixelart.model';
-import {Animation} from '../../models/animation.model';
-import {Script} from '../../models/script.model';
-import {Wordart} from '../../models/wordart.model';
+import {Pixelart} from '../../../models/pixelart.model';
+import {Animation} from '../../../models/animation.model';
+import {Script} from '../../../models/script.model';
+import {Wordart} from '../../../models/wordart.model';
 
 // Angular Modules
 import {MatDialog, MatSnackBar} from '@angular/material';
-import {WordartService} from '../../services/wordart.service';
+import {WordartService} from '../../../services/wordart.service';
 import {DomSanitizer} from '@angular/platform-browser';
 
 
 // Components
-import {PixelArtInformationDialogComponent} from '../dialog/pixelart-information-dialog/pixel-art-information-dialog.component';
-import {ConfirmDialogComponent} from '../dialog/confirm-dialog/confirm-dialog.component';
+import {PixelArtInformationDialogComponent} from '../../dialog/pixelart-information-dialog/pixel-art-information-dialog.component';
+import {ConfirmDialogService} from '../../../services/confirm-dialog.service';
 
 // Services
-import {PixelartService} from '../../services/pixelart.service';
-import {AnimationService} from '../../services/animation.service';
-import {ScriptService} from '../../services/script.service';
+import {PixelartService} from '../../../services/pixelart.service';
+import {AnimationService} from '../../../services/animation.service';
+import {ScriptService} from '../../../services/script.service';
 
-
+// Npm
+import * as AColorPicker from 'a-color-picker';
 
 
 @Component({
@@ -36,11 +37,7 @@ export class GalleryComponent implements OnInit {
   wordartArray: Array<Wordart> = [];
   scriptArray: Array<Script> = [];
 
-  sadGifArray: Array<string> = [];
-
   @ViewChild('form') form;
-
-
 
 
   constructor(
@@ -50,7 +47,8 @@ export class GalleryComponent implements OnInit {
       private wordartService: WordartService,
       public dialog: MatDialog,
       private snackBar: MatSnackBar,
-      private sanitizer: DomSanitizer
+      private sanitizer: DomSanitizer,
+      private confirmDialogService: ConfirmDialogService
   ) { }
 
 
@@ -69,11 +67,10 @@ export class GalleryComponent implements OnInit {
     this.scriptService.get().subscribe((res) => {
       this.scriptArray = res;
     });
+  }
 
-    const gifNames = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-    for (const name of gifNames) {
-      this.sadGifArray.push('assets/gifs/sad/' + name + '.gif');
-    }
+  rgbToHex(rgb): string {
+    return AColorPicker.parseColor(rgb, 'hex');
   }
 
 
@@ -120,21 +117,6 @@ export class GalleryComponent implements OnInit {
   }
 
 
-  deleteConfirmDialog(id, msg, callback): void {
-    const item = this.sadGifArray[Math.floor(Math.random() * this.sadGifArray.length)];
-    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
-      data: { title: 'WARNING', text: msg, gif: item}
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        callback();
-        this.openSnackBar('No mercy :\'(');
-      }
-    });
-  }
-
-
-
   openPixelArtInformationDialog(pa): void {
     const dialogRef = this.dialog.open(PixelArtInformationDialogComponent, {
       width: '400px',
@@ -167,7 +149,7 @@ export class GalleryComponent implements OnInit {
   /* DELETE */
 
   deletePixelArt(id) {
-    this.deleteConfirmDialog(id, 'Are you sure you want to delete this beautiful pixel art ? He will <u>also be deleted in the animations in which it appears.</u><br>In conclusion, he will leave us forever ...', () => {
+    this.confirmDialogService.deleteConfirmDialog(id, 'Are you sure you want to delete this beautiful pixel art ? He will <u>also be deleted in the animations in which it appears.</u><br>In conclusion, he will leave us forever ...', () => {
       this.pixelartService.delete(id).subscribe((res) => {
         this.ngOnInit();
       });
@@ -175,7 +157,7 @@ export class GalleryComponent implements OnInit {
   }
 
   deleteAnimation(id) {
-    this.deleteConfirmDialog(id, 'Are you sure you want to delete this beautiful obj ? He will leave us forever ...', () => {
+    this.confirmDialogService.deleteConfirmDialog(id, 'Are you sure you want to delete this beautiful obj ? He will leave us forever ...', () => {
       this.animationService.delete(id).subscribe((res) => {
         this.ngOnInit();
       });
@@ -183,7 +165,7 @@ export class GalleryComponent implements OnInit {
   }
 
   deleteScript(id) {
-    this.deleteConfirmDialog(id, 'Are you sure you want to delete this script ? He will leave us forever ...', () => {
+    this.confirmDialogService.deleteConfirmDialog(id, 'Are you sure you want to delete this script ? He will leave us forever ...', () => {
       this.scriptService.delete(id).subscribe((res) => {
         this.ngOnInit();
       });
@@ -191,7 +173,7 @@ export class GalleryComponent implements OnInit {
   }
 
   deleteWordart(id) {
-    this.deleteConfirmDialog(id, 'Are you sure you want to delete this wordart ? He will leave us forever ...', () => {
+    this.confirmDialogService.deleteConfirmDialog(id, 'Are you sure you want to delete this wordart ? He will leave us forever ...', () => {
       this.wordartService.delete(id).subscribe((res) => {
         this.ngOnInit();
       });

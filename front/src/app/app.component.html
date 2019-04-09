@@ -25,6 +25,4 @@
 </mat-sidenav-container>
 
 
-<app-footer *ngIf="router.url !== '/editor'"></app-footer>
-<!--// TODO remove footer when editor?id=monid-->
-<!--// TODO faire / au lieu de ?=-->
+<app-footer *ngIf="!router.url.includes('editor')"></app-footer>

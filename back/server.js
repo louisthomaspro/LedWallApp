@@ -7,10 +7,13 @@ const websocket = require('ws');
 const ws2812 = require('./ws2812');
 const ip = require("ip");
 
+anim_interval_id = -1;  //Used to stop the currently displayed animation/image
+oldplaylist_interval_id = -1;
+playlist_interval_id = -1;
 //assigning port
+python_process = null;
+
 const PORT = process.env.PORT || '3000';
-
-
 
 if(process.env.NODE_ENV === "production")
 {
@@ -43,6 +46,7 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
+// app.use(cors());
 
 
 

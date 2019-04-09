@@ -1,0 +1,80 @@
+<div class="lw-page-container">
+
+    <h2 class="mat-h2 mt-3 d-flex">
+        <span>Animation builder</span>
+        <app-saving #savingComponent></app-saving>
+        <span style="flex-grow: 1"></span>
+        <button mat-icon-button>
+            <mat-icon aria-label="delete" color="warn" *ngIf="animation._id != null" (click)="deleteAnimation()">delete</mat-icon>
+        </button>
+    </h2>
+
+    <mat-accordion>
+        <mat-expansion-panel class="my-4">
+            <mat-expansion-panel-header>
+                <mat-panel-title>Gallery</mat-panel-title>
+                <mat-panel-description>Add pixelarts from your gallery</mat-panel-description>
+            </mat-expansion-panel-header>
+
+
+            <div class="lw-gallery lw-playlist">
+
+                <div class="lw-item" *ngFor="let obj of pixelartArray">
+                    <mat-card>
+                        <div mat-card-image class>
+                            <div><div class="lw-thumb" [style.background-image]="'url(' + obj.base64Thumb + ')'"></div></div>
+                        </div>
+                        <mat-card-content title="{{ obj.piskel.name }}">
+                            <span>{{ obj.piskel.name || 'No name' }}</span>
+                        </mat-card-content>
+                        <mat-card-actions>
+                            <div>
+                                <button mat-raised-button (click)="addToTimeline(obj)">
+                                    <mat-icon>playlist_add</mat-icon>
+                                </button>
+                            </div>
+                        </mat-card-actions>
+                    </mat-card>
+                </div>
+
+            </div>
+
+        </mat-expansion-panel>
+    </mat-accordion>
+
+    <div style="max-width: 650px;">
+
+        <div class="d-flex align-items-center mb-3">
+            <mat-form-field class="w-100" style="max-width: 250px" [hideRequiredMarker]="false">
+                <input matInput placeholder="Name" [(ngModel)]="animation.name" #textInput="ngModel" required>
+                <mat-error>Donnez un titre pour sauvegarder l'animation.</mat-error>
+            </mat-form-field>
+        </div>
+
+
+        <div cdkDropList class="lw-list lw-content-animation mb-3" (cdkDropListDropped)="drop($event)">
+
+            <li class="lw-item cursor-move" *ngFor="let animationItem of animation.animationItems | keyvalue" cdkDrag>
+                <div class="lw-list-item-placeholder" *cdkDragPlaceholder></div>
+                <div class="lw-thumb" [style.background-image]="'url(' + animationItem.value.pixelart.base64Thumb + ')'"></div>
+                <div class="lw-title">{{ animationItem.value.pixelart.piskel.name }}</div>
+                <button mat-stroked-button (click)="openDelayDialog(animationItem)" class="lw-time">
+                    <mat-icon>timer</mat-icon>{{ animationItem.value.time }}s
+                </button>
+                <button mat-icon-button [matMenuTriggerFor]="menu">
+                    <mat-icon>more_vert</mat-icon>
+                </button>
+                <mat-menu #menu="matMenu">
+                    <button (click)="deleteFromTimeline(animationItem.key)" mat-menu-item>
+                        <mat-icon>delete</mat-icon><span>Delete</span>
+                    </button>
+                </mat-menu>
+            </li>
+        </div>
+
+        <button mat-raised-button color="primary" (click)="runAnimation()" *ngIf="animation._id">Run</button>
+
+    </div>
+
+
+</div>

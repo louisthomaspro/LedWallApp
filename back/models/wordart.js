@@ -2,11 +2,12 @@ const mongoose = require('mongoose');
 
 let Schema = mongoose.Schema({
     text: String,
-    textColor: String,
-    bgPixelArt: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Pixelart'
-    }
+    textColor: [Number],
+    bgColor: [Number]
+    // bgPixelArt: {
+    //     type: mongoose.Schema.Types.ObjectId,
+    //     ref: 'Pixelart'
+    // }
 },
 {
     timestamps: true
