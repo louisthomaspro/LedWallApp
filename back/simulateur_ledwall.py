@@ -46,7 +46,9 @@ class Application(tk.Frame):
 
     def refresh_file(self):
         idx_color = 0
-        bytes_read = open(DRIVER_PATH, "rb").read()
+        file_hdlr = open(DRIVER_PATH, "rb")
+        bytes_read = file_hdlr.read()
+        file_hdlr.close()
         rgb_values = []
         for b in bytes_read:
             rgb_values.append(int(b))
