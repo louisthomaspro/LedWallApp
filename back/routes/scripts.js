@@ -19,6 +19,19 @@ const objectName = 'Script';
 const objectType = Script;
 
 
+function LWClearIntervals()
+{
+    if (pythonScript != null) {
+        if (pythonScript.childCount != null) pythonScript.childCount.kill('SIGINT');
+        pythonScript = null;
+    }
+    clearInterval(anim_interval_id);  //Used to stop the currently displayed animation/image
+    clearInterval(oldplaylist_interval_id);
+    clearInterval(playlist_interval_id);
+    ws2812.WS2812Clear();
+}
+
+
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
         cb(null, 'public/scripts')
@@ -104,10 +117,12 @@ router.get('/run/:id', function (req, res, next) {
     objectType.findOne({_id: objectId}, function (err, response) {
         if (err) return next(err);
 
+        LWClearIntervals();
         const script = response;
         // TODO tester si la reponse est vide
 
-        PythonShell.run(script.path, options, function (err) {
+        pythonScript = PythonShell.run(script.path, options, function (err) {
+            console.log('salut');
             if (err) throw err;
             console.log('finished');
         });

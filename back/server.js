@@ -11,6 +11,7 @@ anim_interval_id = -1;  //Used to stop the currently displayed animation/image
 oldplaylist_interval_id = -1;
 playlist_interval_id = -1;
 //assigning port
+pythonScript = null;
 
 const PORT = process.env.PORT || '3000';
 
@@ -44,8 +45,8 @@ const corsOptions = {
   credentials: true
 };
 
-// app.use(cors(corsOptions));
-app.use(cors());
+app.use(cors(corsOptions));
+// app.use(cors());
 
 
 
