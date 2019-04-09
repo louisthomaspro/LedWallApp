@@ -160,9 +160,9 @@
 
     <div class="lw-gallery">
 
-      <div class="lw-w-md" *ngFor="let obj of scriptArray">
+      <div class="lw-item" *ngFor="let obj of scriptArray">
         <mat-card class="mat-elevation-z2">
-          <div mat-card-image (click)="runAnimation(obj._id)">
+          <div mat-card-image (click)="runScript(obj._id)">
             <div><div class="lw-thumb" [style.background-image]="scriptBackground(obj)"></div></div>
           </div>
           <mat-card-content title="{{ obj.name }}">
