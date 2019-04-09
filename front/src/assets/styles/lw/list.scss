@@ -1,0 +1,74 @@
+
+.lw-list {
+  width: 100%;
+  border: solid 1px #ccc;
+  min-height: 70px;
+  display: block;
+  background: #ffffff;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+
+  &::before {
+    display: block;
+    position: absolute;
+    line-height: 70px;
+    margin-left: 20px;
+    z-index: 1;
+    color: $lw-grey;
+    font-weight: 300;
+    font-style: italic;
+  }
+
+  &.lw-content-animation::before {content: 'Ajoutez des pixelarts à partir de la gallerie';}
+  &.cdk-drop-list-dragging::before {display: none;}
+
+}
+
+
+.lw-list .lw-item,
+.lw-item.cdk-drag.cdk-drag-preview {
+  padding: 0.5rem;
+  border-bottom: solid 1px #ccc;
+  display: flex;
+  align-items: center;
+  background-color: #ffffff;
+  height: 70px;
+  position: relative;
+  z-index: 2;
+
+  &:last-child {border: none;}
+
+  .lw-title {
+    display: flex;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    flex-grow: 1;
+    height: 100%;
+    align-items: center;
+  }
+
+  .lw-thumb {
+    width: 80px;
+    height: 100%;
+    image-rendering: pixelated;
+    background-size: contain;
+    background-repeat:no-repeat;
+    background-position: center center;
+  }
+
+  .lw-time {
+    padding-left: 1rem;
+
+    mat-icon {margin-right: 0.5rem;}
+  }
+}
+
+.lw-list-item-placeholder {
+  background: #ccc;
+  border: dotted 3px #999;
+  min-height: 70px;
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}

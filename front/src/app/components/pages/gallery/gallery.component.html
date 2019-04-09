@@ -1,0 +1,196 @@
+<div class="lw-page-container">
+
+
+
+
+  <section class="mt-2">
+
+    <h2 class="mat-h2">Animation Gallery</h2>
+
+    <div class="lw-gallery">
+
+      <div class="lw-item" *ngFor="let obj of animationArray">
+        <mat-card>
+          <div mat-card-image (click)="runAnimation(obj._id)">
+            <div><div class="lw-thumb lw-multi-thumb" [style.background-image]="animationBackground(obj)"></div></div>
+          </div>
+          <mat-card-content title="{{ obj.name }}">
+            <span>{{ obj.name || 'No name' }}</span>
+            <div>
+              <button mat-icon-button [matMenuTriggerFor]="menu"><mat-icon>more_vert</mat-icon></button>
+              <mat-menu #menu="matMenu">
+                <button (click)="runAnimation(obj._id)" mat-menu-item>
+                  <mat-icon>send</mat-icon><span>Run</span>
+                </button>
+                <button [routerLink]="['/animations', obj._id]" mat-menu-item>
+                  <mat-icon>edit</mat-icon><span>Edit</span>
+                </button>
+                <button (click)="deleteAnimation(obj._id)" mat-menu-item>
+                  <mat-icon>delete</mat-icon><span>Delete</span>
+                </button>
+              </mat-menu>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+
+      <div *ngIf="animationArray?.length <= 0">
+        <button mat-stroked-button class="flex-grow-1" [routerLink]="['/animations']">Créez</button>
+        <span> votre première animation maintenant !</span>
+      </div>
+
+      <div *ngIf="animationArray?.length > 0" class="lw-item lw-mirror">
+        <button [routerLink]="['/animations']" mat-raised-button>
+          <mat-icon style="font-size: 48px;width: 48px;height: 48px;line-height: 48px;color: #464646;">add_circle_outline</mat-icon>
+        </button>
+      </div>
+
+    </div>
+
+  </section>
+
+
+
+
+
+
+  <section class="mt-5">
+
+    <h2 class="mat-h2">Pixelart Gallery</h2>
+
+    <div class="lw-gallery">
+
+      <div class="lw-item" *ngFor="let obj of pixelartArray">
+        <mat-card>
+          <div mat-card-image (click)="runPixelart(obj._id)">
+            <div><div class="lw-thumb" [style.background-image]="'url(' + obj.base64Thumb + ')'"></div></div>
+          </div>
+          <mat-card-content title="{{ obj.piskel.name }}">
+            <span>{{ obj.piskel.name || 'No name' }}</span>
+            <div>
+              <button mat-icon-button [matMenuTriggerFor]="menu"><mat-icon>more_vert</mat-icon></button>
+              <mat-menu #menu="matMenu">
+                <button (click)="runPixelart(obj._id)" mat-menu-item>
+                  <mat-icon>send</mat-icon><span>Run</span>
+                </button>
+                <button (click)="openPixelArtInformationDialog(obj)" mat-menu-item>
+                  <mat-icon>info</mat-icon><span>Information</span>
+                </button>
+                <button [routerLink]="['/editor', obj._id]" mat-menu-item>
+                  <mat-icon>edit</mat-icon><span>Edit</span>
+                </button>
+                <button (click)="deletePixelArt(obj._id)" mat-menu-item>
+                  <mat-icon>delete</mat-icon>
+                  <span>Delete</span>
+                </button>
+              </mat-menu>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+
+      <div *ngIf="pixelartArray?.length <= 0">
+        <button mat-stroked-button class="flex-grow-1" [routerLink]="['/editor']">Créez</button>
+        <span> votre première animation maintenant !</span>
+      </div>
+
+      <div *ngIf="pixelartArray?.length > 0" class="lw-item lw-mirror">
+        <button [routerLink]="['/editor']" mat-raised-button>
+          <mat-icon style="font-size: 48px;width: 48px;height: 48px;line-height: 48px;color: #464646;">add_circle_outline</mat-icon>
+        </button>
+      </div>
+
+    </div>
+
+  </section>
+
+
+
+
+
+
+
+
+
+  <section class="mt-5">
+
+    <h2 class="mat-h2">Wordart Gallery</h2>
+
+
+    <div class="lw-list mb-3" style="max-width: 650px;">
+
+      <li class="lw-item" *ngFor="let obj of wordartArray">
+        <div class="lw-title cursor-pointer lw-font" (click)="runWordart(obj._id)" [style.background-color]="rgbToHex(obj.bgColor)" [style.color]="rgbToHex(obj.textColor)">
+          <span>{{ obj.text }}</span>
+        </div>
+        <button mat-icon-button [matMenuTriggerFor]="menu">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+          <button  (click)="runWordart(obj._id)" mat-menu-item>
+            <mat-icon>send</mat-icon><span>Run</span>
+          </button>
+          <button [routerLink]="['/wordarts', obj._id]" mat-menu-item>
+            <mat-icon>edit</mat-icon><span>Edit</span>
+          </button>
+          <button (click)="deleteWordart(obj._id)" mat-menu-item>
+            <mat-icon>delete</mat-icon><span>Delete</span>
+          </button>
+        </mat-menu>
+      </li>
+    </div>
+
+    <div class="text-center">
+      <button mat-raised-button color="primary" [routerLink]="['/wordarts']">Create Wordart</button>
+    </div>
+
+
+
+  </section>
+
+
+
+
+
+
+
+  <section class="mt-5">
+
+    <h2 class="mat-h2">Script Gallery</h2>
+
+    <div class="lw-gallery">
+
+      <div class="lw-w-md" *ngFor="let obj of scriptArray">
+        <mat-card class="mat-elevation-z2">
+          <div mat-card-image (click)="runAnimation(obj._id)">
+            <div><div class="lw-thumb" [style.background-image]="scriptBackground(obj)"></div></div>
+          </div>
+          <mat-card-content title="{{ obj.name }}">
+            <span>{{ obj.name || 'No name' }}</span>
+            <div>
+              <button mat-icon-button [matMenuTriggerFor]="menu"><mat-icon>more_vert</mat-icon></button>
+              <mat-menu #menu="matMenu">
+                <button (click)="runScript(obj._id)" mat-menu-item>
+                  <mat-icon>send</mat-icon><span>Run</span>
+                </button>
+                <button (click)="deleteScript(obj._id)" mat-menu-item>
+                  <mat-icon>delete</mat-icon><span>Delete</span>
+                </button>
+              </mat-menu>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+
+      <form #form class="mt-4">
+        <input hidden id="input-file-id" type="file" id="file" #scriptInput (change)="uploadScript($event.target.files)"/>
+        <button mat-raised-button color="primary" type="button" (click)="scriptInput.click()">Upload script</button>
+      </form>
+
+    </div>
+
+  </section>
+
+
+
+</div>

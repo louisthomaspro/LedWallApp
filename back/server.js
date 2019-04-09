@@ -7,10 +7,13 @@ const websocket = require('ws');
 const ws2812 = require('./ws2812');
 const ip = require("ip");
 
+anim_interval_id = -1;  //Used to stop the currently displayed animation/image
+oldplaylist_interval_id = -1;
+playlist_interval_id = -1;
 //assigning port
+python_process = null;
+
 const PORT = process.env.PORT || '3000';
-
-
 
 if(process.env.NODE_ENV === "production")
 {
@@ -27,7 +30,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 
-// app.use(cors());
+
 
 // Add headers
 const whitelist = ['http://' + ip.address() + ':4200', 'http://' + 'localhost' + ':4200', 'http://' + 'localhost'];
@@ -43,12 +46,17 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
+// app.use(cors());
+
+
 
 app.use('/users', require('./routes/users'));
 app.use('/pixelarts', require('./routes/pixelarts'));
 app.use('/animations', require('./routes/animations'));
 app.use('/wordarts', require('./routes/wordarts'));
 app.use('/scripts', require('./routes/scripts'));
+app.use('/controller', require('./routes/controller'));
+app.use('/special', require('./routes/special'));
 
 
 
@@ -68,7 +76,7 @@ wss.on('connection', function connection(ws) {
 /* Database connection setup */
 db = require('./DB');
 mongoose.Promise = global.Promise;
-mongoose.connect(db.DB, { useNewUrlParser: true }).then(
+mongoose.connect(db.DB, { useMongoClient:true }).then(
   () => {console.info('Database is connected') },
   err => { console.error('Can not connect to the database'+ err)}
 );

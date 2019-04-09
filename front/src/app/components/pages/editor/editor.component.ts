@@ -1,6 +1,6 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {PixelartService} from '../../services/pixelart.service';
+import {PixelartService} from '../../../services/pixelart.service';
 import {MatSnackBar} from '@angular/material';
 
 @Component({
@@ -20,12 +20,12 @@ export class EditorComponent implements OnInit {
   }
 
   ngOnInit() {
-    const pixelartId = this.route.snapshot.queryParams['id'];
+    const pixelartId = this.route.snapshot.paramMap.get('id');
     if (pixelartId) {
       this.pixelartId = pixelartId;
       this.pixelartService.getById(pixelartId).subscribe((res) => {
         this.pixelart = res;
-        console.log('Id found ! Loading ' + res.piskel.name);
+        console.log('Id found !');
       });
     }
   }

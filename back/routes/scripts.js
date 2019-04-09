@@ -4,6 +4,11 @@ const Script = require('../models/script');
 const ws2812 = require('../ws2812');
 const path = require('path');
 const fs = require('fs');
+const {PythonShell} = require('python-shell')
+
+let options = {
+    pythonPath: '/usr/bin/python3.6'
+};
 
 const multer = require('multer');
 
@@ -12,6 +17,18 @@ const mongoose = require('mongoose');
 
 const objectName = 'Script';
 const objectType = Script;
+
+
+function LWClearIntervals()
+{
+    if (python_process != null) {
+        python_process.kill('SIGINT');
+    }
+    clearInterval(anim_interval_id);  //Used to stop the currently displayed animation/image
+    clearInterval(oldplaylist_interval_id);
+    clearInterval(playlist_interval_id);
+    ws2812.WS2812Clear();
+}
 
 
 const storage = multer.diskStorage({
@@ -33,6 +50,8 @@ router.post('/', upload.single('fileInput'), (req, res, next) => {
         error.httpStatusCode = 400;
         return next(error);
     }
+    fs.chmodSync(file.path, 0550);
+
     let record = new Script(
         {
             name: file.originalname,
@@ -97,10 +116,18 @@ router.get('/run/:id', function (req, res, next) {
     objectType.findOne({_id: objectId}, function (err, response) {
         if (err) return next(err);
 
+        LWClearIntervals();
         const script = response;
         // TODO tester si la reponse est vide
 
-        // TODO algo à faire
+
+        const pyshell = new PythonShell(script.path, options);
+
+        pyshell.end(function (err) {
+            if (err) { console.log(err);}
+        });
+        python_process = pyshell.childProcess;
+
 
         console.log('Object ' + objectName + ' ' + objectId + ' running');
         return res.json('ok');

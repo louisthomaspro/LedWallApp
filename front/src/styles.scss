@@ -5,7 +5,7 @@ html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 
-// Bootstrap v4
+// BOOTSTRAP V4 //
 
 @import "~bootstrap/scss/functions";
 @import "~bootstrap/scss/variables";
@@ -46,11 +46,16 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 //@import "~bootstrap/scss/bootstrap";
 
 
+
+// FONTS //
+
+// Material
+
 @font-face {
   font-family: 'Material Icons';
   font-style: normal;
   font-weight: 400;
-  src: url('assets/fonts/flUhRq6tzZclQEJ-Vdg-IuiaDsNc.woff2') format('woff2');
+  src: url('assets/fonts/material_design/flUhRq6tzZclQEJ-Vdg-IuiaDsNc.woff2') format('woff2');
 }
 
 .material-icons {
@@ -69,14 +74,12 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   -webkit-font-smoothing: antialiased;
 }
 
-
-
 /* latin */
 @font-face {
   font-family: 'Roboto';
   font-style: normal;
   font-weight: 300;
-  src: local('Roboto Light'), local('Roboto-Light'), url('assets/fonts/KFOlCnqEu92Fr1MmSU5fBBc4.woff2') format('woff2');
+  src: local('Roboto Light'), local('Roboto-Light'), url('assets/fonts/material_design/KFOlCnqEu92Fr1MmSU5fBBc4.woff2') format('woff2');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
@@ -85,7 +88,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   font-family: 'Roboto';
   font-style: normal;
   font-weight: 400;
-  src: local('Roboto'), local('Roboto-Regular'), url('assets/fonts/KFOmCnqEu92Fr1Mu4mxK.woff2') format('woff2');
+  src: local('Roboto'), local('Roboto-Regular'), url('assets/fonts/material_design/KFOmCnqEu92Fr1Mu4mxK.woff2') format('woff2');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
@@ -94,19 +97,36 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   font-family: 'Roboto';
   font-style: normal;
   font-weight: 500;
-  src: local('Roboto Medium'), local('Roboto-Medium'), url('assets/fonts/KFOlCnqEu92Fr1MmEU9fBBc4.woff2') format('woff2');
+  src: local('Roboto Medium'), local('Roboto-Medium'), url('assets/fonts/material_design/KFOlCnqEu92Fr1MmEU9fBBc4.woff2') format('woff2');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
 
+// 5x7
+
+/* @font-face kit by Fonts2u (https://fonts2u.com) */
+@font-face {
+  font-family:"5x7 practical Regular";
+  src:url("assets/fonts/5x7_practical/5x7_practical.eot?") format("eot"),
+  url("assets/fonts/5x7_practical/5x7_practical.woff") format("woff"),
+  url("assets/fonts/5x7_practical/5x7_practical.ttf") format("truetype"),
+  url("assets/fonts/5x7_practical/5x7_practical.svg#5x7-practical") format("svg");
+  font-weight:normal;
+  font-style:normal;
+}
 
 
-// MY IMPORTS
-
-@import "assets/styles/pa-gallery";
+// MY IMPORTS //
 
 
-// OTHERS //
+$lw-grey: #757575;
+
+@import "assets/styles/lw/theme";
+@import "assets/styles/lw/list";
+@import "assets/styles/lw/gallery";
+
+
+
 
 *,
 *::before,
@@ -114,13 +134,3 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   box-sizing: border-box; // 1
 }
 
-.c-grey {
-  color: #757575;
-}
-
-
-/* Coerce the <span> icon container away from display:inline */
-.mat-icon-button .mat-button-wrapper {
-  display: flex;
-  justify-content: center;
-}

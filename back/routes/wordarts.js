@@ -2,14 +2,22 @@ const express = require('express');
 const router = express.Router();
 const Wordart = require('../models/wordart');
 const ws2812 = require('../ws2812');
-// const jimp = require('');
 
 const mongoose = require('mongoose');
-
 
 const objectName = 'Wordart';
 const objectType = Wordart;
 
+function LWClearIntervals()
+{
+    if (python_process != null) {
+        python_process.kill('SIGINT');
+    }
+    clearInterval(anim_interval_id);  //Used to stop the currently displayed animation/image
+    clearInterval(oldplaylist_interval_id);
+    clearInterval(playlist_interval_id);
+    ws2812.WS2812Clear();
+}
 
 // {
 //     "text": "Le meilleur ledwall !",
@@ -27,10 +35,12 @@ router.post('/', function (req, res, next) {
         err.statusCode = 400;
         return next(err);
     }
+    delete object._id;
     let record = new objectType(object);
     record.save((err, response) => {
         if (err) return next(err);
         console.log('Object ' + objectName + ' ' + response._id + ' added');
+        console.log(response);
         return res.json(response._id);
     });
 });
@@ -47,8 +57,9 @@ router.post('/:id', function (req, res, next) {
     }
     if(!mongoose.Types.ObjectId.isValid(objectId)) return next(new Error("invalid id"));
     objectType.updateOne({_id: objectId}, { $set: {
-            name: object.name,
-            animationItems: object.animationItems
+            text: object.text,
+            bgColor: object.bgColor,
+            textColor: object.textColor
         } }, function(err) {
         if (err) return next(err);
         console.log('Object ' + objectName + ' ' + objectId + ' updated');
@@ -97,11 +108,13 @@ router.get('/run/:id', function (req, res, next) {
     if(!mongoose.Types.ObjectId.isValid(objectId)) return next(new Error("invalid id"));
     objectType.findOne({_id: objectId}, function (err, response) {
         if (err) return next(err);
-
-        const wordart = response;
+        
+        LWClearIntervals();
+        const obj = response;
         // TODO tester si la reponse est vide
+        console.log(obj.text);
+        anim_interval_id = ws2812.WS2812RunWordArt(obj.text, obj.textColor, obj.bgColor, anim_interval_id);
 
-        // TODO algo à faire
 
         console.log('Object ' + objectName + ' ' + objectId + ' running');
         return res.json('ok');

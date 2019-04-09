@@ -10,5 +10,4 @@ export class Pixelart {
         width: number;
         layers: [string];
     };
-    _v: number;
 }

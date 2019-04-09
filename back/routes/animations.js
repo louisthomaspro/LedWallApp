@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Animation = require('../models/animation');
+const Pixelart = require('../models/pixelart');
 const ws2812 = require('../ws2812');
 
 const mongoose = require('mongoose');
@@ -8,8 +9,19 @@ const mongoose = require('mongoose');
 const objectName = 'Animation';
 const objectType = Animation;
 
+const pixelName = 'Pixelart';
+const pixelType = Pixelart;
 
-
+function LWClearIntervals()
+{
+    if (python_process != null) {
+        python_process.kill('SIGINT');
+    }
+    clearInterval(anim_interval_id);  //Used to stop the currently displayed animation/image
+    clearInterval(oldplaylist_interval_id);
+    clearInterval(playlist_interval_id);
+    ws2812.WS2812Clear();
+}
 
 // create
 router.post('/', function (req, res, next) {
@@ -19,6 +31,7 @@ router.post('/', function (req, res, next) {
         err.statusCode = 400;
         return next(err);
     }
+    delete object._id;
     let record = new objectType(object);
     record.save((err, response) => {
         if (err) return next(err);
@@ -90,13 +103,41 @@ router.get('/run/:id', function (req, res, next) {
     objectType.findOne({_id: objectId}, function (err, response) {
         if (err) return next(err);
 
+        LWClearIntervals();
         const animation = response;
-        // TODO tester si la reponse est vide
 
-        // appel fonction convertir
-        // var img_data = ws2812.WS2812ImageToRgb(path);
-        // ecrire dans le fichier
-        // ws2812.WS2812DisplayImage(img_data);
+        var animation_idx = 0;
+        var animation_nb = animation.animationItems.length;
+
+        clearInterval(oldplaylist_interval_id);
+
+        var animatePixelArt = function() 
+        {
+            clearInterval(playlist_interval_id);
+            if (animation_idx == animation_nb)
+            {
+                animation_idx = 0
+            } 
+            else 
+            {
+                anim_img_id = animation.animationItems[animation_idx].pixelart;
+                anim_delay = animation.animationItems[animation_idx].time;
+                console.log(anim_delay);
+                animation_idx += 1;
+
+                if(!mongoose.Types.ObjectId.isValid(anim_img_id)) return next(new Error("invalid id"));
+                pixelType.findOne({_id: anim_img_id}, function (err, response) {
+                    if (err) return next(err);
+
+                    const piskel = response;
+                    anim_interval_id = ws2812.WS2812RunEditorImage(piskel, anim_interval_id);
+                    console.log('ANIMATION: PixelArt ' +  anim_img_id + ' running');
+                });
+            }
+            playlist_interval_id = setInterval(animatePixelArt, anim_delay * 1000);
+        };
+        playlist_interval_id = setInterval(animatePixelArt, 0);
+        oldplaylist_interval_id = playlist_interval_id;
 
         console.log('Object ' + objectName + ' ' + objectId + ' running');
         return res.json('ok');
