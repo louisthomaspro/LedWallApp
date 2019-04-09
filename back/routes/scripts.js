@@ -21,9 +21,8 @@ const objectType = Script;
 
 function LWClearIntervals()
 {
-    if (pythonScript != null) {
-        if (pythonScript.childCount != null) pythonScript.childCount.kill('SIGINT');
-        pythonScript = null;
+    if (python_process != null) {
+        python_process.kill('SIGINT');
     }
     clearInterval(anim_interval_id);  //Used to stop the currently displayed animation/image
     clearInterval(oldplaylist_interval_id);
@@ -121,11 +120,14 @@ router.get('/run/:id', function (req, res, next) {
         const script = response;
         // TODO tester si la reponse est vide
 
-        pythonScript = PythonShell.run(script.path, options, function (err) {
-            console.log('salut');
-            if (err) throw err;
-            console.log('finished');
+
+        const pyshell = new PythonShell(script.path, options);
+
+        pyshell.end(function (err) {
+            if (err) { console.log(err);}
         });
+        python_process = pyshell.childProcess;
+
 
         console.log('Object ' + objectName + ' ' + objectId + ' running');
         return res.json('ok');

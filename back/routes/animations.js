@@ -14,9 +14,8 @@ const pixelType = Pixelart;
 
 function LWClearIntervals()
 {
-    if (pythonScript != null) {
-        if (pythonScript.childCount != null) pythonScript.childCount.kill('SIGINT');
-        pythonScript = null;
+    if (python_process != null) {
+        python_process.kill('SIGINT');
     }
     clearInterval(anim_interval_id);  //Used to stop the currently displayed animation/image
     clearInterval(oldplaylist_interval_id);
@@ -137,7 +136,7 @@ router.get('/run/:id', function (req, res, next) {
             }
             playlist_interval_id = setInterval(animatePixelArt, anim_delay * 1000);
         };
-        playlist_interval_id = setInterval(animatePixelArt, animation.animationItems[0].time * 1000);
+        playlist_interval_id = setInterval(animatePixelArt, 0);
         oldplaylist_interval_id = playlist_interval_id;
 
         console.log('Object ' + objectName + ' ' + objectId + ' running');

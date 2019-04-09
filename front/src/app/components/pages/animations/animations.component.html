@@ -72,7 +72,7 @@
             </li>
         </div>
 
-        <button mat-raised-button color="primary" (click)="openSnackBar('Movie is running 🍿')">Run</button>
+        <button mat-raised-button color="primary" (click)="runAnimation()" *ngIf="animation._id">Run</button>
 
     </div>
 

@@ -11,7 +11,7 @@ anim_interval_id = -1;  //Used to stop the currently displayed animation/image
 oldplaylist_interval_id = -1;
 playlist_interval_id = -1;
 //assigning port
-pythonScript = null;
+python_process = null;
 
 const PORT = process.env.PORT || '3000';
 

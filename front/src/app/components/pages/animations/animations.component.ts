@@ -175,5 +175,12 @@ export class AnimationsComponent implements OnInit, DoCheck {
     });
   }
 
+  runAnimation() {
+    this.openSnackBar('RUN FORREST RUN !️');
+    this.animationService.run(this.animation._id).subscribe((res) => {
+      console.log(res);
+    });
+  }
+
 
 }

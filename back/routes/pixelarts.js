@@ -11,9 +11,8 @@ const objectType = Pixelart;
 
 function LWClearIntervals()
 {
-    if (pythonScript != null) {
-        if (pythonScript.childCount != null) pythonScript.childCount.kill('SIGINT');
-        pythonScript = null;
+    if (python_process != null) {
+        python_process.kill('SIGINT');
     }
     clearInterval(anim_interval_id);  //Used to stop the currently displayed animation/image
     clearInterval(oldplaylist_interval_id);
