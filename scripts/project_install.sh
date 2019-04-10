@@ -21,10 +21,10 @@ echo "Cloning project..."
 git clone https://github.com/louisthomaspro/LedWallApp.git ${LEDWALLAPP_HOME} || exit 0
 
 echo "Npm install back..."
-sudo npm install --prefix ${LEDWALLAPP_HOME}/back || exit 0
+sudo npm install --unsafe-perm=true --allow-root --prefix ${LEDWALLAPP_HOME}/back || exit 0
 
 echo "Npm install front..."
-sudo npm install --prefix ${LEDWALLAPP_HOME}/front || exit 0
+sudo npm install --unsafe-perm=true --allow-root --prefix ${LEDWALLAPP_HOME}/front || exit 0
 
 echo "Build front..."
 pushd ${LEDWALLAPP_HOME}/front && ng build --prod && popd || exit 0
