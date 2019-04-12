@@ -100,7 +100,7 @@
           border-radius: 4px;
 
           .lw-thumb {
-            background-size: 100%;
+            background-size: contain;
             background-position: center;
             padding-top: 63%;
             image-rendering: pixelated;
