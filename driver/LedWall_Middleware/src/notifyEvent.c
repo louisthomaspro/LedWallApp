@@ -8,7 +8,7 @@ int setRight()
 {
     struct passwd *pw;
 
-    pw=getpwnam("pi");
+    pw=getpwnam("debian");
     if(pw == NULL)
     {
         perror("Can't find user !\n");

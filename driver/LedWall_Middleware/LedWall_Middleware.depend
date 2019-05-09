@@ -252,13 +252,18 @@
 
 1553670562 /home/corentin/LedWallApp/driver/LedWall_Middleware/inc/dma.h
 
-1553674920 source:/home/corentin/LedWallApp/driver/LedWall_Middleware/src/ledWall.c
+1557386258 source:/home/corentin/LedWallApp/driver/LedWall_Middleware/src/ledWall.c
 	"ledWall.h"
 	<errno.h>
 
-1553674100 /home/corentin/LedWallApp/driver/LedWall_Middleware/inc/ledWall.h
+1557386365 /home/corentin/LedWallApp/driver/LedWall_Middleware/inc/ledWall.h
 	<errno.h>
 	<string.h>
+	<stdio.h>
+	<stdlib.h>
+	<sys/types.h>
+	<sys/stat.h>
+	<fcntl.h>
 	"led.h"
 	"notifyEvent.h"
 	"clk.h"
@@ -355,7 +360,7 @@
 	"rpihw.h"
 	"ws2811.h"
 
-1553671281 source:/home/corentin/LedWallApp/driver/LedWall_Middleware/src/main.c
+1553675293 source:/home/corentin/LedWallApp/driver/LedWall_Middleware/src/main.c
 	<stdio.h>
 	<stdlib.h>
 	"notifyEvent.h"

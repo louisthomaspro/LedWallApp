@@ -2,7 +2,7 @@
 #include <errno.h>
 
 Led FrameBuffer[LED_WALL_HEIGHT][LED_WALL_WIDTH];
-
+#ifdef RASPBERRY
 ws2811_t ledstring =
 {
     .freq = TARGET_FREQ,
@@ -26,6 +26,11 @@ ws2811_t ledstring =
         },*/
     },
 };
+#endif
+
+#ifdef BEAGLE
+int pru_rpmsg_fd=-1;
+#endif
 
 /**
    Returns the Pixel ID in the LED string
@@ -72,12 +77,25 @@ int readFrame()
 }
 ws2811_return_t init_ledwall()
 {
-    ws2811_return_t ret;
+	ws2811_return_t ret=WS2811_SUCCESS;
+	#ifdef RASPBERRY
+
     if ((ret = ws2811_init(&ledstring)) != WS2811_SUCCESS)
     {
         fprintf(stderr, "ws2811_init failed: %s\n", ws2811_get_return_t_str(ret));
     }
-    return ret;
+
+	#elif defined BEAGLE
+	pru_rpmsg_fd = open("/dev/rpmsg_pru30",O_WRONLY); //Where do we close this ?
+	if(pru_rpmsg_fd == -1)
+	{
+		fprintf(stderr, "ws2811_init failed: %s\n", "Could not open /dev/rpmsg_pru30");
+		ret=WS2811_ERROR_GENERIC;
+	}
+	#endif
+
+	return ret;
+
 }
 void applyColorCorrection(uint32_t balance)
 {
@@ -93,20 +111,31 @@ void applyColorCorrection(uint32_t balance)
 }
 void render_ledwall(void)
 {
+	#ifdef RASPBERRY
     ws2811_return_t ret;
+	#endif
     int x, y;
 
     for (x = 0; x < LED_WALL_WIDTH; x++)
     {
         for (y = 0; y < LED_WALL_HEIGHT; y++)
         {
+			#ifdef RASPBERRY
             ledstring.channel[0].leds[PixId(x, y)] = (FrameBuffer[y][x].red << 16 | FrameBuffer[y][x].green << 8 | FrameBuffer[y][x].blue);
-            //printf("%d", PixId(x, y));
+
+			#elif defined BEAGLE
+			dprintf(pru_rpmsg_fd, "%d %06X\n", PixId(x,y), (FrameBuffer[y][x].red << 16 | FrameBuffer[y][x].green << 8 | FrameBuffer[y][x].blue));
+			#endif
+			//printf("%d", PixId(x, y));
         }
     }
 
+	#ifdef RASPBERRY
     if ((ret = ws2811_render(&ledstring)) != WS2811_SUCCESS)
     {
         fprintf(stderr, "ws2811_render failed: %s\n", ws2811_get_return_t_str(ret));
     }
+	#elif defined BEAGLE
+		dprintf(pru_rpmsg_fd, "-1 %06X\n",LED_COUNT);
+	#endif
 }
