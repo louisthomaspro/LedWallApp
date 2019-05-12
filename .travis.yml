@@ -40,6 +40,7 @@ deploy:
   file:
     - front.zip
     - back.zip
+    - driver/LedWall_Middleware/bin/Debug/LedWall_Middleware
   on:
     branch: master
 notifications:
