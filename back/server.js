@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const helmet = require('helmet');
 const app = express();
 const cors = require('cors');
 const mongoose = require('mongoose');
@@ -25,28 +26,39 @@ if(process.env.NODE_ENV === "production")
 }
 
 
+// adding Helmet to enhance your API's security
+app.use(helmet());
 
-app.use(bodyParser.json());
+// parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }));
 
-
+// using bodyParser to parse JSON bodies into JS objects
+app.use(bodyParser.json());
 
 
 // Add headers
-const whitelist = ['http://' + ip.address() + ':4200', 'http://' + 'localhost' + ':4200', 'http://' + 'localhost'];
+const whitelist = ['http://' + ip.address()];
 const corsOptions = {
   origin: function (origin, callback) {
     if (whitelist.indexOf(origin) !== -1) {
       callback(null, true)
     } else {
-      callback(new Error('Not allowed by CORS'));
+      callback(new Error(origin + ' : Not allowed by CORS'));
     }
   },
   credentials: true
 };
 
-app.use(cors(corsOptions));
-// app.use(cors());
+if(process.env.NODE_ENV === "production") {
+  // restrict source
+  app.use(cors(corsOptions));
+} else {
+  // enabling CORS for all requests
+  app.use(cors());
+}
+
+
+
 
 
 
