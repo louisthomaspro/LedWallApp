@@ -23,7 +23,6 @@ script:
   - npm install
   - popd
   - zip -r back.zip back
-
 deploy:
   provider: releases
   api_key: $GITHUB_TOKEN
