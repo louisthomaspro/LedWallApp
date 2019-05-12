@@ -17,11 +17,11 @@ script:
   - npm install
   - ng build --prod
   - popd
-  - zip -r front.zip front/dist/ledwallapp
+  - zip -rq front.zip front/dist/ledwallapp
   - pushd back
   - npm install
   - popd
-  - zip -r back.zip back
+  - zip -rq back.zip back
 before_deploy:
   - export TRAVIS_TAG="1.0.$TRAVIS_BUILD_NUMBER"
   - echo "$TRAVIS_TAG" "$TRAVIS_COMMIT"
