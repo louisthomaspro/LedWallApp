@@ -14,3 +14,5 @@ back/ws2812driver
 back/public/scripts/
 
 front/config/\.directory
+
+\.directory
