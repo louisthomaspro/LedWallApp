@@ -6,6 +6,7 @@ dist: trusty
 cache:
   directories:
     - front/node_modules
+    - back/node_modules
 branches:
   only:
   - master
@@ -15,13 +16,19 @@ script:
   - pushd front
   - npm install
   - ng build --prod
+  - zip -r front.zip dist/ledwallapp
   - popd
+  - pushd back
+  - npm install
+  - popd
+  - zip -r back.zip back
 
 deploy:
-  provider: pages
+  provider: releases
+  api_key: $GITHUB_TOKEN
+  file:
+    - "front/dist/front.zip"
+    - "back.zip"
   skip_cleanup: true
-  keep_history: true
-  github_token: $GITHUB_TOKEN
-  local_dir: front/dist/ledwallapp
   on:
-    branch: master
+    tags: true
