@@ -9,7 +9,9 @@ branches:
 before_script:
   - npm install -g @angular/cli
 script:
-- ng build --prod
+  - pushd front
+  - ng build --prod
+  - popd
 
 deploy:
   provider: pages
