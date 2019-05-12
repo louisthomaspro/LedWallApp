@@ -2,14 +2,15 @@ language: node_js
 node_js:
   - "9"
 dist: trusty
-sudo: required
+#sudo: required
+cache:
+  directories:
+    - node_modules
 branches:
   only:
   - master
 before_script:
-  - npm install -g @angular/cli
-  - npm install -g @angular-devkit/core
-  - npm install -g @angular-devkit/build-angular
+  - npm install -g @angular/cli@7.0.6
 script:
   - pushd front
   - ng build --prod
