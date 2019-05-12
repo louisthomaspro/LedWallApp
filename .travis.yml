@@ -22,6 +22,6 @@ deploy:
   skip_cleanup: true
   keep_history: true
   github_token: $GITHUB_TOKEN
-  local_dir: dist/ledwallapp
+  local_dir: front/dist/ledwallapp
   on:
     branch: master
