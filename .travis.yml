@@ -16,8 +16,8 @@ script:
   - pushd front
   - npm install
   - ng build --prod
-  - zip -r front.zip dist/ledwallapp
   - popd
+  - zip -r front.zip front/dist/ledwallapp
   - pushd back
   - npm install
   - popd
@@ -38,7 +38,7 @@ deploy:
   api_key: $GITHUB_TOKEN
   file_glob: true
   file:
-    - front/dist/front.zip
+    - front.zip
     - back.zip
   on:
     branch: master
