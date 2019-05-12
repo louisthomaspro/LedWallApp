@@ -43,8 +43,15 @@ If you intend to deploy your app onto a device with small amount of memory, it w
 Change default piskel size when opening the editor :
 `front/src/assets/piskel-editor/js/piskel-packaged-2015-09-02-11-47.js (11782)`
 
+Secure front access with the command below :
+`sudo htpasswd -c .htpasswd ledwall`
+
 ## Sources
 
 * https://github.com/boopathi4291/MEAN
 * https://angular.io/
 * https://github.com/piskelapp/piskel-embed
+
+
+
+
