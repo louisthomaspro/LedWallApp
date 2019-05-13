@@ -1,24 +1,49 @@
+
 language: node_js
 node_js:
   - "9"
 dist: trusty
-sudo: required
+cache:
+  directories:
+    - front/node_modules
+    - back/node_modules
 branches:
   only:
-  - master
+    - master
 before_script:
   - npm install -g @angular/cli
-  - npm install -g @angular-devkit/core
 script:
   - pushd front
+  - npm install
   - ng build --prod
   - popd
-
+  - zip -rq front.zip front/dist/ledwallapp
+  - pushd back
+  - npm install
+  - popd
+  - zip -rq back.zip back
+before_deploy:
+  - export TRAVIS_TAG="1.0.$TRAVIS_BUILD_NUMBER"
+  - echo "$TRAVIS_TAG" "$TRAVIS_COMMIT"
+  - git config --local user.name "louisthomaspro"
+  - git config --local user.email "louisthomas.pro@gmail.com"
+  - git tag "$TRAVIS_TAG" "$TRAVIS_COMMIT"
 deploy:
-  provider: pages
+  provider: releases
+  tag_name: $TRAVIS_TAG
+  target_commitish: $TRAVIS_COMMIT
+  name: $TRAVIS_TAG
+  overwrite: true
   skip_cleanup: true
-  keep_history: true
-  github_token: $GITHUB_TOKEN
-  local_dir: dist/ledwallapp
+  api_key: $GITHUB_TOKEN
+  file_glob: true
+  file:
+    - front.zip
+    - back.zip
+    - driver/LedWall_Middleware/bin/Debug/LedWall_Middleware
   on:
     branch: master
+notifications:
+  email:
+    on_success: never
+    on_failure: always
