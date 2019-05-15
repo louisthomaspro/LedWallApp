@@ -33,23 +33,37 @@ function LWClearIntervals()
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, 'public/scripts')
+        cb(null, 'public/scripts');
     },
     filename: (req, file, cb) => {
-        cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname))
+        cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
     }
 });
-const upload = multer({storage: storage});
+const upload = multer({
+    storage: storage,
+    onError : function(err, next) {
+        console.log('error', err);
+        next(err);
+    }
+}).single('fileInput');
 
 
 // create
-router.post('/', upload.single('fileInput'), (req, res, next) => {
+router.post('/', upload, (req, res, next) => {
+
+    upload( req, res, ( err ) => {
+        if ( err || !req.file )
+            return res.send({ error: 'invalid_file' })
+        console.log( 'save the file', req.file );
+
+    });
+
     const file = req.file;
-    if (!file) {
-        const error = new Error('Please upload a file');
-        error.httpStatusCode = 400;
-        return next(error);
-    }
+    // if (!file) {
+    //     const error = new Error('Please upload a file');
+    //     error.httpStatusCode = 400;
+    //     return next(error);
+    // }
     fs.chmodSync(file.path, 0550);
 
     let record = new Script(
