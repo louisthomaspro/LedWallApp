@@ -26,16 +26,9 @@ export class ScriptService {
     const params = new HttpParams();
 
     const formData = new FormData();
-    formData.append('fileInput', file)
+    formData.append('fileInput', file);
 
-    const options = {
-      headers: new HttpHeaders(),
-      params: params,
-      reportProgress: true,
-      withCredentials: true,
-    };
-
-    return this.http.post<any>(`${this.uri}/`, formData, options);
+    return this.http.post<any>(`${this.uri}/`, formData);
   }
 
   delete(id): Observable<any> {
