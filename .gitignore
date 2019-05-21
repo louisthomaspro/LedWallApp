@@ -16,3 +16,7 @@ back/public/scripts/
 front/config/\.directory
 
 \.directory
+
+simulator/LedwallSimulator/bin/
+
+simulator/LedWallWriter/bin/
