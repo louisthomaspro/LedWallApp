@@ -99,6 +99,7 @@ ws2811_return_t init_ledwall()
 }
 void applyColorCorrection(uint32_t balance)
 {
+#ifdef RASPBERRY
     for (uint8_t x = 0; x < LED_WALL_WIDTH; x++)
     {
         for (uint8_t y = 0; y < LED_WALL_HEIGHT; y++)
@@ -108,6 +109,9 @@ void applyColorCorrection(uint32_t balance)
             FrameBuffer[y][x].blue = FrameBuffer[y][x].blue * (balance & 0xFF) / 0xFF;
         }
     }
+#elif defined BEAGLE
+			dprintf(pru_rpmsg_fd, "-2 %06X\n",balance);
+#endif
 }
 void render_ledwall(void)
 {
