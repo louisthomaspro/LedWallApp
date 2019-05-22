@@ -43,6 +43,7 @@ router.post('/', function (req, res, next) {
 
 // update
 router.post('/:id', function (req, res, next) {
+
     const objectId = req.params.id;
     const object = req.body;
     if (!object) {
@@ -50,10 +51,16 @@ router.post('/:id', function (req, res, next) {
         err.httpStatusCode = 400;
         return next(err);
     }
+
+    // replace id by object(id)
+    for (const key in object.animationItems) {
+        object.animationItems[key].pixelart = mongoose.Types.ObjectId(object.animationItems[key].pixelart);
+    }
+
     if(!mongoose.Types.ObjectId.isValid(objectId)) return next(new Error("invalid id"));
     objectType.updateOne({_id: objectId}, { $set: {
         name: object.name,
-        animationItems: object.animationItems
+        animationItems : object.animationItems
     } }, function(err) {
         if (err) return next(err);
         console.log('Object ' + objectName + ' ' + objectId + ' updated');
