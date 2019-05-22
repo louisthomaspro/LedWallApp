@@ -27,7 +27,13 @@ export class AnimationService {
   }
 
   update(id: string, data: any): Observable<any> {
-    return this.http.post<any>(`${this.uri}/` + id, data);
+    const temp = JSON.parse(JSON.stringify(data));
+    for (const key of Object.keys(temp.animationItems)) {
+      const ref = temp.animationItems[key].pixelart._id;
+      delete temp.animationItems[key].pixelart;
+      temp.animationItems[key]['pixelart'] = ref;
+    }
+    return this.http.post<any>(`${this.uri}/` + id, temp);
   }
 
   delete(id): Observable<any> {
