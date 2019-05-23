@@ -7,6 +7,7 @@
         <a class="app-title mr-3" href="#" routerLink="/" mat-button>LedWallApp</a>
         <div fxShow="true" fxHide.lt-md>
             <a href="#" [routerLink]="['/controller']" mat-button>Controller</a>
+            <a href="http://10.172.5.202/" target="_blank" mat-button>Live Preview<i class="ml-1 material-icons">play_circle_filled</i></a>
         </div>
         <div class="flex-grow-1"></div>
         <button class="app-title ml-3" (click)="turnOff()" mat-button><mat-icon>power_off</mat-icon></button>
@@ -17,6 +18,7 @@
     <mat-sidenav #sidenav>
         <mat-nav-list>
             <a (click)="sidenav.toggle()" [routerLink]="['/controller']" mat-list-item>Controller</a>
+            <a (click)="sidenav.toggle()" href="http://10.172.5.202/" target="_blank" mat-list-item>Live Preview<i class="ml-1 material-icons">play_circle_filled</i></a>
         </mat-nav-list>
     </mat-sidenav>
 
