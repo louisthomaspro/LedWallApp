@@ -58,16 +58,16 @@ int readFrame()
     Lwfb = fopen(LWFB_Path, "r");
     if(!Lwfb)
     {
-        //perror("Could not open the framebuffer file for reading !\n");
-        printf("ERROR: %s\n", strerror(errno));
+        fprintf(stderr, "Could not open the framebuffer file for reading !\n");
+        fprintf(stderr, "ERROR: %s\n", strerror(errno));
         return 1;
     }
 
     numberLedRead = fread(&FrameBuffer, sizeof(Led), LED_WALL_HEIGHT*LED_WALL_WIDTH, Lwfb);
     if(numberLedRead != LED_WALL_HEIGHT*LED_WALL_WIDTH)
     {
-        //perror("Did not read the right number of bytes !\n");
-        printf("ERROR: %s\n", strerror(errno));
+        fprintf(stderr, "Did not read the right number of bytes !\n%d bytes were read instead of %d !\n", numberLedRead,LED_WALL_HEIGHT*LED_WALL_WIDTH);
+        fprintf(stderr, "ERROR: %s\n", strerror(errno));
         return 2;
     }
     fclose(Lwfb);
@@ -99,6 +99,7 @@ ws2811_return_t init_ledwall()
 }
 void applyColorCorrection(uint32_t balance)
 {
+#ifdef RASPBERRY
     for (uint8_t x = 0; x < LED_WALL_WIDTH; x++)
     {
         for (uint8_t y = 0; y < LED_WALL_HEIGHT; y++)
@@ -108,6 +109,9 @@ void applyColorCorrection(uint32_t balance)
             FrameBuffer[y][x].blue = FrameBuffer[y][x].blue * (balance & 0xFF) / 0xFF;
         }
     }
+#elif defined BEAGLE
+			dprintf(pru_rpmsg_fd, "-2 %06X\n",balance);
+#endif
 }
 void render_ledwall(void)
 {

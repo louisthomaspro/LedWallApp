@@ -9,12 +9,13 @@ int main()
     if(initEvent()!=0)
         return 1;
 
-    init_ledwall();
+    if(init_ledwall() != WS2811_SUCCESS)
+           return 2;
 
     while(1)
     {
         if(waitForEvent()!=0)
-            return 2;
+            return 3;
 
         //printf("IN_CLOSE_WRITE\n");
 
@@ -22,7 +23,7 @@ int main()
         if(ret==2)
             continue;
         else if(ret==1)
-            return 3;
+            return 4;
 
 
         /*for(int i=0;i<LED_WALL_HEIGHT;i++)

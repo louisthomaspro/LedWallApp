@@ -57,6 +57,10 @@ export class GalleryComponent implements OnInit {
     // Init arrays
     this.pixelartService.get().subscribe((res) => {
       this.pixelartArray = res;
+      this.pixelartArray.forEach(function (value) {
+        const isGif = JSON.parse(value.piskel.layers[0]).frameCount > 1;
+        value.isGif = isGif;
+      });
     });
     this.animationService.get().subscribe((res) => {
       this.animationArray = res;

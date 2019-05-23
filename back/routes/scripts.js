@@ -70,7 +70,7 @@ router.post('/', upload, (req, res, next) => {
         {
             name: file.originalname,
             filename: file.filename,
-            path: file.path,
+            path: 'public/scripts/ ' + file.filename,
             extension: file.filename.split('.').pop()
         }
     );
@@ -138,13 +138,23 @@ router.get('/run/:id', function (req, res, next) {
         const pyshell = new PythonShell(script.path, options);
 
         pyshell.end(function (err) {
-            if (err) { console.log(err);}
+            if (err) {
+                // return res.status(500).json({
+                //     error: 1,
+                //     msg: "Script error",
+                //     object: err
+                // });
+                console.log(err);
+            }
         });
         python_process = pyshell.childProcess;
 
 
         console.log('Object ' + objectName + ' ' + objectId + ' running');
-        return res.json('ok');
+        return res.status(200).json({
+            error: 0,
+            msg: "ok",
+        });
     });
 });
 
