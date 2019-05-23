@@ -20,7 +20,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MatToolbarModule, MatSidenavModule, MatListModule, MatButtonModule, MatIconModule, MatCardModule,
   MatMenuModule, MatDialogModule, MatGridListModule, MatSnackBarModule, MatBadgeModule, MatFormFieldModule,
-  MatInputModule, MatExpansionModule } from '@angular/material';
+  MatInputModule, MatExpansionModule, MatChipsModule } from '@angular/material';
 
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { DragDropModule } from '@angular/cdk/drag-drop';
@@ -78,7 +78,8 @@ import { SavingComponent } from './components/saving/saving.component';
     MatBadgeModule,
     MatFormFieldModule,
     MatInputModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatChipsModule
   ],
   providers: [UserService, AuthGuard, AuthService],
   bootstrap: [AppComponent],

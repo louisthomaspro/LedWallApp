@@ -3,6 +3,7 @@ const router = express.Router();
 const Pixelart = require('../models/pixelart');
 const Animations = require('../models/animation');
 const ws2812 = require('../ws2812');
+const PNG = require('pngjs').PNG;
 
 const mongoose = require('mongoose');
 
@@ -20,6 +21,20 @@ function LWClearIntervals()
     ws2812.WS2812Clear();
 }
 
+
+function createThumbnail(base64, witdth, height) {
+    var data = base64.substring(21);
+
+    // var frame_PNGbuffer = Buffer.from(Base64ExtractPNG(base64), 'base64');
+
+    var src_PNG = PNG.sync.read(Buffer.from(data, 'base64'));
+    var thumb_PNG = new PNG({width: witdth, height: height});
+
+    PNG.bitblt(src_PNG, thumb_PNG, 0, 0, witdth, height, 0, 0);
+    return 'data:image/png;base64,' + Buffer.from(PNG.sync.write(thumb_PNG).toString('base64'));
+
+}
+
 // create
 router.post('/', function (req, res, next) {
     const object = req.body;
@@ -31,7 +46,7 @@ router.post('/', function (req, res, next) {
 
     // init thumb
     const layers = JSON.parse(object.piskel.layers[0]);
-    object.base64Thumb = layers.base64PNG;
+    object.base64Thumb = createThumbnail(layers.base64PNG, 16, 10);
 
     delete object._id;
 
@@ -57,7 +72,8 @@ router.post('/:id', function (req, res, next) {
 
     // init thumb
     const layers = JSON.parse(object.piskel.layers[0]);
-    object.base64Thumb = layers.base64PNG;
+    object.base64Thumb = createThumbnail(layers.base64PNG, 16, 10);
+    console.log(object.base64Thumb);
 
     objectType.updateOne({_id: objectId}, { $set: {
         modelVersion: object.modelVersion,
