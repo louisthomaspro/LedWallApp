@@ -27,6 +27,10 @@ function LWClearIntervals()
 
 
 
+function validateWordartChar(text) {
+    return text.normalize('NFD').replace(/[\u0300-\u036f]/g, "");
+}
+
 // create
 router.post('/', function (req, res, next) {
     const object = req.body;
@@ -36,6 +40,7 @@ router.post('/', function (req, res, next) {
         return next(err);
     }
     delete object._id;
+    object.text = validateWordartChar(object.text);
     let record = new objectType(object);
     record.save((err, response) => {
         if (err) return next(err);
@@ -56,6 +61,7 @@ router.post('/:id', function (req, res, next) {
         return next(err);
     }
     if(!mongoose.Types.ObjectId.isValid(objectId)) return next(new Error("invalid id"));
+    object.text = validateWordartChar(object.text);
     objectType.updateOne({_id: objectId}, { $set: {
             text: object.text,
             bgColor: object.bgColor,
