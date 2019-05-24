@@ -135,7 +135,7 @@ router.get('/run/:id', function (req, res, next) {
         // TODO tester si la reponse est vide
 
 
-        const pyshell = new PythonShell(script.path, options);
+        const pyshell = new PythonShell(process.env.PWD + '/' + script.path, options);
 
         pyshell.end(function (err) {
             if (err) {
