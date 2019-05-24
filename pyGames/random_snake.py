@@ -2,15 +2,17 @@ from time import sleep
 from random import randint
 
 
-red = [0xff, 0x00, 0x00]
-darkred = [0xbc, 0x00, 0x00]
-blue = [0x00, 0x00, 0xff]
+snake_body_color = [0xff, 0x00, 0x00]
+snake_head_color = [0xbc, 0x00, 0x00] #dark red
+wall_color = [0x00, 0x00, 0xff] #blue
+food_color = [0xe0, 0xb1, 0x16] #orange
 
 WIDTH = 16
 HEIGHT = 10
 
 snake = [] # Initial snake co-ordinates
 wall = []
+food = [3,3] 
 
 KEY_UP=1
 KEY_DOWN=2
@@ -18,15 +20,13 @@ KEY_LEFT=3
 KEY_RIGHT=4
 
 
-
 def init():
 	global snake
 	global wall
-	snake = [[4,10], [4,9], [4,8], [4,7], [4,6]]
+	snake = [[4,10], [4,9], [4,8], [4,7]]
 	wall = []
 	for i in range(HEIGHT):
-		wall.append([blue] * WIDTH)
-	
+		wall.append([wall_color] * WIDTH)
 
 
 def display(wall):
@@ -60,10 +60,15 @@ def displaySnake(snake, wall):
 	i = 0
 	for value in snake:
 		if (i == 0):
-			wall[value[0]][value[1]] = darkred
+			wall[value[0]][value[1]] = snake_head_color
 		else:
-			wall[value[0]][value[1]] = red
+			wall[value[0]][value[1]] = snake_body_color
 		i+=1
+
+
+def displayFood(food, wall):
+	wall[food[0]][food[1]] = food_color
+
 
 
 init()
@@ -80,7 +85,9 @@ while(1):
 		newLine = snake[0][0] + (key == KEY_DOWN and 1) + (key == KEY_UP and -1)
 		newCol = snake[0][1] + (key == KEY_LEFT and -1) + (key == KEY_RIGHT and 1)
 
-		if ([newLine, newCol] in snake or newLine < 0 or newLine > HEIGHT-1 or newCol < 0 or newCol > WIDTH-1):
+		if ([newLine, newCol] in snake or newLine < 0 or newLine > HEIGHT-1 or newCol < 0 or newCol > WIDTH-1
+		# or food == [newLine, newCol]
+		):
 			failed+=1
 			if (failed > 20):
 				init()
@@ -93,13 +100,20 @@ while(1):
 		continue
 
 	snake.insert(0, [newLine, newCol])
-	last = snake.pop()
-	wall[last[0]][last[1]] = blue
 
 	# WALL[LIGNE][COLONNE]
 
+	if snake[0] == food:   # When snake eats the food
+		food = []
+		while food == []:
+			food = [randint(0, HEIGHT), randint(0, WIDTH)]   # Calculating next food's coordinates
+			if food in snake: food = []
+	else:    
+		last = snake.pop()
+		wall[last[0]][last[1]] = wall_color
 
 
+	displayFood(food, wall)
 	displaySnake(snake, wall)
 	display(wall)
 
