@@ -106,7 +106,7 @@ while(1):
 	if snake[0] == food:   # When snake eats the food
 		food = []
 		while food == []:
-			food = [randint(0, HEIGHT), randint(0, WIDTH)]   # Calculating next food's coordinates
+			food = [randint(0, HEIGHT-1), randint(0, WIDTH-1)]   # Calculating next food's coordinates
 			if food in snake: food = []
 	else:    
 		last = snake.pop()
