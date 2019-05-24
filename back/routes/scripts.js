@@ -70,7 +70,7 @@ router.post('/', upload, (req, res, next) => {
         {
             name: file.originalname,
             filename: file.filename,
-            path: 'public/scripts/ ' + file.filename,
+            path: 'public/scripts/' + file.filename,
             extension: file.filename.split('.').pop()
         }
     );
