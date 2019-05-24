@@ -11,7 +11,8 @@ back/ws2812driver
 
 *.gypi
 
-back/public/scripts/
+back/public/scripts/*
+!back/public/scripts/.blank
 
 front/config/\.directory
 
