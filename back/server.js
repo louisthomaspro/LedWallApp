@@ -7,6 +7,7 @@ const mongoose = require('mongoose');
 const websocket = require('ws');
 const ws2812 = require('./ws2812');
 const ip = require("ip");
+const morgan = require('morgan');
 
 anim_interval_id = -1;  //Used to stop the currently displayed animation/image
 oldplaylist_interval_id = -1;
@@ -24,16 +25,6 @@ if(process.env.NODE_ENV === "production")
 } else {
   console.log('/*** DEVELOPMENT ***/');
 }
-
-
-// adding Helmet to enhance your API's security
-app.use(helmet());
-
-// parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: true }));
-
-// using bodyParser to parse JSON bodies into JS objects
-app.use(bodyParser.json());
 
 
 // Add headers
@@ -56,6 +47,18 @@ if(process.env.NODE_ENV === "production") {
   // enabling CORS for all requests
   app.use(cors());
 }
+
+// use morgan to log requests to the console
+app.use(morgan('dev'));
+
+// adding Helmet to enhance your API's security
+app.use(helmet());
+
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: true }));
+
+// using bodyParser to parse JSON bodies into JS objects
+app.use(bodyParser.json());
 
 
 
