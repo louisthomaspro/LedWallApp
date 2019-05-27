@@ -3,10 +3,14 @@ from random import randint
 import numpy
 
 
-snake_body_color = [0xff, 0x00, 0x00]
-snake_head_color = [0x63, 0x03, 0x03] #dark red
-wall_color = [0x00, 0x00, 0xff] #blue
-food_color = [0xe0, 0xb1, 0x16] #orange
+def hexToArray(hex):
+	return [(hex >> 16) & 0xFF,(hex >> 8) & 0xFF,(hex) & 0xFF]
+
+
+snake_body_color = hexToArray(0x15ff00) #red
+snake_head_color = hexToArray(0xff26f0) #dark red
+wall_color = hexToArray(0x001696) #blue
+food_color = hexToArray(0xffb200) #orange
 
 WIDTH = 16
 HEIGHT = 10
