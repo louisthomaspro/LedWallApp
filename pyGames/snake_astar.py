@@ -1,4 +1,4 @@
-from time import sleep
+import time
 from random import randint
 import numpy
 
@@ -10,6 +10,7 @@ food_color = [0xe0, 0xb1, 0x16] #orange
 
 WIDTH = 16
 HEIGHT = 10
+TIME_FRAME = 0.2
 
 snake = [] # Initial snake co-ordinates
 wall = []
@@ -75,10 +76,12 @@ def displayFood(food, wall):
 
 def getObstaclesGrid():
 	global snake
+	snake_clone = snake.copy()
+	snake_clone.pop()
 	grid = []
 	for i in range(HEIGHT):
 		grid.append([0] * WIDTH)
-	for pos in snake:
+	for pos in snake_clone:
 		grid[pos[0]][pos[1]] = 1
 	return grid
 
@@ -178,6 +181,8 @@ path = []
 
 while(True):
 
+	time_begin = time.time()
+
 	newPos = [-1, -1]
 
 	path = find_path(tuple(snake[0]), tuple(food), getObstaclesGrid())
@@ -224,4 +229,6 @@ while(True):
 	displaySnake(snake, wall)
 	display(wall)
 
-	sleep(0.2)
+	time_left = time.time() - time_begin
+
+	time.sleep(TIME_FRAME - time_left)
