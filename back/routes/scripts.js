@@ -7,7 +7,7 @@ const fs = require('fs');
 const {PythonShell} = require('python-shell')
 
 let options = {
-    pythonPath: '/usr/bin/python3.6'
+    pythonPath: '/usr/bin/python3'
 };
 
 const multer = require('multer');
@@ -90,6 +90,7 @@ router.delete('/:id', function (req, res) {
         if (err) return next(err);
 
         // delete file
+
         var filePath = process.env.PWD + '/' + response.path;
         fs.unlinkSync(filePath);
 
@@ -125,6 +126,8 @@ router.get('/', (req, res, next) => {
 
 //run
 router.get('/run/:id', function (req, res, next) {
+
+    console.log(process.cwd());
     const objectId = req.params.id;
     if(!mongoose.Types.ObjectId.isValid(objectId)) return next(new Error("invalid id"));
     objectType.findOne({_id: objectId}, function (err, response) {
@@ -135,7 +138,7 @@ router.get('/run/:id', function (req, res, next) {
         // TODO tester si la reponse est vide
 
 
-        const pyshell = new PythonShell(process.env.PWD + '/' + script.path, options);
+        const pyshell = new PythonShell(process.cwd() + '/' + script.path, options);
 
         pyshell.end(function (err) {
             if (err) {
