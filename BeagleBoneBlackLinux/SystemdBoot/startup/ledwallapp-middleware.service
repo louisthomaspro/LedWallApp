@@ -1,0 +1,14 @@
+[Unit]
+Description=Ledwallapp Middleware
+After=ledwallapp-api.service
+
+[Service]
+WorkingDirectory=/home/debian/startup
+ExecStart=/bin/bash launchMiddleWare.sh
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=ledwallapp-middleware
+User=root
+
+[Install]
+WantedBy=multi-user.target
