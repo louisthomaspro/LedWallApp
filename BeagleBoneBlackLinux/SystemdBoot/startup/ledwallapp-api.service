@@ -1,0 +1,14 @@
+[Unit]
+Description=Ledwallapp API
+After=mongodb.service
+
+[Service]
+ExecStart=/usr/bin/node /home/debian/LedWallApp/back/server.js
+Restart=always
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=ledwallapp-api
+User=debian
+
+[Install]
+WantedBy=multi-user.target
