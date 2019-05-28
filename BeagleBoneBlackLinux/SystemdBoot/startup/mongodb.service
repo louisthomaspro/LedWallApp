@@ -1,0 +1,15 @@
+[Unit]
+Description=MongoDB Database Service
+Wants=network.target
+After=network.target
+
+[Service]
+Type=simple
+PermissionsStartOnly=true
+ExecStartPre=/usr/local/bin/mongod --repair
+ExecStart=/usr/local/bin/mongod
+Restart=always
+User=root
+
+[Install]
+WantedBy=multi-user.target
