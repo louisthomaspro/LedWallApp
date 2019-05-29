@@ -282,7 +282,7 @@ def drawCharAt5x7(xref,yref,c,colour):
 	global H,W
 	global font_5x7_col
 	
-	letter = font_5x7_col[c]
+	letter = font_5x7_col[ord(c)]
 	font_width=5
 	font_height=7
 	row_start=0
