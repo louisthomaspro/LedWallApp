@@ -1,7 +1,7 @@
 Pour faire fonctionner le driver sur Debian:
 
-sudo source setup.sh
-sudo make
+source setup.sh
+make
 
 Voila le driver est pret a recevoir des commandes depuis le flux de passage RPmsg !
 
