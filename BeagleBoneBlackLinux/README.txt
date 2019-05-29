@@ -187,7 +187,7 @@ sudo touch ledwallapp.conf
 server { 
 	listen 80; 
 	server_name localhost;
-	root /home/debian/LedWallApp/front;
+	root /home/debian/LedWallApp/front/dist/ledwallapp;
     location / {
         try_files $uri $uri/ /index.html;
     }
@@ -219,7 +219,7 @@ sudo nano /var/lib/connman/settings
 #Tethering.Passphrase=AxrCewDII
 #sources : https://diyevil.com/projects/beaglebone-wifi-access-point/
 
-# Lancer tous les services pour la LedWallApp
+# DEPRECATED Lancer tous les services manuellement pour la LedWallApp
 cd ~/PRU_WS2812
 source setup.sh
 make
@@ -227,6 +227,10 @@ sudo mongod
 sudo ~/LedWallApp/LedWall_Middleware
 node ~/LedWallApp/back/server.js
 sudo nginx
+
+#NEW VERSION Laisser Systemd lancer les services pour nous !
+#Faire un simple reboot et tout va se mettre en place automatiquement
+sudo shutdown -rt 0
 
 
 
