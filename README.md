@@ -1,5 +1,7 @@
 # LedWallApp
 
+**IMPORTANT to deploy the APP on the BeagleBoneBlack Linux board, you should look at README in BeagleBoneBlackLinux directory**
+
 Web application deployed on any Linux to control the Polytech' Tours LedWall.
 
 - **front** : expressjs
