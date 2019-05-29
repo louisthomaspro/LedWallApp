@@ -1,22 +1,24 @@
 Pour faire fonctionner le driver sur Debian:
 
-sudo source neo_setup.sh
+sudo source setup.sh
 sudo make
 
-Voila le driver est pret a recevoir des commandes depuis le flux de passage RPmsg
+Voila le driver est pret a recevoir des commandes depuis le flux de passage RPmsg !
 
 Pour lancer des programmes de tests:
 
 On peut utiliser Python:
 
-sudo python neo-rainbow.py
+sudo python examples/neo-rainbow.py
 
 Ou pour une version en C:
 
 Compiler les examples:
+cd examples
 gcc -o neo_blink_open neo_blink_open.c
 gcc -o neo_rainbow_open neo_rainbow_open.c -lm
 
+cd examples
 sudo ./neo_blink_open 
 
 ou 
@@ -24,6 +26,6 @@ ou
 sudo ./neo_rainbow_open
 
 
-Attention cependant, fopen ne marche pas étrangement... Certainement parce qu'il est bufferisé.
+Attention cependant, fopen ne marche pas Ã©trangement... Certainement parce qu'il est bufferisÃ©.
 
 
