@@ -62,18 +62,18 @@ app.use(bodyParser.json());
 
 
 
+var router = express.Router();
 
 
+router.use('/users', require('./routes/users'));
+router.use('/pixelarts', require('./routes/pixelarts'));
+router.use('/animations', require('./routes/animations'));
+router.use('/wordarts', require('./routes/wordarts'));
+router.use('/scripts', require('./routes/scripts'));
+router.use('/controller', require('./routes/controller'));
+router.use('/special', require('./routes/special'));
 
-app.use('/users', require('./routes/users'));
-app.use('/pixelarts', require('./routes/pixelarts'));
-app.use('/animations', require('./routes/animations'));
-app.use('/wordarts', require('./routes/wordarts'));
-app.use('/scripts', require('./routes/scripts'));
-app.use('/controller', require('./routes/controller'));
-app.use('/special', require('./routes/special'));
-
-
+app.use('/api', router);
 
 //WS2812 Direct link websocket
 const wss = new websocket.Server({ port: 8069 });
