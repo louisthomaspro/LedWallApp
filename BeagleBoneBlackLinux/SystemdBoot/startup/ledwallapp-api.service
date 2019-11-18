@@ -3,6 +3,8 @@ Description=Ledwallapp API
 After=mongodb.service
 
 [Service]
+Environment=API_ROOT_PATH=/home/debian/LedWallApp/back
+WorkingDirectory=/home/debian/LedWallApp/back
 ExecStart=/usr/bin/node /home/debian/LedWallApp/back/server.js
 Restart=always
 StandardOutput=syslog
