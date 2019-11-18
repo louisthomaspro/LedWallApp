@@ -25154,7 +25154,7 @@ zlib.js 2012 - imaya [ https://github.com/imaya/zlib.js ] The MIT License
         var pixelart = JSON.parse(pskl.app.piskelController.serialize());
         if (pixelart._id) {
 
-            $.post( 'http://' + window.location.hostname + ':3000/pixelarts/' + pixelart._id, pixelart)
+            $.post( 'http://' + window.location.hostname + '/api/pixelarts/' + pixelart._id, pixelart)
                 .done(function(res) {
                     pskl.app.piskelController.getPiskel().setId(res);
                     console.log("updated : " + pixelart._id);
@@ -25164,7 +25164,7 @@ zlib.js 2012 - imaya [ https://github.com/imaya/zlib.js ] The MIT License
                     alert( "Error occured sorry :/" );
                 });
         } else {
-            $.post( 'http://' + window.location.hostname + ':3000/pixelarts', pixelart)
+            $.post( 'http://' + window.location.hostname + '/api/pixelarts', pixelart)
                 .done(function(res) {
                     pskl.app.piskelController.getPiskel().setId(res);
                     console.log("add : " + res);
