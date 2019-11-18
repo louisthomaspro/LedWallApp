@@ -91,7 +91,7 @@ router.delete('/:id', function (req, res) {
 
         // delete file
 
-        var filePath = process.env.PWD + '/' + response.path;
+        var filePath = process.env.API_ROOT_PATH + '/' + response.path;
         fs.unlinkSync(filePath);
 
         objectType.deleteOne({_id: objectId}, function (err) {
