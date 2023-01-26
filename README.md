@@ -7,6 +7,12 @@ Web application deployed on any Linux to control the Polytech' Tours LedWall.
 - **front** : expressjs
 - **back** : angular 7
 
+LedWall             |  Web Application
+:-------------------------:|:-------------------------:
+<img src="led-wall-1.jpg" width="300px"/><img src="led-wall-2.jpg" width="300px"/> | <img src="screenshot-1.png" width="300px"/><img src="screenshot-2.png" width="300px"/>
+
+Project Report : [LEDWall_Report_JLH_CDT_CLN_ARI_SSI_LTS.pdf](LEDWall_Report_JLH_CDT_CLN_ARI_SSI_LTS.pdf)
+
 ## Running the app
 
 To run the project, you need to have [node](https://nodejs.org/en/download/) installed with [npm](https://www.npmjs.com/get-npm) and [Angular CLI](https://cli.angular.io/).
